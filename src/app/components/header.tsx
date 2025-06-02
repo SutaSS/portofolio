@@ -2,7 +2,7 @@ import React from 'react'
 
 const header = () => {
   return (
-    <header className='bg-gray-800 text-white p-8 z-50'>
+    <header className='bg-gray-800 text-white sticky top-0 p-8 z-50'>
         <nav className='relative w-full flex items-center justify-between'>
             
             <div>
