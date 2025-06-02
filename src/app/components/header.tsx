@@ -13,7 +13,7 @@ const header = () => {
     <header className="bg-gray-800 text-white sticky top-0 p-8 z-50">
       <nav className="relative w-full flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">---</h1>
+          <h1 className="text-3xl font-bold">AndikaHernadi | Software Developer</h1>
         </div>
         <div style={{ height: "30px", position: "relative" }}>
           <GooeyNav
