@@ -15,13 +15,13 @@ const about = () => {
         In my spare time, I enjoy running, weightlifting, and exploring the latest in tech.
         </p>
         <div className='mt-8 flex items-start space-x-2'>
-            <a href="https://github.com/SutaSS" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/SutaSS" target="_blank" rel="noopener noreferrer" className='cursor-pointer'>
             <FaGithub size = {50} className="text-white hover:text-gray-400 text-2xl" />
             </a>
-            <a href="https://www.linkedin.com/in/andika-hernadi" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/andika-hernadi" target="_blank" rel="noopener noreferrer" className='cursor-pointer'>
             <FaLinkedin size = {50} className="text-white hover:text-gray-400 text-2xl" />
             </a>
-            <a href="https://www.instagram.com/andikahernadi" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/andikahernadi" target="_blank" rel="noopener noreferrer" className='cursor-pointer'>
             <FaInstagram size = {50} className="text-white hover:text-gray-400 text-2xl" />
             </a>
         </div>

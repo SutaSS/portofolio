@@ -24,3 +24,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.bg-\[url\(\'\/assets\/noise\.png\'\)\] {
+  Background-image: url('/assets/noise.png');
+}
