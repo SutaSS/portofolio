@@ -10,12 +10,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Color palette sesuai requirement
-        'navy-blue': '#1A2A44',
-        'olive-green': '#708D81', 
-        'neon-aqua': '#7FFFD4',
-        'dark-bg': '#0D1B2A',
-        'soft-white': '#F5F5F5',
+        // Tailwind v4 syntax
+        "navy-blue": "#1A2A44",
+        "olive-green": "#708D81", 
+        "neon-aqua": "#7FFFD4",
+        "dark-bg": "#0D1B2A",
+        "soft-white": "#F5F5F5",
       },
       fontFamily: {
         orbitron: ["var(--font-orbitron)", "monospace"],

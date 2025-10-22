@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@theme {
+  --color-navy-blue: #1A2A44;
+  --color-olive-green: #708D81;
+  --color-neon-aqua: #7FFFD4;
+  --color-dark-bg: #0D1B2A;
+  --color-soft-white: #F5F5F5;
+}
+
 :root {
   /* Portfolio color scheme */
   --background: #0D1B2A;
