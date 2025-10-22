@@ -1,5 +1,5 @@
 import Footer from "./components/footer";
-import Header from "./components/header";
+import Header from "./components/navbar";
 import About from "./section/about";
 import TechStack from "./section/techStack";
 import Project from "./section/project";

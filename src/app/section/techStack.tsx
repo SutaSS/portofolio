@@ -1,5 +1,4 @@
 import React from 'react'
-import GridMotion from '../reactBits/GridMotion/GridMotion'
 
 const items = [
   'https://cdn.worldvectorlogo.com/logos/firebase-1.svg', 
@@ -37,10 +36,6 @@ const items = [
 const techStack = () => {
   return (
     <section id="tech stack" className="relative w-full h-screen overflow-hidden">
-      <GridMotion
-          items={items}
-          gradientColor="#f3f4f6"
-        />
     </section>
   )
 }
