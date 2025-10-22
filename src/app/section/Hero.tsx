@@ -32,10 +32,10 @@ const Hero = () => {
 
             {/* Action Buttons */}
             <div className="flex gap-4 pt-4">
-              <button className="bg-neon-aqua text-dark-bg font-orbitron font-semibold px-6 py-3 rounded-lg hover:bg-neon-aqua/90 transition-all duration-300 transform hover:scale-105">
+              <button className="bg-neon-aqua text-dark-bg font-orbitron font-semibold px-6 py-3 rounded-lg hover:bg-neon-aqua/90 transition-all duration-300 transform hover:scale-105 hover:cursor-pointer">
                 View My Work<span className="ml-2">🚀</span>
               </button>
-              <button className="border-2 border-olive-green text-olive-green font-orbitron font-semibold px-6 py-3 rounded-lg hover:bg-olive-green hover:text-dark-bg transition-all duration-300">
+              <button className="border-2 border-olive-green text-olive-green font-orbitron font-semibold px-6 py-3 rounded-lg hover:bg-olive-green hover:text-dark-bg transition-all duration-300 hover:cursor-pointer">
                 Download CV<span className="ml-2">📄</span>
               </button>
             </div>

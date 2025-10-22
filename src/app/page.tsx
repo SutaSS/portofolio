@@ -1,5 +1,7 @@
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Navbar";
+import About from "./section/about";
+import TechStack from "./section/techStack";
 import Project from "./section/Project";
 import Hero from "./section/Hero";
 
@@ -8,7 +10,8 @@ export default function Home() {
     <main>
       <Header />
       <Hero />
-      <Project />
+      <About />
+      <Project/>
       <Footer />
     </main>
   );
