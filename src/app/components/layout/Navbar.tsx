@@ -69,7 +69,12 @@ const Header = () => {
   return (
     <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
       {/* Desktop Bubble Navbar */}
-      <nav className="hidden lg:flex items-center gap-2 bg-[#1A2A44] rounded-full px-3 py-2 shadow-lg group hover:gap-1 transition-all duration-300">
+      <nav className="hidden lg:flex items-center gap-2 
+  bg-[#1A2A44]/30 border border-white/20 
+  backdrop-blur-md rounded-full px-3 py-2 
+  shadow-lg group hover:gap-1 
+  transition-all duration-300">
+
         {items.map((item, index) => (
           <a
             key={item.label}
