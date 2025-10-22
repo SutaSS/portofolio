@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 
 const about = () => {
   return (
-    <section id="about me" className="bg-gray-800 p-8">
+    <section id="about me" className="bg-[#1A2A44] p-8">
       <div className="min-h-screen max-w-4xl mx-auto justify-center flex flex-col ">
         <p className="text-gray-100 text-4xl font-extrabold mb-8">
         Hello there!

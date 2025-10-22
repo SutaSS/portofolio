@@ -1,8 +1,8 @@
-import Footer from "./components/footer";
-import Header from "./components/navbar";
-import About from "./section/about";
-import TechStack from "./section/techStack";
-import Project from "./section/project";
+import Footer from "./components/layout/Footer";
+import Header from "./components/layout/Navbar";
+import About from "./section/About";
+import TechStack from "./section/TechStack";
+import Project from "./section/Project";
 
 export default function Home() {
   return (

@@ -77,7 +77,7 @@ const Header = () => {
             className="relative flex items-center gap-0 overflow-hidden rounded-full px-3 py-2 text-[#7FFFD4] hover:bg-[#708D81]/20 transition-all duration-300 group/item"
           >
             {/* Icon */}
-            <span className="flex-shrink-0 transition-colors duration-200 group-hover/item:text-[#7FFFD4]">
+            <span className="flex-shrink-0 transition-colors duration-500 group-hover/item:text-[#7FFFD4]">
               {item.icon}
             </span>
 
