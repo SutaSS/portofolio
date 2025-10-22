@@ -1,7 +1,7 @@
 import React from "react";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 
-const about = () => {
+const About = () => {
   return (
     <section id="about me" className="bg-navy-blue p-8">
       <div className="min-h-screen max-w-4xl mx-auto justify-center flex flex-col ">
@@ -57,4 +57,4 @@ const about = () => {
   );
 };
 
-export default about;
+export default About;

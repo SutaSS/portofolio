@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 
 const items = [
@@ -33,11 +34,11 @@ const items = [
   'https://www.mysql.com/common/logos/logo-mysql-170x115.png',
 ]
 
-const techStack = () => {
+const TechStack = () => {
   return (
     <section id="tech stack" className="relative w-full h-screen overflow-hidden">
     </section>
   )
 }
 
-export default techStack;
+export default TechStack;
