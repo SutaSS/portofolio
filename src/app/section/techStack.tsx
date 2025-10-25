@@ -1,43 +1,35 @@
-import React from 'react'
+"use client";
+import React, { useState } from "react";
+import Image from "next/image";
+import { FaGithub, FaExternalLinkAlt, FaCode } from "react-icons/fa";
+import { projects, } from "../data/projects";
+import { projectCategories, } from "../data/ProjectCategories";
 
-const items = [
-  'https://cdn.worldvectorlogo.com/logos/firebase-1.svg', 
-  'https://cdn.worldvectorlogo.com/logos/flutter.svg',    
-  'https://cdn.worldvectorlogo.com/logos/laravel-2.svg', 
-  'https://cdn.worldvectorlogo.com/logos/dart.svg', 
-  'https://www.php.net/images/logos/php-logo.svg',
-  'https://www.mysql.com/common/logos/logo-mysql-170x115.png',
-  'https://cdn.worldvectorlogo.com/logos/firebase-1.svg', 
-  'https://cdn.worldvectorlogo.com/logos/flutter.svg',    
-  'https://cdn.worldvectorlogo.com/logos/laravel-2.svg', 
-  'https://cdn.worldvectorlogo.com/logos/dart.svg', 
-  'https://www.php.net/images/logos/php-logo.svg',
-  'https://www.mysql.com/common/logos/logo-mysql-170x115.png',
-  'https://cdn.worldvectorlogo.com/logos/firebase-1.svg', 
-  'https://cdn.worldvectorlogo.com/logos/flutter.svg',    
-  'https://cdn.worldvectorlogo.com/logos/laravel-2.svg', 
-  'https://cdn.worldvectorlogo.com/logos/dart.svg', 
-  'https://www.php.net/images/logos/php-logo.svg',
-  'https://www.mysql.com/common/logos/logo-mysql-170x115.png',
-  'https://cdn.worldvectorlogo.com/logos/firebase-1.svg', 
-  'https://cdn.worldvectorlogo.com/logos/flutter.svg',    
-  'https://cdn.worldvectorlogo.com/logos/laravel-2.svg', 
-  'https://cdn.worldvectorlogo.com/logos/dart.svg', 
-  'https://www.php.net/images/logos/php-logo.svg',
-  'https://www.mysql.com/common/logos/logo-mysql-170x115.png',
-   'https://cdn.worldvectorlogo.com/logos/firebase-1.svg', 
-  'https://cdn.worldvectorlogo.com/logos/flutter.svg',    
-  'https://cdn.worldvectorlogo.com/logos/laravel-2.svg', 
-  'https://cdn.worldvectorlogo.com/logos/dart.svg', 
-  'https://www.php.net/images/logos/php-logo.svg',
-  'https://www.mysql.com/common/logos/logo-mysql-170x115.png',
-]
+const TechStack = () => {
 
-const techStack = () => {
   return (
-    <section id="tech stack" className="relative w-full h-screen overflow-hidden">
-    </section>
-  )
-}
+    <section
+      id="tech-stack"
+      className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-0"
+    >
+      <div className="absolute inset-0 bg-gradient-to-br to-dark-bg"></div>
+      <div className="relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-20">
+        
+        {/* Title */}
+        <div className="text-center mb-16">
+          <h2 className="text-neon-aqua text-4xl lg:text-5xl font-bold mb-8">
+            Skills
+          </h2>
 
-export default techStack;
+        </div>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default TechStack;
