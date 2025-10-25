@@ -5,6 +5,7 @@ import TechStack from "./section/techStack";
 import Project from "./section/project";
 import Hero from "./section/Hero";
 import Experience from "./section/experience";
+import Achievements from "./section/achievements";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <Project/>
       <TechStack />
       <Experience />
+      <Achievements />
       <Footer />
     </main>
   );

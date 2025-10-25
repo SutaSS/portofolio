@@ -17,7 +17,7 @@ const Experience = () => {
           </h2>
           <div className="w-24 h-1 bg-olive-green mx-auto rounded-full"></div>
           <p className="text-olive-green/80 mt-6 text-lg italic">
-            "Sakti" is My Middle Name
+            The Begining of an Era
           </p>
         </div>
 

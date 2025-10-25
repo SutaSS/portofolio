@@ -6,4 +6,5 @@ export interface Experience {
   period: string;
   description: string[];
   current?: boolean;
+  imageUrl?: string;
 }
