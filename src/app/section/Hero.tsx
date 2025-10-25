@@ -10,7 +10,7 @@ const Hero = () => {
       className="min-h-screen bg-navy-blue relative overflow-visible pt-24 lg:pt-0"
     >
       {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-navy-blue/50 to-dark-bg"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-navy-blue/50 to-dark-bg"></div>
 
       <div className="relative z-10 container mx-auto px-8 min-h-screen flex items-center">
         <div className="grid lg:grid-cols-2 gap-12 items-center w-full">

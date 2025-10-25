@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { FaGithub, FaExternalLinkAlt, FaCode } from "react-icons/fa";
-import { projects, projectCategories, } from "../data/projects";
+import { projects, } from "../data/projects";
+import { projectCategories, } from "../data/ProjectCategories";
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -21,7 +23,7 @@ const Projects = () => {
       id="projects"
       className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-0"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-navy-blue/50 to-dark-bg"></div>
+      <div className="absolute inset-0 bg-gradient-to-br to-dark-bg"></div>
       <div className="relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-20">
         
         {/* Title */}
@@ -50,6 +52,7 @@ const Projects = () => {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
           {filteredProjects.map((project) => (
             <div
               key={project.id}
@@ -60,9 +63,15 @@ const Projects = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-blue/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 
                 {/* Placeholder for project image */}
-                <div className="w-full h-full flex items-center justify-center">
-                  <FaCode className="text-neon-aqua text-4xl opacity-50" />
-                </div>
+                 <Image
+                    src={project.imageUrl}
+                    alt={project.title}
+                    width={400}
+                    height={192}
+                    className="w-full h-full object-cover"
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                  />
                 
                 {/* Hover Overlay with Links */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
