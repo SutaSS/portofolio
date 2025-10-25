@@ -41,7 +41,7 @@ const Projects = () => {
                 className={`px-6 py-3 rounded-lg border transition-all duration-300 ${
                   activeCategory === category.id
                     ? 'bg-neon-aqua text-dark-bg border-neon-aqua'
-                    : 'bg-navy-blue/50 text-olive-green border-olive-green/30 hover:border-neon-aqua/50 hover:text-neon-aqua'
+                    : 'bg-navy-blue/50 text-olive-green border-olive-green/30 hover:border-neon-aqua/50 hover:text-neon-aqua hover:cursor-pointer'
                 }`}
               >
                 {category.label}
