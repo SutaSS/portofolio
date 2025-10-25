@@ -1,24 +1,12 @@
 import { Project } from "../types/project";
 
-export interface ProjectCategory {
-  id: string;
-  label: string;
-}
-
-export const projectCategories: ProjectCategory[] = [
-  { id: 'all', label: 'All Projects' },
-  { id: 'web-mobile', label: 'Web & Mobile' },
-  { id: 'design-docs', label: 'Design & Documentation' },
-  { id: 'artwork', label: 'Artwork' },
-];
-
 export const projects: Project[] = [
   {
     id: '1',
-    title: 'E-Commerce Platform',
-    description: 'Full-stack web application with React, Node.js',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
-    githubUrl: 'https://github.com/username/ecommerce',
+    title: 'OptiMind 2.0',
+    description: 'Contribut as a Frontend Developer and UI/UX Designer',
+    technologies: ['React', 'Figma', 'Supabase', 'Node.js'],
+    githubUrl: 'https://github.com/SutaSS/technoday',
     liveUrl: 'https://ecommerce-demo.com',
     imageUrl: '/assets/projects/ecommerce.jpg',
     category: 'web-mobile',

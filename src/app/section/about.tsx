@@ -7,7 +7,7 @@ const About = () => {
       id="about"
       className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-18"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-navy-blue/50 to-dark-bg"></div>
+      <div className="absolute inset-0 bg-dark-bg"></div>
       <div className="relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col">
         
         {/* Title */}

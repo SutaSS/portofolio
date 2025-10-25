@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { FaGithub, FaExternalLinkAlt, FaCode } from "react-icons/fa";
-import { projects, projectCategories, } from "../data/projects";
+import { projects, } from "../data/projects";
+import { projectCategories, } from "../data/ProjectCategories";
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -21,7 +22,7 @@ const Projects = () => {
       id="projects"
       className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-0"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-navy-blue/50 to-dark-bg"></div>
+      <div className="absolute inset-0 bg-gradient-to-br to-dark-bg"></div>
       <div className="relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-20">
         
         {/* Title */}
