@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { FaGithub, FaExternalLinkAlt, FaCode } from "react-icons/fa";
 import { projects, } from "../data/projects";
 import { projectCategories, } from "../data/ProjectCategories";
@@ -61,9 +62,15 @@ const Projects = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-blue/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 
                 {/* Placeholder for project image */}
-                <div className="w-full h-full flex items-center justify-center">
-                  <FaCode className="text-neon-aqua text-4xl opacity-50" />
-                </div>
+                 <Image
+                    src={project.imageUrl}
+                    alt={project.title}
+                    width={400}
+                    height={192}
+                    className="w-full h-full object-cover"
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                  />
                 
                 {/* Hover Overlay with Links */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
