@@ -4,6 +4,7 @@ import About from "./section/about";
 import TechStack from "./section/techStack";
 import Project from "./section/project";
 import Hero from "./section/Hero";
+import Experience from "./section/experience";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <About />
       <Project/>
       <TechStack />
+      <Experience />
       <Footer />
     </main>
   );

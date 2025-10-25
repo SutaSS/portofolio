@@ -18,7 +18,7 @@ const TechStack = () => {
           <h2 className="text-neon-aqua text-4xl lg:text-5xl font-bold mb-4">
             Tech Stack
           </h2>
-          
+
           <p className="text-olive-green/80 mt-6 text-lg">
             Technologies and tools I use to bring ideas to life
           </p>
@@ -85,7 +85,7 @@ const TechStack = () => {
         </div>
 
         {/* Category Legend (Optional) */}
-        <div className="flex flex-wrap justify-center gap-4 mt-16">
+        {/* <div className="flex flex-wrap justify-center gap-4 mt-16">
           <div className="flex items-center gap-2 px-4 py-2 bg-navy-blue/50 rounded-lg border border-olive-green/20">
             <div className="w-3 h-3 bg-neon-aqua rounded-full"></div>
             <span className="text-olive-green text-sm">Frontend</span>
@@ -102,7 +102,7 @@ const TechStack = () => {
             <div className="w-3 h-3 bg-soft-white rounded-full"></div>
             <span className="text-olive-green text-sm">Tools & Mobile</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
