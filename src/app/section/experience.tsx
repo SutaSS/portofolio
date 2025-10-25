@@ -9,7 +9,6 @@ const Experience = () => {
       className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-0"
     >
       <div className="relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-20">
-        
         {/* Title */}
         <div className="text-center mb-16">
           <h2 className="text-neon-aqua text-4xl lg:text-5xl font-bold mb-4">
@@ -33,13 +32,17 @@ const Experience = () => {
                 <div
                   key={exp.id}
                   className={`relative flex items-center ${
-                    index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                    index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
                   } flex-col lg:gap-0 gap-8`}
                 >
                   {/* Content Box - Left/Right */}
-                  <div className={`w-full lg:w-[calc(50%-2rem)] ${
-                    index % 2 === 0 ? 'lg:text-right lg:pr-8' : 'lg:text-left lg:pl-8'
-                  }`}>
+                  <div
+                    className={`w-full lg:w-[calc(50%-2rem)] ${
+                      index % 2 === 0
+                        ? "lg:text-right lg:pr-8"
+                        : "lg:text-left lg:pl-8"
+                    }`}
+                  >
                     <div className="group">
                       {/* Card */}
                       <div className="bg-navy-blue/50 rounded-2xl p-6 border-2 border-olive-green/20 hover:border-neon-aqua/50 transition-all duration-300 hover:shadow-2xl hover:shadow-neon-aqua/20 transform hover:scale-105">
@@ -58,27 +61,37 @@ const Experience = () => {
 
                         {/* Period */}
                         <div className="mb-4">
-                          <span className={`inline-block px-4 py-1 rounded-full text-sm font-semibold ${
-                            exp.current 
-                              ? 'bg-neon-aqua/20 text-neon-aqua border border-neon-aqua/30' 
-                              : 'bg-olive-green/20 text-olive-green border border-olive-green/30'
-                          }`}>
+                          <span
+                            className={`inline-block px-4 py-1 rounded-full text-sm font-semibold ${
+                              exp.current
+                                ? "bg-neon-aqua/20 text-neon-aqua border border-neon-aqua/30"
+                                : "bg-olive-green/20 text-olive-green border border-olive-green/30"
+                            }`}
+                          >
                             {exp.period}
                           </span>
                         </div>
 
                         {/* Description */}
-                        <ul className={`space-y-2 text-soft-white/80 text-sm ${
-                          index % 2 === 0 ? 'lg:text-right' : 'lg:text-left'
-                        }`}>
+                        <ul
+                          className={`space-y-2 text-soft-white/80 text-sm ${
+                            index % 2 === 0 ? "lg:text-right" : "lg:text-left"
+                          }`}
+                        >
                           {exp.description.map((desc, i) => (
                             <li key={i} className="flex items-start gap-2">
-                              <span className={`text-neon-aqua mt-1 flex-shrink-0 ${
-                                index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'
-                              }`}>
+                              <span
+                                className={`text-neon-aqua mt-1 flex-shrink-0 ${
+                                  index % 2 === 0 ? "lg:order-2" : "lg:order-1"
+                                }`}
+                              >
                                 •
                               </span>
-                              <span className={index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}>
+                              <span
+                                className={
+                                  index % 2 === 0 ? "lg:order-1" : "lg:order-2"
+                                }
+                              >
                                 {desc}
                               </span>
                             </li>
@@ -90,11 +103,13 @@ const Experience = () => {
 
                   {/* Center Dot */}
                   <div className="absolute left-1/2 transform -translate-x-1/2 hidden lg:flex items-center justify-center z-10">
-                    <div className={`w-6 h-6 rounded-full border-4 ${
-                      exp.current 
-                        ? 'bg-neon-aqua border-neon-aqua shadow-lg shadow-neon-aqua/50' 
-                        : 'bg-olive-green border-olive-green shadow-lg shadow-olive-green/50'
-                    } transition-all duration-300 hover:scale-125`}>
+                    <div
+                      className={`w-6 h-6 rounded-full border-4 ${
+                        exp.current
+                          ? "bg-neon-aqua border-neon-aqua shadow-lg shadow-neon-aqua/50"
+                          : "bg-olive-green border-olive-green shadow-lg shadow-olive-green/50"
+                      } transition-all duration-300 hover:scale-125`}
+                    >
                       {exp.current && (
                         <div className="absolute inset-0 rounded-full bg-neon-aqua animate-ping opacity-75"></div>
                       )}
@@ -111,12 +126,17 @@ const Experience = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <a
+          <button
+            className="inline-block px-8 py-4 bg-transparent border-2 border-neon-aqua text-neon-aqua rounded-lg hover:bg-neon-aqua hover:text-dark-bg transition-all duration-300 transform hover:scale-105"
+          >
+            Let's Work Together
+          </button>
+          {/* <a
             href="#contact"
             className="inline-block px-8 py-4 bg-transparent border-2 border-neon-aqua text-neon-aqua rounded-lg hover:bg-neon-aqua hover:text-dark-bg transition-all duration-300 transform hover:scale-105"
           >
             Let's Work Together
-          </a>
+          </a> */}
         </div>
       </div>
     </section>
