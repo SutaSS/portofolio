@@ -8,7 +8,7 @@ export const projects: Project[] = [
     technologies: ['React', 'Figma', 'Supabase', 'Node.js'],
     githubUrl: 'https://github.com/SutaSS/technoday',
     liveUrl: 'https://technoday.vercel.app/',
-    imageUrl: '/assets/OptiMind.jpg',
+    imageUrl: '/assets/projects/OptiMind.jpg',
     category: 'web-mobile',
   },
   {
