@@ -1,5 +1,6 @@
 import React from "react";
-import { FaGithub, FaLinkedin, FaInstagram, FaSearch, FaUserGraduate, FaHeart, FaChartLine, FaCode, FaMobile, FaPalette, FaTachometerAlt, FaDesktop, FaLayerGroup } from "react-icons/fa";
+import { FaSearch, FaUserGraduate, FaHeart, FaChartLine } from "react-icons/fa";
+import Image from "next/image";
 
 const About = () => {
   return (
@@ -28,9 +29,11 @@ const About = () => {
               {/* Image container */}
               <div className="relative bg-navy-blue p-1 rounded-2xl">
                 <div className="w-80 h-96 md:w-96 md:h-[450px] rounded-xl overflow-hidden">
-                  <img
+                  <Image
                     src="/assets/Run-1.jpg"
                     alt="Andika Saktidana Hernadi"
+                    width={384}
+                    height={450}
                     className="w-full h-full object-cover rounded-xl"
                   />
                 </div>
@@ -51,9 +54,9 @@ const About = () => {
                 Passionate Developer and Designer
               </h3>
               <p className="text-soft-white/80 text-lg font-inter leading-relaxed">
-                I'm Andika, a Software Engineer passionate about building web and
+                I&apos;m Andika, a Software Engineer passionate about building web and
                 mobile applications with clean architecture and purpose. Beyond
-                tech, I'm dedicated to fitness and running, a journey from 94 kg
+                tech, I&apos;m dedicated to fitness and running, a journey from 94 kg
                 to 68 kg that taught me discipline, consistency, and growth.
               </p>
             </div>

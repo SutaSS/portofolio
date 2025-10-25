@@ -129,13 +129,13 @@ const Experience = () => {
           <button
             className="inline-block px-8 py-4 bg-transparent border-2 border-neon-aqua text-neon-aqua rounded-lg hover:bg-neon-aqua hover:text-dark-bg transition-all duration-300 transform hover:scale-105"
           >
-            Let's Work Together
+            Let&apos;s Work Together
           </button>
           {/* <a
             href="#contact"
             className="inline-block px-8 py-4 bg-transparent border-2 border-neon-aqua text-neon-aqua rounded-lg hover:bg-neon-aqua hover:text-dark-bg transition-all duration-300 transform hover:scale-105"
           >
-            Let's Work Together
+            Let&apos;s Work Together
           </a> */}
         </div>
       </div>
