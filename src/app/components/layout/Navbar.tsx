@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { navigationItems } from "../../data/navigation";
-import { NavigationItem } from "../../types/navigation";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,7 +15,7 @@ const Header = () => {
   shadow-lg group hover:gap-1
   transition-all duration-300"
       >
-        {navigationItems.map((item, index) => (
+        {navigationItems.map((item) => (
           <a
             key={item.label}
             href={item.href}
