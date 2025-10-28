@@ -70,7 +70,7 @@ export const navigationItems = [
     ),
   },
   {
-    label: "Skills",
+    label: "Tech Stack",
     href: "#tech-stack",
     icon: (
       <svg

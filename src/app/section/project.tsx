@@ -33,7 +33,7 @@ const Projects = () => {
           </h2>
           
           {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <div className="flex flex-wrap justify-center gap-4 mt-12">
             {projectCategories.map((category) => (
               <button
                 key={category.id}

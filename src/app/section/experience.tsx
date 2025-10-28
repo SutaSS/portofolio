@@ -14,7 +14,6 @@ const Experience = () => {
           <h2 className="text-neon-aqua text-4xl lg:text-5xl font-bold mb-4">
             Experience
           </h2>
-          <div className="w-24 h-1 bg-olive-green mx-auto rounded-full"></div>
           <p className="text-olive-green/80 mt-6 text-lg italic">
             The Begining of an Era
           </p>
