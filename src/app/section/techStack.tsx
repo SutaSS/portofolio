@@ -83,26 +83,6 @@ const TechStack = () => {
             </div>
           ))}
         </div>
-
-        {/* Category Legend (Optional) */}
-        {/* <div className="flex flex-wrap justify-center gap-4 mt-16">
-          <div className="flex items-center gap-2 px-4 py-2 bg-navy-blue/50 rounded-lg border border-olive-green/20">
-            <div className="w-3 h-3 bg-neon-aqua rounded-full"></div>
-            <span className="text-olive-green text-sm">Frontend</span>
-          </div>
-          <div className="flex items-center gap-2 px-4 py-2 bg-navy-blue/50 rounded-lg border border-olive-green/20">
-            <div className="w-3 h-3 bg-olive-green rounded-full"></div>
-            <span className="text-olive-green text-sm">Backend</span>
-          </div>
-          <div className="flex items-center gap-2 px-4 py-2 bg-navy-blue/50 rounded-lg border border-olive-green/20">
-            <div className="w-3 h-3 bg-neon-aqua/70 rounded-full"></div>
-            <span className="text-olive-green text-sm">Database</span>
-          </div>
-          <div className="flex items-center gap-2 px-4 py-2 bg-navy-blue/50 rounded-lg border border-olive-green/20">
-            <div className="w-3 h-3 bg-soft-white rounded-full"></div>
-            <span className="text-olive-green text-sm">Tools & Mobile</span>
-          </div>
-        </div> */}
       </div>
     </section>
   );
