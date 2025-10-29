@@ -107,7 +107,3 @@ Kontribusi sangat dipersilakan! Jika Anda ingin menambahkan fitur atau memperbai
 ## 📄 License
 
 MIT License – lihat file `LICENSE` untuk detail.
-
----
-
-Jika kamu setuju dengan draft ini, saya bisa bantu generate versi Markdown lengkap siap untuk ditempel ke `README.md`. Mau saya buat sekarang?
