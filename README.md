@@ -1,7 +1,3 @@
-Berikut adalah draft **README.md** yang bisa kamu gunakan untuk repo [Next.js portfolio web](https://github.com/SutaSS/portofolio). Kamu bisa menyesuaikan bagian *About / Features* dan lainnya sesuai detail proyekmu.
-
----
-
 # Portofolio Web
 
 Sebuah situs portofolio web yang dibuat menggunakan Next.js.
