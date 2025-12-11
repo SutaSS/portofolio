@@ -99,7 +99,3 @@ Kontribusi sangat dipersilakan! Jika Anda ingin menambahkan fitur atau memperbai
 4. Push ke branch: `git push origin feature-namaFitur`.
 5. Buka Pull Request.
    Pastikan untuk mengikuti standar gaya penulisan (linting/formatting) yang sudah diterapkan.
-
-## 📄 License
-
-MIT License – lihat file `LICENSE` untuk detail.
