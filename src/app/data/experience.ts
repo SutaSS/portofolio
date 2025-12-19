@@ -18,7 +18,7 @@ export const experiences: Experience[] = [
     title: 'Mobile Application Developer',
     company: 'Raion Community',
     location: 'Fakultas Ilmu Komputer, Universitas Brawijaya',
-    period: 'February 2025 - Present',
+    period: 'March 2025 - Present',
     description: [
       'Developing mobile apps using Flutter with focus on scalable architecture and clean UI/UX.',
       'Contributed to the development of Serenia, a mental well-being app.',
@@ -31,7 +31,7 @@ export const experiences: Experience[] = [
     title: 'Staff Innovation of Technology',
     company: 'Raion Community',
     location: 'Fakultas Ilmu Komputer, Universitas Brawijaya',
-    period: 'March 2025 - Present',
+    period: 'February 2025 - Present',
     description: [
       'Serving as Co-Lead of Game Management under the Innovation of Technology division.',
       'Managing and maintaining Raion Community official itch.io page.',
