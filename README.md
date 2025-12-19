@@ -88,14 +88,3 @@ Situs ini dapat dengan mudah dideploy ke platform seperti Vercel, karena Next.js
 2. Hubungkan repo ke Vercel.
 3. Atur build command (`npm run build`) dan output directory (`.next` atau default).
 4. Deploy, lalu situs akan live.
-
-## 🤝 Contributing
-
-Kontribusi sangat dipersilakan! Jika Anda ingin menambahkan fitur atau memperbaiki bug:
-
-1. Fork repo ini.
-2. Buat branch: `git checkout -b feature-namaFitur`.
-3. Commit perubahan: `git commit -m "Tambah fitur …"`.
-4. Push ke branch: `git push origin feature-namaFitur`.
-5. Buka Pull Request.
-   Pastikan untuk mengikuti standar gaya penulisan (linting/formatting) yang sudah diterapkan.
