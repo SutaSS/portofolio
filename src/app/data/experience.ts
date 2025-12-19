@@ -41,6 +41,32 @@ export const experiences: Experience[] = [
   },
   {
     id: '4',
+    title: 'Vice Head of Publication, Documentation, and Design',
+    company: 'Porsimaba 2025',
+    location: 'BIOS, Fakultas Ilmu Komputer, Universitas Brawijaya',
+    period: 'September 2025 - November 2025',
+    description: [
+      'Coordinated and supervised the publication, documentation, and design division to ensure consistent visual identity across all media.',
+      'Collaborated with cross-divisional teams to align design outputs with event objectives and timelines.',
+      'Reviewed and provided feedback on visual materials to maintain quality and branding standards.',
+    ],
+    current: false,
+  },
+  {
+    id: '5',
+    title: 'Staff Publication, Documentation, and Design',
+    company: 'MMD FILKOM UB 2025',
+    location: 'Desa Maguan, Kecamatan Ngajum, Kabupaten Malang',
+    period: 'July 2025 - August 2025',
+    description: [
+      'Assisted in managing documentation during community activities to ensure accurate and timely media coverage.',
+      'Created visual content including posters, social media assets, and event documentation to support program outreach.',
+      'Supported publication needs for social media and internal reports.',
+    ],
+    current: false,
+  },
+  {
+    id: '6',
     title: 'Game Artist',
     company: 'Raion Community',
     location: 'Fakultas Ilmu Komputer, Universitas Brawijaya',
