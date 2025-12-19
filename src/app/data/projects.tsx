@@ -2,6 +2,25 @@ import { Project } from "../types/project";
 
 export const projects: Project[] = [
   {
+    id: '8',
+    title: 'PAPB FINAL Assesment',
+    description: 'Final Assessment Project (Mobile App Development College) - Domestic Violence Support App',
+    technologies: ['Jetpack Compose', 'Firebase'],
+    githubUrl: 'https://github.com/SutaSS/PAPB-Rumah-Aman',
+    imageUrl: '/assets/projects/PAPB-Rumah-Aman.png',
+    category: 'web-mobile',
+  },
+  {
+    id: '9',
+    title: 'SolarQuiz',
+    description: 'Final Assessment Project (Computer Graphic College) - Solar System Educational Quiz App',
+    technologies: ['HTML', 'CSS', 'Three.js', 'js'],
+    githubUrl: 'https://github.com/SutaSS/Project-Akhir-Komputer-Grafis',
+    liveUrl: 'https://project-akhir-komputer-grafis.vercel.app/',
+    imageUrl: '/assets/projects/SolarQuiz.jpeg',
+    category: 'web-mobile',
+  },
+  {
     id: '1',
     title: 'OptiMind 2.0',
     description: 'Contribut as a Frontend Developer and UI/UX Designer',
@@ -11,7 +30,7 @@ export const projects: Project[] = [
     imageUrl: '/assets/projects/OptiMind.jpg',
     category: 'web-mobile',
   },
-  {
+  { 
     id: '2',
     title: 'Save Space',
     description: 'Mobile application for burnout tracker in industry workers',
