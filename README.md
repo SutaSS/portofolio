@@ -2,18 +2,6 @@
 
 Sebuah situs portofolio web yang dibuat menggunakan Next.js.
 
-## 📋 Table of Contents
-
-* [About](#about)
-* [🎯 Features](#features)
-* [🚀 Getting Started](#getting-started)
-* [🛠️ Tech Stack](#tech-stack)
-* [📂 Project Structure](#project-structure)
-* [👨‍💻 Usage](#usage)
-* [🔧 Deployment](#deployment)
-* [🤝 Contributing](#contributing)
-* [📄 License](#license)
-
 ## About
 
 Proyek ini adalah situs portofolio pribadi saya yang dibuat menggunakan Next.js. Tujuannya adalah untuk menampilkan profil, proyek, dan keahlian penulis secara profesional, responsif, dan mudah diperbarui.
