@@ -13,7 +13,7 @@ export const techStacks: TechStack[] = [
     id: '16',
     name: 'Next.js',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
-    color: '#000000', // Next.js black
+    color: '#E5E5E5', // Soft white (recommended)
     category: 'frontend',
   },
   {
@@ -68,13 +68,6 @@ export const techStacks: TechStack[] = [
     category: 'backend',
   },
   {
-    id: '20',
-    name: 'Java',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg',
-    color: '#007396', // Java blue
-    category: 'backend',
-  },
-  {
     id: '13',
     name: 'Laravel',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg',
@@ -99,9 +92,9 @@ export const techStacks: TechStack[] = [
   },
   {
     id: '21',
-    name: 'Kotlin',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg',
-    color: '#7F52FF', // Kotlin purple
+    name: 'Jetpack Compose',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg',
+    color: '#4285F4', // Android blue
     category: 'mobile',
   },
   
