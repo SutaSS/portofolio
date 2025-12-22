@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaDownload } from "react-icons/fa";
 import { HiArrowDown } from "react-icons/hi";
 import TiltedCard from "../components/animations/TiltedCard";
 
@@ -8,8 +8,15 @@ const Hero = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleDownloadCV = () => {
+    const link = document.createElement("a");
+    link.href = "/cv/CV_Andika Saktidana Hernadi.pdf";
+    link.download = "CV_Andika Saktidana Hernadi.pdf";
+    link.click();
   };
 
   const quickMenuItems = [
@@ -24,7 +31,13 @@ const Hero = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="12" cy="8" r="3" stroke="currentColor" strokeWidth="1.6" />
+          <circle
+            cx="12"
+            cy="8"
+            r="3"
+            stroke="currentColor"
+            strokeWidth="1.6"
+          />
           <path
             d="M6 20c1.5-3 4.5-5 6-5s4.5 2 6 5"
             stroke="currentColor"
@@ -160,19 +173,16 @@ const Hero = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-8 min-h-screen flex flex-col justify-center items-center py-20">
-        
         {/* Main Content */}
         <div className="w-full max-w-6xl">
-          
           {/* Top Section: Photo + Name */}
           <div className="flex flex-col lg:flex-row items-center justify-center gap-12 mb-16">
-            
             {/* Profile Photo with TiltedCard */}
             <div className="flex-shrink-0 animate-fade-in">
               <div className="relative">
                 {/* Glowing border effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-olive-green to-neon-aqua rounded-full blur-2xl opacity-30 animate-pulse"></div>
-                
+
                 <TiltedCard
                   imageSrc="/assets/Hero-1.jpg"
                   altText="Andika Saktidana Hernadi"
@@ -209,35 +219,50 @@ const Hero = () => {
                 Front-End & Mobile Developer + UI/UX Designer
               </p>
 
-              {/* Social Links */}
-              <div className="flex justify-center lg:justify-start gap-4 animate-fade-in-up delay-400">
-                <a
-                  href="https://github.com/SutaSS"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full border-2 border-olive-green/30 flex items-center justify-center text-olive-green hover:border-neon-aqua hover:text-neon-aqua hover:scale-110 transition-all duration-300"
-                  aria-label="GitHub"
+              {/* Download CV Button + Social Links */}
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-fade-in-up delay-400">
+                {/* Download CV Button */}
+                <button
+                  onClick={handleDownloadCV}
+                  className="group relative px-6 py-3 bg-gradient-to-r from-neon-aqua to-soft-white rounded-full font-orbitron font-semibold text-navy-blue hover:shadow-lg hover:shadow-neon-aqua/50 transition-all duration-300 hover:scale-105 flex items-center gap-2"
                 >
-                  <FaGithub size={20} />
-                </a>
-                <a
-                  href="https://linkedin.com/in/andika-hernadi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full border-2 border-olive-green/30 flex items-center justify-center text-olive-green hover:border-neon-aqua hover:text-neon-aqua hover:scale-110 transition-all duration-300"
-                  aria-label="LinkedIn"
-                >
-                  <FaLinkedin size={20} />
-                </a>
-                <a
-                  href="https://instagram.com/andikahernadi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full border-2 border-olive-green/30 flex items-center justify-center text-olive-green hover:border-neon-aqua hover:text-neon-aqua hover:scale-110 transition-all duration-300"
-                  aria-label="Instagram"
-                >
-                  <FaInstagram size={20} />
-                </a>
+                  <FaDownload className="group-hover:animate-bounce" />
+                  Download CV
+                </button>
+
+                {/* Divider */}
+                <div className="hidden sm:block w-px h-8 bg-olive-green/30"></div>
+
+                {/* Social Links */}
+                <div className="flex gap-3">
+                  <a
+                    href="https://github.com/SutaSS"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full border-2 border-olive-green/30 flex items-center justify-center text-olive-green hover:border-neon-aqua hover:text-neon-aqua hover:scale-110 transition-all duration-300"
+                    aria-label="GitHub"
+                  >
+                    <FaGithub size={18} />
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/andika-hernadi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full border-2 border-olive-green/30 flex items-center justify-center text-olive-green hover:border-neon-aqua hover:text-neon-aqua hover:scale-110 transition-all duration-300"
+                    aria-label="LinkedIn"
+                  >
+                    <FaLinkedin size={18} />
+                  </a>
+                  <a
+                    href="https://instagram.com/andikahernadi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full border-2 border-olive-green/30 flex items-center justify-center text-olive-green hover:border-neon-aqua hover:text-neon-aqua hover:scale-110 transition-all duration-300"
+                    aria-label="Instagram"
+                  >
+                    <FaInstagram size={18} />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -252,16 +277,19 @@ const Hero = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-neon-aqua/0 to-neon-aqua/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative text-center space-y-2">
-                  <div className="text-neon-aqua flex justify-center">{item.icon}</div>
+                  <div className="text-neon-aqua flex justify-center">
+                    {item.icon}
+                  </div>
                   <h3 className="font-orbitron font-semibold text-neon-aqua text-sm">
                     {item.label}
                   </h3>
-                  <p className="text-olive-green/80 text-xs">{item.description}</p>
+                  <p className="text-olive-green/80 text-xs">
+                    {item.description}
+                  </p>
                 </div>
               </button>
             ))}
           </div>
-
         </div>
       </div>
     </section>
