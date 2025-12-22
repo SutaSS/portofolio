@@ -186,7 +186,7 @@ const Hero = () => {
                 <TiltedCard
                   imageSrc="/assets/Hero-1.jpg"
                   altText="Andika Saktidana Hernadi"
-                  captionText="Hover to see 3D effect"
+                  captionText="its me!"
                   containerHeight="300px"
                   containerWidth="300px"
                   imageHeight="300px"

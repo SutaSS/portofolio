@@ -1,19 +1,51 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { navigationItems } from "../../data/navigation";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+const [isAnimating, setIsAnimating] = useState(false);
+
+useEffect(() => {
+  const handleScroll = () => {
+    const heroSection = document.getElementById("home");
+    if (heroSection) {
+      const heroHeight = heroSection.offsetHeight;
+      const scrollPosition = window.scrollY;
+      const shouldShow = scrollPosition > heroHeight * 0.8;
+
+      if (shouldShow !== isVisible) {
+        setIsAnimating(true);
+        setIsVisible(shouldShow);
+        setTimeout(() => setIsAnimating(false), 600);
+      }
+    }
+  };
+  handleScroll();
+  window.addEventListener("scroll", handleScroll);
+  
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [isVisible]);
 
   return (
-    <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
+    <header
+  className={`fixed top-4 left-0 right-0 z-50 flex justify-center px-4 py-4
+    ${isVisible 
+      ? "animate-fade-in-up" 
+      : isAnimating 
+        ? "animate-fade-out-down" 
+        : "opacity-0 pointer-events-none"
+    }
+  `}
+>
       {/* Desktop Bubble Navbar */}
       <nav
         className="hidden lg:flex items-center gap-2 
-  bg-[#1A2A44]/30 border border-white/20 
-  backdrop-blur-md rounded-full px-3 py-2 
-  shadow-lg group hover:gap-1
-  transition-all duration-300"
+        bg-[#1A2A44]/30 border border-white/20 
+        backdrop-blur-md rounded-full px-3 py-2 
+        shadow-lg group hover:gap-1
+        transition-all duration-fast"
       >
         {navigationItems.map((item) => (
           <a
