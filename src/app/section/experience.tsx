@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { experiences } from "../data/experience";
 
 const Experience = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [cardVisibility, setCardVisibility] = useState<{[key: string]: boolean}>({});
   const sectionRef = useRef<HTMLElement | null>(null);
   const cardRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
@@ -14,7 +14,7 @@ const Experience = () => {
         setIsVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.5,
+        threshold: 0.2,
         rootMargin: "0px",
       }
     );
@@ -63,9 +63,7 @@ const Experience = () => {
       id="experience"
       className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-0"
     >
-      <div className={`relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-24 transition-all duration-700 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      }`}>
+      <div className="relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-24">
         {/* Title */}
         <div className="text-center mb-16">
           <h2 className={`text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4 ${
@@ -84,7 +82,7 @@ const Experience = () => {
         <div className="max-w-4xl mx-auto w-full">
           <div className="relative">
             {/* Vertical Line */}
-            <div className={`absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-neon-aqua via-olive-green to-neon-aqua hidden lg:block transition-all duration-1000 origin-top ${
+            <div className={`absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-neon-aqua via-olive-green to-neon-aqua hidden lg:block transition-all duration-1000 origin-top z-0 ${
               isVisible ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
             }`}></div>
 
