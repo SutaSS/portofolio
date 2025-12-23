@@ -13,7 +13,7 @@ const Hero = () => {
         setIsVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.3, // Trigger when 10% of section is visible
+        threshold: 0.6, // Trigger when 10% of section is visible
         rootMargin: "0px" // Adjust for earlier/later trigger
       }
     );

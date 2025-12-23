@@ -1,17 +1,41 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FaSearch, FaUserGraduate, FaHeart, FaChartLine } from "react-icons/fa";
 import Image from "next/image";
 import TiltedCard from "../components/animations/TiltedCard";
 
-
 const About = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
   const [dimensions, setDimensions] = React.useState({
     containerHeight: "400px",
     containerWidth: "300px",
     imageHeight: "400px",
     imageWidth: "300px",
   });
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.6, // Trigger when 10% of section is visible
+        rootMargin: "0px", // Adjust for earlier/later trigger
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -41,21 +65,38 @@ const About = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="about"
-      className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-18"
+      className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-8"
     >
       <div className="absolute inset-0 bg-dark-bg"></div>
-      <div className="relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col">
+      <div
+        className={`relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col transition-all duration-700 ${
+          isVisible ? "opacity-100 " : "opacity-0"
+        }`}
+      >
         {/* Title */}
         <div className="text-center mb-16">
-          <h2 className="text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4">
+          <h2
+            className={`text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4 ${
+              isVisible
+                ? "animate-fade-in delay-100"
+                : "animate-fade-out-down delay-100"
+            }`}
+          >
             About Me
           </h2>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
           {/* Left - Image */}
-          <div className="flex justify-center lg:justify-start">
+          <div
+            className={`flex justify-center lg:justify-start ${
+              isVisible
+                ? "animate-slide-in-left delay-200"
+                : "animate-slide-out-right delay-200"
+            }`}
+          >
             <div className="relative">
               {/* Glowing border effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-olive-green to-neon-aqua rounded-2xl blur-lg opacity-30 animate-pulse"></div>
@@ -85,7 +126,7 @@ const About = () => {
           <div className="space-y-8">
             {/* Main Description */}
             <div className="space-y-4">
-              <h3 className="font-orbitron text-2xl font-bold font-orbitron text-neon-aqua">
+              <h3 className="font-orbitron text-2xl font-bold text-neon-aqua">
                 Passionate Developer and Designer
               </h3>
               <p className="text-soft-white/80 text-lg font-inter leading-relaxed">

@@ -13,7 +13,7 @@ useEffect(() => {
     if (heroSection) {
       const heroHeight = heroSection.offsetHeight;
       const scrollPosition = window.scrollY;
-      const shouldShow = scrollPosition > heroHeight * 0.8;
+      const shouldShow = scrollPosition > heroHeight * 0.6;
 
       if (shouldShow !== isVisible) {
         setIsAnimating(true);
