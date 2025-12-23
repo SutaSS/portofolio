@@ -1,10 +1,34 @@
 "use client";
-import React from "react";
+import React, {useState, useRef, useEffect} from "react";
 import { FaGithub, FaLinkedin, FaInstagram, FaDownload } from "react-icons/fa";
-import { HiArrowDown } from "react-icons/hi";
 import TiltedCard from "../components/animations/TiltedCard";
 
 const Hero = () => {
+  const [isVisible, setIsVisible] = useState(true);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.3, // Trigger when 10% of section is visible
+        rootMargin: "0px" // Adjust for earlier/later trigger
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -163,22 +187,23 @@ const Hero = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="home"
       className="min-h-screen bg-gradient-to-b from-navy-blue via-navy-blue to-dark-bg relative overflow-hidden"
     >
       {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className={`absolute inset-0 overflow-hidden`}>
         <div className="absolute top-20 left-10 w-72 h-72 bg-neon-aqua/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-olive-green/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="relative z-10 container mx-auto px-8 min-h-screen flex flex-col justify-center items-center py-20">
         {/* Main Content */}
-        <div className="w-full max-w-6xl">
+        <div className={`w-full max-w-6xl transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Top Section: Photo + Name */}
           <div className="flex flex-col lg:flex-row items-center justify-center gap-12 mb-16">
             {/* Profile Photo with TiltedCard */}
-            <div className="flex-shrink-0 animate-fade-in">
+            <div className="flex-shrink-0 animate-slide-in-right delay-200">
               <div className="relative">
                 {/* Glowing border effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-olive-green to-neon-aqua rounded-full blur-2xl opacity-30 animate-pulse"></div>
