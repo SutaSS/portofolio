@@ -93,7 +93,7 @@ const About = () => {
           <div
             className={`flex justify-center lg:justify-start ${
               isVisible
-                ? "animate-slide-in-left delay-200"
+                ? "animate-slide-in-right delay-200"
                 : "animate-slide-out-right delay-200"
             }`}
           >
