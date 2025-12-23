@@ -1,11 +1,64 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { achievements } from "../data/achievements";
 import { FaTrophy, FaMedal, FaAward, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Achievements = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState<{ [key: string]: number }>({});
+  const [isVisible, setIsVisible] = useState(false);
+  const [cardVisibility, setCardVisibility] = useState<{[key: string]: boolean}>({});
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const cardRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px",
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    // Observer for individual cards
+    const cardObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const cardId = entry.target.getAttribute('data-card-id');
+          if (cardId) {
+            setCardVisibility(prev => ({
+              ...prev,
+              [cardId]: entry.isIntersecting
+            }));
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: "0px",
+      }
+    );
+
+    // Observe all cards
+    Object.values(cardRefs.current).forEach((ref) => {
+      if (ref) cardObserver.observe(ref);
+    });
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+      Object.values(cardRefs.current).forEach((ref) => {
+        if (ref) cardObserver.unobserve(ref);
+      });
+    };
+  }, []);
 
   const handleNextImage = (achievementId: string, totalImages: number) => {
     setCurrentImageIndex(prev => ({
@@ -30,18 +83,25 @@ const Achievements = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="achievements"
       className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-0"
     >
-      <div className="relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-20">
+      <div className={`relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-20 transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      }`}>
         
         {/* Title */}
         <div className="text-center mb-16">
-          <h2 className="text-neon-aqua text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className={`text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4 ${
+            isVisible ? "animate-fade-in-down" : "animate-fade-out-up"
+          }`}>
             Achievements
           </h2>
           
-          <p className="text-olive-green/80 mt-6 text-lg">
+          <p className={`text-olive-green/80 mt-6 text-lg font-inter ${
+            isVisible ? "animate-fade-in-up delay-200" : "animate-fade-out-down delay-200"
+          }`}>
             Milestones and recognition in my journey
           </p>
         </div>
@@ -54,7 +114,13 @@ const Achievements = () => {
             return (
               <div
                 key={achievement.id}
-                className="group bg-navy-blue/50 rounded-2xl overflow-hidden border-2 border-olive-green/20 hover:border-neon-aqua/50 transition-all duration-300 hover:shadow-2xl hover:shadow-neon-aqua/20 transform hover:scale-105"
+                ref={(el) => { cardRefs.current[achievement.id] = el; }}
+                data-card-id={achievement.id}
+                className={`group bg-navy-blue/50 rounded-2xl overflow-hidden border-2 border-olive-green/20 hover:border-neon-aqua/50 transition-all duration-500 hover:shadow-2xl hover:shadow-neon-aqua/20 transform hover:scale-105 ${
+                  cardVisibility[achievement.id]
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-10"
+                }`}
               >
                 {/* Image Carousel */}
                 <div className="relative h-64 bg-gradient-to-br from-olive-green/20 to-neon-aqua/20 overflow-hidden">
@@ -110,25 +176,25 @@ const Achievements = () => {
                 <div className="p-6 space-y-4">
                   {/* Title & Event */}
                   <div>
-                    <h3 className="text-2xl font-bold text-neon-aqua mb-2">
+                    <h3 className="text-2xl font-orbitron font-bold text-neon-aqua mb-2">
                       {achievement.title}
                     </h3>
-                    <p className="text-olive-green font-semibold">
+                    <p className="text-olive-green font-inter font-semibold">
                       {achievement.event}
                     </p>
                   </div>
 
                   {/* Description */}
-                  <p className="text-soft-white/80 text-sm leading-relaxed">
+                  <p className="text-soft-white/80 text-sm font-inter leading-relaxed">
                     {achievement.description}
                   </p>
 
                   {/* Date & Category */}
                   <div className="flex items-center justify-between pt-4 border-t border-olive-green/20">
-                    <span className="text-olive-green/80 text-sm">
+                    <span className="text-olive-green/80 text-sm font-inter">
                       {achievement.date}
                     </span>
-                    <span className="px-3 py-1 bg-olive-green/10 text-olive-green text-xs rounded-full border border-olive-green/20 capitalize">
+                    <span className="px-3 py-1 bg-olive-green/10 text-olive-green text-xs font-inter rounded-full border border-olive-green/20 capitalize">
                       {achievement.category}
                     </span>
                   </div>
@@ -142,28 +208,30 @@ const Achievements = () => {
         </div>
 
         {/* Stats Summary (Optional) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16">
+        <div className={`grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16 ${
+          isVisible ? "animate-fade-in-up delay-400" : "animate-fade-out-down delay-400"
+        }`}>
           <div className="bg-navy-blue/50 rounded-xl p-6 border border-olive-green/20 text-center">
-            <div className="text-4xl font-bold text-neon-aqua mb-2">
+            <div className="text-4xl font-orbitron font-bold text-neon-aqua mb-2">
               {achievements.length}
             </div>
-            <div className="text-olive-green/80 text-sm">
+            <div className="text-olive-green/80 text-sm font-inter">
               Total Achievements
             </div>
           </div>
           <div className="bg-navy-blue/50 rounded-xl p-6 border border-olive-green/20 text-center">
-            <div className="text-4xl font-bold text-neon-aqua mb-2">
+            <div className="text-4xl font-orbitron font-bold text-neon-aqua mb-2">
               {achievements.filter(a => a.category === 'hackathon').length}
             </div>
-            <div className="text-olive-green/80 text-sm">
+            <div className="text-olive-green/80 text-sm font-inter">
               Hackathons
             </div>
           </div>
           <div className="bg-navy-blue/50 rounded-xl p-6 border border-olive-green/20 text-center">
-            <div className="text-4xl font-bold text-neon-aqua mb-2">
+            <div className="text-4xl font-orbitron font-bold text-neon-aqua mb-2">
               2025
             </div>
-            <div className="text-olive-green/80 text-sm">
+            <div className="text-olive-green/80 text-sm font-inter">
               Latest Year
             </div>
           </div>
