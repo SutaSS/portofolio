@@ -21,7 +21,7 @@ const About = () => {
         setIsVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.6, // Trigger when 10% of section is visible
+        threshold: 0.4, // Trigger when 50% of section is visible
         rootMargin: "0px", // Adjust for earlier/later trigger
       }
     );
@@ -93,8 +93,8 @@ const About = () => {
           <div
             className={`flex justify-center lg:justify-start ${
               isVisible
-                ? "animate-slide-in-right delay-200"
-                : "animate-slide-out-right delay-200"
+                ? "animate-slide-in-right delay-300"
+                : "animate-slide-out-right delay-300"
             }`}
           >
             <div className="relative">
@@ -123,7 +123,13 @@ const About = () => {
           </div>
 
           {/* Right - Content */}
-          <div className="space-y-8">
+          <div
+            className={`space-y-8 ${
+              isVisible
+                ? "animate-fade-in delay-400"
+                : "animate-fade-out delay-400"
+            }`}
+          >
             {/* Main Description */}
             <div className="space-y-4">
               <h3 className="font-orbitron text-2xl font-bold text-neon-aqua">
