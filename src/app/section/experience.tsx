@@ -37,7 +37,7 @@ const Experience = () => {
         });
       },
       {
-        threshold: 0.3,
+        threshold: 0.2,
         rootMargin: "0px",
       }
     );
@@ -61,7 +61,7 @@ const Experience = () => {
     <section
       ref={sectionRef}
       id="experience"
-      className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-0"
+      className="min-h-screen bg-dark-bg relative overflow-visible py-24 lg:pt-0"
     >
       <div className="relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-24">
         {/* Title */}
@@ -99,7 +99,7 @@ const Experience = () => {
                   <div
                     ref={(el) => { cardRefs.current[exp.id] = el; }}
                     data-card-id={exp.id}
-                    className={`w-full lg:w-[calc(50%-2rem)] transition-all duration-500 ${
+                    className={`w-full lg:w-[calc(50%-2rem)] transition-all duration-700 ${
                       index % 2 === 0
                         ? "lg:text-right lg:pr-8"
                         : "lg:text-left lg:pl-8"

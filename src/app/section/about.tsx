@@ -21,7 +21,7 @@ const About = () => {
         setIsVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.4, // Trigger when 50% of section is visible
+        threshold: 0.2, // Trigger when 20% of section is visible
         rootMargin: "0px", // Adjust for earlier/later trigger
       }
     );

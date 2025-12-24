@@ -9,17 +9,33 @@ const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [filteredProjects, setFilteredProjects] = useState(projects);
   const [isVisible, setIsVisible] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [isFiltering, setIsFiltering] = useState(false);
   const [showProjects, setShowProjects] = useState(true); 
   const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+    // Check if mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    // Gunakan intersection observer untuk mobile dan desktop
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
+        setHasAnimated(entry.isIntersecting);
       },
       {
-        threshold: 0.3, // Trigger when 30% of section is visible
+        threshold: 0.1, // Trigger when 20% of section is visible
         rootMargin: "0px", // Adjust for earlier/later trigger
       }
     );
@@ -33,7 +49,7 @@ const Projects = () => {
         observer.unobserve(sectionRef.current);
       }
     };
-  }, []);
+  }, [isMobile]);
 
   const handleCategoryFilter = (categoryId: string) => {
     if (categoryId === activeCategory) return;
@@ -62,21 +78,19 @@ const Projects = () => {
     <section
       ref={sectionRef}
       id="projects"
-      className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-0"
+      className="min-h-screen bg-dark-bg relative overflow-visible pt-16 lg:pt-0"
     >
       <div className="absolute inset-0 bg-gradient-to-br to-dark-bg"></div>
-      <div
-        className={`relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-24 transition-all duration-700 ${
-          isVisible ? "opacity-100 " : "opacity-0"
+      <div 
+        className={`relative z-10 min-h-screen container mx-auto px-4 lg:px-8 justify-center flex flex-col py-16 lg:py-24 transition-all duration-700 ${
+          isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
         {/* Title */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 lg:mb-16">
           <h2
-            className={`text-neon-aqua text-4xl lg:text-5xl font-bold mb-8 ${
-              isVisible
-                ? "animate-fade-in-up delay-100"
-                : "animate-fade-out-down delay-100"
+            className={`text-neon-aqua text-3xl lg:text-5xl font-bold mb-6 lg:mb-8 transition-all duration-700 ${
+              isVisible ? "animate-fade-in-up delay-100" : "animate-fade-out-down"
             }`}
           >
             Projects
@@ -84,17 +98,15 @@ const Projects = () => {
 
           {/* Category Filter */}
           <div
-            className={`flex flex-wrap justify-center gap-4 mt-12 ${
-              isVisible
-                ? "animate-fade-in-down delay-100"
-                : "animate-fade-out-up delay-100"
+            className={`flex flex-wrap justify-center gap-3 lg:gap-4 mt-8 lg:mt-12 transition-all duration-700 ${
+              isVisible ? "animate-fade-in-down delay-100" : "animate-fade-out-up"
             }`}
           >
             {projectCategories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => handleCategoryFilter(category.id)}
-                className={`px-6 py-3 rounded-lg border transition-all duration-300 ${
+                className={`px-4 lg:px-6 py-2 lg:py-3 rounded-lg border text-sm lg:text-base transition-all duration-300 ${
                   activeCategory === category.id
                     ? "bg-neon-aqua text-dark-bg border-neon-aqua"
                     : "bg-navy-blue/50 text-olive-green border-olive-green/30 hover:border-neon-aqua/50 hover:text-neon-aqua hover:cursor-pointer"
@@ -107,10 +119,10 @@ const Projects = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {showProjects ? (
             // Real projects
-            filteredProjects.map((project) => (
+            filteredProjects.map((project, index) => (
               <div
                 key={project.id}
                 className="group relative bg-navy-blue/50 rounded-2xl overflow-hidden border border-olive-green/20 hover:border-neon-aqua/50 transition-all duration-300 transform hover:scale-105 animate-fade-in-up"
