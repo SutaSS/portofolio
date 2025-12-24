@@ -125,7 +125,9 @@ const Projects = () => {
             filteredProjects.map((project, index) => (
               <div
                 key={project.id}
-                className="group relative bg-navy-blue/50 rounded-2xl overflow-hidden border border-olive-green/20 hover:border-neon-aqua/50 transition-all duration-300 transform hover:scale-105 animate-fade-in-up"
+                className={`group relative bg-navy-blue/50 rounded-2xl overflow-hidden border border-olive-green/20 hover:border-neon-aqua/50 transition-all duration-300 transform hover:scale-105 ${
+              isVisible ? "animate-fade-in-down delay-100" : "animate-fade-out-up"
+            }`}
               >
                 {/* Project Image */}
                 <div className="relative h-48 bg-gradient-to-br from-olive-green/20 to-neon-aqua/20 overflow-hidden">

@@ -61,9 +61,9 @@ const Experience = () => {
     <section
       ref={sectionRef}
       id="experience"
-      className="min-h-screen bg-dark-bg relative overflow-visible py-24 lg:pt-0"
+      className="min-h-screen bg-dark-bg relative overflow-visible pt-16 lg:pt-0"
     >
-      <div className="relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-24">
+      <div className="relative z-10 min-h-screen container mx-auto px-4 lg:px-8 justify-center flex flex-col py-16 lg:py-24">
         {/* Title */}
         <div className="text-center mb-16">
           <h2 className={`text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4 ${

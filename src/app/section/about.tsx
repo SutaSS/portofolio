@@ -67,11 +67,11 @@ const About = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-8"
+      className="min-h-screen bg-dark-bg relative overflow-visible pt-16 lg:pt-8"
     >
       <div className="absolute inset-0 bg-dark-bg"></div>
       <div
-        className={`relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col transition-all duration-700 ${
+        className={`relative z-10 min-h-screen container mx-auto px-4 lg:px-8 justify-center flex flex-col py-16 lg:py-0 transition-all duration-700 ${
           isVisible ? "opacity-100 " : "opacity-0"
         }`}
       >
