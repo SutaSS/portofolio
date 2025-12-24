@@ -2,18 +2,6 @@ import { Experience } from "../types/experience";
 
 export const experiences: Experience[] = [
   {
-    id: '1',
-    title: 'Laboratory Teaching Assistant',
-    company: 'Data Structures & Algorithms',
-    location: 'Fakultas Ilmu Komputer, Universitas Brawijaya',
-    period: 'September 2025 - Present',
-    description: [
-      'Assisting approximately 32 students in understanding data structures and algorithm concepts.',
-      'Supporting the preparation and evaluation of practical sessions.',
-    ],
-    current: true,
-  },
-  {
     id: '2',
     title: 'Mobile Application Developer',
     company: 'Raion Community',
@@ -38,6 +26,18 @@ export const experiences: Experience[] = [
       'Promoting members\' projects to enhance exposure within indie game and campus communities.',
     ],
     current: true,
+  },
+  {
+    id: '1',
+    title: 'Laboratory Teaching Assistant',
+    company: 'Data Structures & Algorithms',
+    location: 'Fakultas Ilmu Komputer, Universitas Brawijaya',
+    period: 'September 2025 - December 2025',
+    description: [
+      'Assisting approximately 32 students in understanding data structures and algorithm concepts.',
+      'Supporting the preparation and evaluation of practical sessions.',
+    ],
+    current: false,
   },
   {
     id: '4',

@@ -52,14 +52,24 @@ export const techStacks: TechStack[] = [
     category: 'frontend',
   },
   
-  // Backend
+ 
+  
+  // Mobile
   {
-    id: '2',
-    name: 'Node.js',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
-    color: '#339933', // Node green
-    category: 'backend',
+    id: '21',
+    name: 'Jetpack Compose',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg',
+    color: '#4285F4', // Android blue
+    category: 'mobile',
   },
+  {
+    id: '9',
+    name: 'Flutter',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg',
+    color: '#02569B', // Flutter blue
+    category: 'mobile',
+  },
+   // Backend
   {
     id: '3',
     name: 'Python',
@@ -74,6 +84,7 @@ export const techStacks: TechStack[] = [
     color: '#FF2D20', // Laravel red
     category: 'backend',
   },
+
   {
     id: '10',
     name: 'Firebase',
@@ -81,23 +92,6 @@ export const techStacks: TechStack[] = [
     color: '#FFCA28', // Firebase yellow
     category: 'backend',
   },
-  
-  // Mobile
-  {
-    id: '9',
-    name: 'Flutter',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg',
-    color: '#02569B', // Flutter blue
-    category: 'mobile',
-  },
-  {
-    id: '21',
-    name: 'Jetpack Compose',
-    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg',
-    color: '#4285F4', // Android blue
-    category: 'mobile',
-  },
-  
   // Database
   {
     id: '14',
