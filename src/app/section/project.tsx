@@ -9,9 +9,9 @@ const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [filteredProjects, setFilteredProjects] = useState(projects);
   const [isVisible, setIsVisible] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false);
+  const [, setHasAnimated] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isFiltering, setIsFiltering] = useState(false);
+  const [, setIsFiltering] = useState(false);
   const [showProjects, setShowProjects] = useState(true); 
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -122,7 +122,7 @@ const Projects = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {showProjects ? (
             // Real projects
-            filteredProjects.map((project, index) => (
+            filteredProjects.map((project,) => (
               <div
                 key={project.id}
                 className={`group relative bg-navy-blue/50 rounded-2xl overflow-hidden border border-olive-green/20 hover:border-neon-aqua/50 transition-all duration-300 transform hover:scale-105 ${

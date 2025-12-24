@@ -2,7 +2,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { techStacks } from "../data/techStack";
-import Magnet from "../components/animations/Magnet";
 
 const TechStack = () => {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);

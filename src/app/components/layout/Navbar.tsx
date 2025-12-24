@@ -6,7 +6,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  
+
   // Draggable bubble states
   const [position, setPosition] = useState({ x: 20, y: 20 });
   const [isDragging, setIsDragging] = useState(false);
@@ -93,15 +93,16 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (isDragging) {
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("mouseup", handleMouseUp);
-      return () => {
-        window.removeEventListener("mousemove", handleMouseMove);
-        window.removeEventListener("mouseup", handleMouseUp);
-      };
-    }
-  }, [isDragging, dragStart]);
+    if (!isDragging) return;
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   return (
     <>
@@ -241,25 +242,29 @@ const Header = () => {
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {/* Icon Bubble */}
-                  <div className="w-12 h-12 bg-[#7FFFD4]/10 rounded-full 
+                  <div
+                    className="w-12 h-12 bg-[#7FFFD4]/10 rounded-full 
                     flex items-center justify-center
                     group-hover:bg-[#7FFFD4]/20
                     group-hover:scale-110
-                    transition-all duration-300">
-                    <span className="text-[#7FFFD4] text-2xl">
-                      {item.icon}
-                    </span>
+                    transition-all duration-300"
+                  >
+                    <span className="text-[#7FFFD4] text-2xl">{item.icon}</span>
                   </div>
 
                   {/* Label */}
-                  <span className="text-[#F5F5F5] text-sm font-medium 
-                    group-hover:text-[#7FFFD4] transition-colors duration-300">
+                  <span
+                    className="text-[#F5F5F5] text-sm font-medium 
+                    group-hover:text-[#7FFFD4] transition-colors duration-300"
+                  >
                     {item.label}
                   </span>
 
                   {/* Glow Effect on Hover */}
-                  <div className="absolute inset-0 rounded-3xl bg-[#7FFFD4]/0 
-                    group-hover:bg-[#7FFFD4]/5 transition-all duration-300" />
+                  <div
+                    className="absolute inset-0 rounded-3xl bg-[#7FFFD4]/0 
+                    group-hover:bg-[#7FFFD4]/5 transition-all duration-300"
+                  />
                 </a>
               ))}
             </div>

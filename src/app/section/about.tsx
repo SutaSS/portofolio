@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { FaSearch, FaUserGraduate, FaHeart, FaChartLine } from "react-icons/fa";
-import Image from "next/image";
 import TiltedCard from "../components/animations/TiltedCard";
 
 const About = () => {
