@@ -65,6 +65,11 @@ html {
   scroll-behavior: auto;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
