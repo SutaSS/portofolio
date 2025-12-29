@@ -151,15 +151,11 @@ const Header = () => {
         {/* Desktop Bubble Navbar */}
         <nav
           className="hidden lg:flex items-center gap-2 
-          bg-[#1A2A44]/40 border border-white/20 
+          bg-[#1A2A44]/80 backdrop-blur-xl border border-white/20 
           rounded-full px-3 py-2 
           shadow-lg shadow-[#7FFFD4]/10
           group hover:gap-1
           transition-all duration-300"
-          style={{ 
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)'
-          }}
         >
           {navigationItems.map((item) => (
             <a
@@ -184,7 +180,7 @@ const Header = () => {
         {/* Blur Background Overlay */}
         {menuOpen && (
           <div
-            className="fixed inset-0 bg-[#0D1B2A]/80 backdrop-blur-md z-40 animate-fade-in"
+            className="fixed inset-0 bg-[#0D1B2A]/60 backdrop-blur-lg z-40 animate-fade-in"
             onClick={() => setMenuOpen(false)}
           />
         )}
@@ -211,7 +207,7 @@ const Header = () => {
               e.stopPropagation();
               if (!isDragging) setMenuOpen(true);
             }}
-            className="w-16 h-16 bg-gradient-to-br from-[#1A2A44] to-[#708D81] 
+            className="w-16 h-16 bg-gradient-to-br from-[#1A2A44]/90 to-[#708D81]/90 backdrop-blur-md
             border-2 border-[#7FFFD4]/30 rounded-full 
             shadow-lg shadow-[#7FFFD4]/20 
             flex items-center justify-center
@@ -236,7 +232,7 @@ const Header = () => {
             <button
               onClick={() => setMenuOpen(false)}
               className="absolute top-6 right-6 w-12 h-12 
-              bg-gradient-to-br from-[#1A2A44] to-[#708D81] 
+              bg-gradient-to-br from-[#1A2A44]/90 to-[#708D81]/90 backdrop-blur-md
               border-2 border-[#7FFFD4]/30 rounded-full 
               shadow-lg shadow-[#7FFFD4]/20
               flex items-center justify-center
@@ -268,7 +264,7 @@ const Header = () => {
                   href={item.href}
                   onClick={handleNavClick(item.href)}
                   className={`group relative flex flex-col items-center justify-center gap-3 
-                  bg-gradient-to-br from-[#1A2A44] to-[#708D81] 
+                  bg-gradient-to-br from-[#1A2A44]/90 to-[#708D81]/90 backdrop-blur-md
                   border-2 border-[#7FFFD4]/20 rounded-3xl 
                   p-6 min-h-[120px]
                   shadow-lg shadow-[#7FFFD4]/10
