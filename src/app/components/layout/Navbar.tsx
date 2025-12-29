@@ -151,10 +151,15 @@ const Header = () => {
         {/* Desktop Bubble Navbar */}
         <nav
           className="hidden lg:flex items-center gap-2 
-          bg-[#1A2A44]/30 border border-white/20 
-          backdrop-blur-xl rounded-full px-3 py-2 
-          shadow-lg group hover:gap-1
-          transition-all duration-fast"
+          bg-[#1A2A44]/40 border border-white/20 
+          rounded-full px-3 py-2 
+          shadow-lg shadow-[#7FFFD4]/10
+          group hover:gap-1
+          transition-all duration-300"
+          style={{ 
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)'
+          }}
         >
           {navigationItems.map((item) => (
             <a
