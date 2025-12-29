@@ -152,7 +152,7 @@ const Header = () => {
         <nav
           className="hidden lg:flex items-center gap-2 
           bg-[#1A2A44]/30 border border-white/20 
-          backdrop-blur-md rounded-full px-3 py-2 
+          backdrop-blur-xl rounded-full px-3 py-2 
           shadow-lg group hover:gap-1
           transition-all duration-fast"
         >
