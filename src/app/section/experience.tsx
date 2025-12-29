@@ -72,7 +72,7 @@ const Experience = () => {
             Experience
           </h2>
           <p className={`text-olive-green/80 mt-6 text-lg font-inter italic ${
-            isVisible ? "animate-fade-in-up delay-200" : "animate-fade-out-down delay-200"
+            isVisible ? "animate-fade-in-up" : "animate-fade-out-down"
           }`}>
             The Begining of an Era
           </p>

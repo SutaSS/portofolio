@@ -34,6 +34,19 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isVisible]);
 
+  // Lock body scroll when mobile menu is open to avoid layout shift
+  useEffect(() => {
+    if (menuOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.dataset.prevOverflow = originalOverflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = document.body.dataset.prevOverflow || "";
+        delete document.body.dataset.prevOverflow;
+      };
+    }
+  }, [menuOpen]);
+
   // Draggable handlers for mobile bubble
   const handleTouchStart = (e: React.TouchEvent) => {
     if (menuOpen) return;
@@ -104,6 +117,24 @@ const Header = () => {
     };
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
+  const handleNavClick = (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
+    // Close menu immediately (for mobile) or just perform smooth scroll (desktop)
+    if (menuOpen) {
+      setMenuOpen(false);
+    }
+
+    const targetId = href.replace(/^\/?#/, "");
+    const element = document.getElementById(targetId || "home");
+    if (element) {
+      // Slight timeout so DOM updates (menu close) apply before scroll
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: "smooth" });
+      }, 50);
+    }
+  };
+
   return (
     <>
       <header
@@ -129,6 +160,7 @@ const Header = () => {
             <a
               key={item.label}
               href={item.href}
+              onClick={handleNavClick(item.href)}
               className="relative flex items-center gap-0 overflow-hidden rounded-full px-3 py-2 text-[#7FFFD4] hover:bg-[#708D81]/20 transition-all duration-300 group/item"
             >
               <span className="flex-shrink-0 transition-colors duration-500 group-hover/item:text-[#7FFFD4]">
@@ -229,7 +261,7 @@ const Header = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={handleNavClick(item.href)}
                   className={`group relative flex flex-col items-center justify-center gap-3 
                   bg-gradient-to-br from-[#1A2A44] to-[#708D81] 
                   border-2 border-[#7FFFD4]/20 rounded-3xl 
