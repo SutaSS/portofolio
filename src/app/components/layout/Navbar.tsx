@@ -130,7 +130,7 @@ const Header = () => {
     if (element) {
       // Slight timeout so DOM updates (menu close) apply before scroll
       setTimeout(() => {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView({ behavior: "auto" });
       }, 50);
     }
   };
