@@ -13,7 +13,7 @@ const Hero = () => {
         setIsVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.4, // Trigger when 40% of section is visible
+        threshold: 0.3, // Trigger when 10% of section is visible
         rootMargin: "0px" // Adjust for earlier/later trigger
       }
     );
@@ -32,7 +32,7 @@ const Hero = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "auto" });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -203,7 +203,7 @@ const Hero = () => {
           {/* Top Section: Photo + Name */}
           <div className="flex flex-col lg:flex-row items-center justify-center gap-12 mb-16">
             {/* Profile Photo with TiltedCard */}
-            <div className={`flex-shrink-0 ${isVisible ? 'animate-fade-in delay-100 ' : 'animate-fade-out delay-100'}`}>
+            <div className={`flex-shrink-0 ${isVisible ? 'animate-slide-in-right' : 'animate-slide-out-left'}`}>
               <div className="relative">
                 {/* Glowing border effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-olive-green to-neon-aqua rounded-full blur-2xl opacity-30 animate-pulse"></div>
@@ -236,20 +236,20 @@ const Hero = () => {
 
               <div className={`relative ${isVisible ? 'animate-fade-in-up delay-200' : 'animate-fade-out-down delay-200'}`}>
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-orbitron font-semibold text-soft-white italic">
-                  Front-End & Mobile Developer + UI/UX Designer
+                  &quot;Sakti is My Middle Name&quot;
                 </h2>
               </div>
 
               <p className={`text-olive-green text-lg md:text-xl font-inter ${isVisible ? 'animate-fade-in-up delay-300' : 'animate-fade-out-down delay-300'}`}>
-                Recreational endurance and strength training
+                Front-End & Mobile Developer + UI/UX Designer
               </p>
 
               {/* Download CV Button + Social Links */}
-              <div className={`flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 ${isVisible ? 'animate-fade-in-up delay-400' : 'animate-fade-out-down delay-400'}`}>
-                {/* Download CV Button */}
+              <div className={`flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 ${isVisible ? 'animate-slide-in-left delay-400' : 'animate-slide-out-right delay-400'}`}>
+                {/* Download CV Button */
                 <button
                   onClick={handleDownloadCV}
-                  className="group relative px-6 py-3 bg-gradient-to-r from-neon-aqua to-soft-white rounded-full font-orbitron font-semibold text-navy-blue hover:shadow-lg hover:shadow-neon-aqua/50 hover:cursor-pointer transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                  className="group relative px-6 py-3 bg-gradient-to-r from-neon-aqua to-soft-white rounded-full font-orbitron font-semibold text-navy-blue hover:shadow-lg hover:shadow-neon-aqua/50 transition-all duration-300 hover:scale-105 flex items-center gap-2"
                 >
                   <FaDownload className="group-hover:animate-bounce" />
                   Download CV
@@ -298,7 +298,7 @@ const Hero = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="group relative bg-navy-blue/50 border-2 border-olive-green/20 rounded-xl p-6 hover:border-neon-aqua/50 transition-all duration-300 hover:scale-105 hover:add-shadow-lg hover:cursor-pointer"
+                className="group relative bg-navy-blue/50 border-2 border-olive-green/20 rounded-xl p-6 hover:border-neon-aqua/50 transition-all duration-300 hover:scale-105"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-neon-aqua/0 to-neon-aqua/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="relative text-center space-y-2">

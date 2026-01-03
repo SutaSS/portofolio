@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { FaSearch, FaUserGraduate, FaHeart, FaChartLine } from "react-icons/fa";
+import Image from "next/image";
 import TiltedCard from "../components/animations/TiltedCard";
 
 const About = () => {
@@ -20,7 +21,7 @@ const About = () => {
         setIsVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.2, // Trigger when 20% of section is visible
+        threshold: 0.3, // Trigger when 30% of section is visible
         rootMargin: "0px", // Adjust for earlier/later trigger
       }
     );
@@ -66,12 +67,12 @@ const About = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="min-h-screen bg-dark-bg relative overflow-visible pt-16 lg:pt-8"
+      className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-8"
     >
       <div className="absolute inset-0 bg-dark-bg"></div>
       <div
-        className={`relative z-10 min-h-screen container mx-auto px-4 lg:px-8 justify-center flex flex-col py-16 lg:py-0 transition-all duration-700 ${
-          isVisible ? "opacity-100 " : "opacity-0"
+        className={`relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col transition-all duration-700 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
         {/* Title */}
@@ -79,8 +80,8 @@ const About = () => {
           <h2
             className={`text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4 ${
               isVisible
-                ? "animate-fade-in delay-100"
-                : "animate-fade-out-down delay-100"
+                ? "animate-fade-in-down delay-100"
+                : "animate-fade-out-up delay-100"
             }`}
           >
             About Me
@@ -92,8 +93,8 @@ const About = () => {
           <div
             className={`flex justify-center lg:justify-start ${
               isVisible
-                ? "animate-slide-in-right delay-300"
-                : "animate-slide-out-right delay-300"
+                ? "animate-slide-in-left delay-200"
+                : "animate-slide-out-right delay-200"
             }`}
           >
             <div className="relative">
@@ -125,8 +126,8 @@ const About = () => {
           <div
             className={`space-y-8 ${
               isVisible
-                ? "animate-fade-in delay-400"
-                : "animate-fade-out delay-400"
+                ? "animate-slide-in-right delay-300"
+                : "animate-slide-out-left delay-300"
             }`}
           >
             {/* Main Description */}
