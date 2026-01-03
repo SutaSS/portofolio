@@ -85,9 +85,9 @@ const Achievements = () => {
     <section
       ref={sectionRef}
       id="achievements"
-      className="min-h-screen bg-dark-bg relative overflow-visible pt-16 lg:pt-0"
+      className="min-h-screen bg-dark-bg relative overflow-visible pt-24 lg:pt-0"
     >
-      <div className={`relative z-10 min-h-screen container mx-auto px-4 lg:px-8 justify-center flex flex-col py-16 lg:py-24 transition-all duration-700 ${
+      <div className={`relative z-10 min-h-screen container mx-auto px-8 justify-center flex flex-col py-20 transition-all duration-700 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
       }`}>
         

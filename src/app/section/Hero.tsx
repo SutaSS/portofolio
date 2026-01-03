@@ -244,9 +244,7 @@ const Hero = () => {
                 Front-End & Mobile Developer + UI/UX Designer
               </p>
 
-              {/* Download CV Button + Social Links */}
-              <div className={`flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 ${isVisible ? 'animate-slide-in-left delay-400' : 'animate-slide-out-right delay-400'}`}>
-                {/* Download CV Button */
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 animate-fade-in-up delay-400">
                 <button
                   onClick={handleDownloadCV}
                   className="group relative px-6 py-3 bg-gradient-to-r from-neon-aqua to-soft-white rounded-full font-orbitron font-semibold text-navy-blue hover:shadow-lg hover:shadow-neon-aqua/50 transition-all duration-300 hover:scale-105 flex items-center gap-2"
