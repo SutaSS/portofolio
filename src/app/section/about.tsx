@@ -66,16 +66,16 @@ const About = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="min-h-screen bg-dark-bg relative overflow-visible pt-16 lg:pt-8"
+      className="min-h-fit bg-dark-bg relative overflow-visible pt-12 lg:pt-8"
     >
       <div className="absolute inset-0 bg-dark-bg"></div>
       <div
-        className={`relative z-10 min-h-screen container mx-auto px-4 lg:px-8 justify-center flex flex-col py-16 lg:py-0 transition-all duration-700 ${
+        className={`relative z-10 container mx-auto px-4 lg:px-8 justify-center flex flex-col py-12 lg:py-20 transition-all duration-700 ${
           isVisible ? "opacity-100 " : "opacity-0"
         }`}
       >
         {/* Title */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2
             className={`text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4 ${
               isVisible

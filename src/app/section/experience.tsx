@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { experiences } from "../data/experience";
 
 const Experience = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [cardVisibility, setCardVisibility] = useState<{[key: string]: boolean}>({});
   const sectionRef = useRef<HTMLElement | null>(null);
   const cardRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
@@ -23,39 +23,51 @@ const Experience = () => {
       observer.observe(sectionRef.current);
     }
 
-    // Observer for individual cards
-    const cardObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const cardId = entry.target.getAttribute('data-card-id');
-          if (cardId) {
-            setCardVisibility(prev => ({
-              ...prev,
-              [cardId]: entry.isIntersecting
-            }));
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "0px",
-      }
-    );
-
-    // Observe all cards
-    Object.values(cardRefs.current).forEach((ref) => {
-      if (ref) cardObserver.observe(ref);
-    });
-
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
       }
-      Object.values(cardRefs.current).forEach((ref) => {
-        if (ref) cardObserver.unobserve(ref);
-      });
     };
   }, []);
+
+  // Separate effect for cards - only observe after section is visible with delay
+  useEffect(() => {
+    if (!isVisible) return;
+
+    // Delay card observation to allow title animation to complete
+    const timeoutId = setTimeout(() => {
+      const cardObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const cardId = entry.target.getAttribute('data-card-id');
+            if (cardId) {
+              setCardVisibility(prev => ({
+                ...prev,
+                [cardId]: entry.isIntersecting
+              }));
+            }
+          });
+        },
+        {
+          threshold: 0.3,
+          rootMargin: "-50px",
+        }
+      );
+
+      // Observe all cards
+      Object.values(cardRefs.current).forEach((ref) => {
+        if (ref) cardObserver.observe(ref);
+      });
+
+      return () => {
+        Object.values(cardRefs.current).forEach((ref) => {
+          if (ref) cardObserver.unobserve(ref);
+        });
+      };
+    }, 600);
+
+    return () => clearTimeout(timeoutId);
+  }, [isVisible]);
 
   return (
     <section
@@ -63,9 +75,9 @@ const Experience = () => {
       id="experience"
       className="min-h-screen bg-dark-bg relative overflow-visible pt-16 lg:pt-0"
     >
-      <div className="relative z-10 min-h-screen container mx-auto px-4 lg:px-8 justify-center flex flex-col py-16 lg:py-24">
+      <div className="relative z-10 container mx-auto px-4 lg:px-8 justify-center flex flex-col py-12 lg:py-20">
         {/* Title */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className={`text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4 ${
             isVisible ? "animate-fade-in-down" : "animate-fade-out-up"
           }`}>

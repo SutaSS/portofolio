@@ -197,7 +197,7 @@ const Hero = () => {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-olive-green/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-8 min-h-screen flex flex-col justify-center items-center py-20">
+      <div className="relative z-10 container mx-auto px-8 min-h-screen flex flex-col justify-center items-center py-12">
         {/* Main Content */}
         <div className={`w-full max-w-6xl transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Top Section: Photo + Name */}

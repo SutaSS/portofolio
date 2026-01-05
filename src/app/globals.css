@@ -63,11 +63,17 @@ h1, h2, h3, h4, h5, h6, p, span, div, a, button {
 
 html {
   scroll-behavior: auto;
+  margin: 0;
+  padding: 0;
 }
 
 html,
 body {
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100vw;
 }
 
 ::-webkit-scrollbar {
