@@ -12,8 +12,10 @@ const Projects = () => {
   const [, setHasAnimated] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [, setIsFiltering] = useState(false);
-  const [showProjects, setShowProjects] = useState(true); 
+  const [showProjects, setShowProjects] = useState(true);
+  const [cardVisibility, setCardVisibility] = useState<{[key: string]: boolean}>({});
   const sectionRef = useRef<HTMLElement | null>(null);
+  const cardRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
 
   useEffect(() => {
     // Check if mobile
@@ -50,6 +52,44 @@ const Projects = () => {
       }
     };
   }, [isMobile]);
+
+  // Observer for individual project cards
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const timeoutId = setTimeout(() => {
+      const cardObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const cardId = entry.target.getAttribute('data-card-id');
+            if (cardId) {
+              setCardVisibility(prev => ({
+                ...prev,
+                [cardId]: entry.isIntersecting
+              }));
+            }
+          });
+        },
+        {
+          threshold: 0.2,
+          rootMargin: "-50px",
+        }
+      );
+
+      // Observe all cards
+      Object.values(cardRefs.current).forEach((ref) => {
+        if (ref) cardObserver.observe(ref);
+      });
+
+      return () => {
+        Object.values(cardRefs.current).forEach((ref) => {
+          if (ref) cardObserver.unobserve(ref);
+        });
+      };
+    }, 400);
+
+    return () => clearTimeout(timeoutId);
+  }, [isVisible, filteredProjects]);
 
   const handleCategoryFilter = (categoryId: string) => {
     if (categoryId === activeCategory) return;
@@ -122,12 +162,16 @@ const Projects = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {showProjects ? (
             // Real projects
-            filteredProjects.map((project,) => (
+            filteredProjects.map((project) => (
               <div
                 key={project.id}
-                className={`group relative bg-navy-blue/50 rounded-2xl overflow-hidden border border-olive-green/20 hover:border-neon-aqua/50 transition-all duration-300 transform hover:scale-105 ${
-              isVisible ? "animate-fade-in-down delay-100" : "animate-fade-out-up"
-            }`}
+                ref={(el) => { cardRefs.current[project.id] = el; }}
+                data-card-id={project.id}
+                className={`group relative bg-navy-blue/50 rounded-2xl overflow-hidden border border-olive-green/20 hover:border-neon-aqua/50 transition-all duration-700 transform hover:scale-105 ${
+                  cardVisibility[project.id] 
+                    ? "opacity-100 translate-y-0" 
+                    : "opacity-0 translate-y-10"
+                }`}
               >
                 {/* Project Image */}
                 <div className="relative h-48 bg-gradient-to-br from-olive-green/20 to-neon-aqua/20 overflow-hidden">
