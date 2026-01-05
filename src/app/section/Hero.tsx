@@ -236,7 +236,7 @@ const Hero = () => {
 
               <div className={`relative ${isVisible ? 'animate-fade-in-up delay-200' : 'animate-fade-out-down delay-200'}`}>
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-orbitron font-semibold text-soft-white italic">
-                  Front-End & Mobile Developer + UI/UX Designer
+                  Fullstack Developer + UI/UX Designer
                 </h2>
               </div>
 

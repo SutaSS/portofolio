@@ -71,6 +71,27 @@ export const techStacks: TechStack[] = [
   },
    // Backend
   {
+    id: '22',
+    name: 'Node.js',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+    color: '#339933', // Node.js green
+    category: 'backend',
+  },
+  {
+    id: '23',
+    name: 'Express.js',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg',
+    color: '#E5E5E5', // Express gray/white
+    category: 'backend',
+  },
+  {
+    id: '24',
+    name: 'JavaScript',
+    icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+    color: '#F7DF1E', // JavaScript yellow
+    category: 'backend',
+  },
+  {
     id: '3',
     name: 'Python',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
@@ -84,13 +105,12 @@ export const techStacks: TechStack[] = [
     color: '#FF2D20', // Laravel red
     category: 'backend',
   },
-
   {
     id: '10',
     name: 'Firebase',
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg',
     color: '#FFCA28', // Firebase yellow
-    category: 'backend',
+    category: 'database',
   },
   // Database
   {
