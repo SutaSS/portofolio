@@ -15,17 +15,30 @@ export const experiences: Experience[] = [
     current: true,
   },
   {
+    id: '7',
+    title: 'Vice Chief of Infrastructure Technology',
+    company: 'Raion Community',
+    location: 'Fakultas Ilmu Komputer, Universitas Brawijaya',
+    period: 'January 2025 - Present',
+    description: [
+      'Leading the Infrastructure Technology division focused on technical operations and system reliability.',
+      'Coordinating technical infrastructure initiatives and overseeing technology stack management.',
+      'Collaborating with division members to maintain and improve community technical resources.',
+    ],
+    current: true,
+  },
+  {
     id: '3',
     title: 'Staff Innovation of Technology',
     company: 'Raion Community',
     location: 'Fakultas Ilmu Komputer, Universitas Brawijaya',
-    period: 'February 2025 - Present',
+    period: 'February 2025 - December 2025',
     description: [
       'Serving as Co-Lead of Game Management under the Innovation of Technology division.',
       'Managing and maintaining Raion Community official itch.io page.',
       'Promoting members\' projects to enhance exposure within indie game and campus communities.',
     ],
-    current: true,
+    current: false,
   },
   {
     id: '1',
