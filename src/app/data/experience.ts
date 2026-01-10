@@ -2,6 +2,19 @@ import { Experience } from "../types/experience";
 
 export const experiences: Experience[] = [
   {
+    id: '7',
+    title: 'Vice Chief of Infrastructure Technology',
+    company: 'Raion Community',
+    location: 'Fakultas Ilmu Komputer, Universitas Brawijaya',
+    period: 'January 2026 - Present',
+    description: [
+      'Leading the Infrastructure Technology division focused on technical operations and system reliability.',
+      'Coordinating technical infrastructure initiatives and overseeing technology stack management.',
+      'Collaborating with division members to maintain and improve community technical resources.',
+    ],
+    current: true,
+  },
+  {
     id: '2',
     title: 'Mobile Application Developer',
     company: 'Raion Community',
@@ -11,19 +24,6 @@ export const experiences: Experience[] = [
       'Developing mobile apps using Flutter with focus on scalable architecture and clean UI/UX.',
       'Contributed to the development of Serenia, a mental well-being app.',
       'Learning Jetpack Compose and Kotlin for Android development.',
-    ],
-    current: true,
-  },
-  {
-    id: '7',
-    title: 'Vice Chief of Infrastructure Technology',
-    company: 'Raion Community',
-    location: 'Fakultas Ilmu Komputer, Universitas Brawijaya',
-    period: 'January 2025 - Present',
-    description: [
-      'Leading the Infrastructure Technology division focused on technical operations and system reliability.',
-      'Coordinating technical infrastructure initiatives and overseeing technology stack management.',
-      'Collaborating with division members to maintain and improve community technical resources.',
     ],
     current: true,
   },
