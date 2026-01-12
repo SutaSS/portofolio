@@ -4,16 +4,30 @@ import { experiences } from "../data/experience";
 
 const Experience = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [, setHasAnimated] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [cardVisibility, setCardVisibility] = useState<{[key: string]: boolean}>({});
   const sectionRef = useRef<HTMLElement | null>(null);
   const cardRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
-  const cardObserverRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    // Check if mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const currentSection = sectionRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
+        setHasAnimated(entry.isIntersecting);
       },
       {
         threshold: 0.1,
@@ -30,7 +44,7 @@ const Experience = () => {
         observer.unobserve(currentSection);
       }
     };
-  }, []);
+  }, [isMobile]);
 
   // Separate effect for cards - only observe after section is visible with delay
   useEffect(() => {
@@ -38,42 +52,37 @@ const Experience = () => {
 
     // Delay card observation to allow title animation to complete
     const timeoutId = setTimeout(() => {
-      // Clean up previous observer if exists
-      if (cardObserverRef.current) {
-        cardObserverRef.current.disconnect();
-      }
-
-      cardObserverRef.current = new IntersectionObserver(
+      const cardObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             const cardId = entry.target.getAttribute('data-card-id');
-            if (cardId && entry.isIntersecting) {
-              // Only set to true, never back to false (once visible, stay visible)
+            if (cardId) {
               setCardVisibility(prev => ({
                 ...prev,
-                [cardId]: true
+                [cardId]: entry.isIntersecting
               }));
             }
           });
         },
         {
-          threshold: 0.1,
-          rootMargin: "0px",
+          threshold: 0.2,
+          rootMargin: "-50px",
         }
       );
 
       // Observe all cards
       Object.values(cardRefs.current).forEach((ref) => {
-        if (ref) cardObserverRef.current?.observe(ref);
+        if (ref) cardObserver.observe(ref);
       });
-    }, 300);
 
-    return () => {
-      clearTimeout(timeoutId);
-      if (cardObserverRef.current) {
-        cardObserverRef.current.disconnect();
-      }
-    };
+      return () => {
+        Object.values(cardRefs.current).forEach((ref) => {
+          if (ref) cardObserver.unobserve(ref);
+        });
+      };
+    }, 400);
+
+    return () => clearTimeout(timeoutId);
   }, [isVisible]);
 
   return (
@@ -82,16 +91,18 @@ const Experience = () => {
       id="experience"
       className="min-h-screen bg-dark-bg relative overflow-visible pt-16 lg:pt-0"
     >
-      <div className="relative z-10 container mx-auto px-4 lg:px-8 justify-center flex flex-col py-12 lg:py-20">
+      <div className={`relative z-10 container mx-auto px-4 lg:px-8 justify-center flex flex-col py-12 lg:py-20 transition-all duration-700 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}>
         {/* Title */}
         <div className="text-center mb-12">
-          <h2 className={`text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4 ${
-            isVisible ? "animate-fade-in-down" : "animate-fade-out-up"
+          <h2 className={`text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4 transition-all duration-700 ${
+            isVisible ? "animate-fade-in-down delay-100" : "animate-fade-out-up"
           }`}>
             Experience
           </h2>
-          <p className={`text-olive-green/80 mt-6 text-lg font-inter italic ${
-            isVisible ? "animate-fade-in-up" : "animate-fade-out-down"
+          <p className={`text-olive-green/80 mt-6 text-lg font-inter italic transition-all duration-700 ${
+            isVisible ? "animate-fade-in-up delay-100" : "animate-fade-out-down"
           }`}>
             The Begining of an Era
           </p>
@@ -212,7 +223,7 @@ const Experience = () => {
         </div>
 
         {/* Call to Action */}
-        <div className={`text-center mt-16 ${
+        <div className={`text-center mt-16 transition-all duration-700 ${
           isVisible ? "animate-fade-in-up delay-700" : "animate-fade-out-down delay-700"
         }`}>
           <button
