@@ -8,9 +8,10 @@ export const experiences: Experience[] = [
     location: 'Fakultas Ilmu Komputer, Universitas Brawijaya',
     period: 'January 2026 - Present',
     description: [
-      'Leading the Infrastructure Technology division focused on technical operations and system reliability.',
-      'Coordinating technical infrastructure initiatives and overseeing technology stack management.',
-      'Collaborating with division members to maintain and improve community technical resources.',
+      'Leading the Infrastructure Technology division to ensure reliable technical operations.',
+      'Coordinating infrastructure initiatives and managing the technology stack.',
+      'Collaborating with members to maintain and improve technical resources.',
+
     ],
     current: true,
   },

@@ -7,25 +7,27 @@ const Experience = () => {
   const [cardVisibility, setCardVisibility] = useState<{[key: string]: boolean}>({});
   const sectionRef = useRef<HTMLElement | null>(null);
   const cardRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
+  const cardObserverRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
+    const currentSection = sectionRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.2,
+        threshold: 0.1,
         rootMargin: "0px",
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (currentSection) {
+      observer.observe(currentSection);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentSection) {
+        observer.unobserve(currentSection);
       }
     };
   }, []);
@@ -36,37 +38,42 @@ const Experience = () => {
 
     // Delay card observation to allow title animation to complete
     const timeoutId = setTimeout(() => {
-      const cardObserver = new IntersectionObserver(
+      // Clean up previous observer if exists
+      if (cardObserverRef.current) {
+        cardObserverRef.current.disconnect();
+      }
+
+      cardObserverRef.current = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             const cardId = entry.target.getAttribute('data-card-id');
-            if (cardId) {
+            if (cardId && entry.isIntersecting) {
+              // Only set to true, never back to false (once visible, stay visible)
               setCardVisibility(prev => ({
                 ...prev,
-                [cardId]: entry.isIntersecting
+                [cardId]: true
               }));
             }
           });
         },
         {
-          threshold: 0.3,
-          rootMargin: "-50px",
+          threshold: 0.1,
+          rootMargin: "0px",
         }
       );
 
       // Observe all cards
       Object.values(cardRefs.current).forEach((ref) => {
-        if (ref) cardObserver.observe(ref);
+        if (ref) cardObserverRef.current?.observe(ref);
       });
+    }, 300);
 
-      return () => {
-        Object.values(cardRefs.current).forEach((ref) => {
-          if (ref) cardObserver.unobserve(ref);
-        });
-      };
-    }, 600);
-
-    return () => clearTimeout(timeoutId);
+    return () => {
+      clearTimeout(timeoutId);
+      if (cardObserverRef.current) {
+        cardObserverRef.current.disconnect();
+      }
+    };
   }, [isVisible]);
 
   return (
