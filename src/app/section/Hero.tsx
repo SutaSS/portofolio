@@ -1,5 +1,5 @@
 "use client";
-import React, {useState, useRef, useEffect} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaGithub, FaLinkedin, FaInstagram, FaDownload } from "react-icons/fa";
 import TiltedCard from "../components/animations/TiltedCard";
 
@@ -14,8 +14,8 @@ const Hero = () => {
       },
       {
         threshold: 0.4, // Trigger when 40% of section is visible
-        rootMargin: "0px" // Adjust for earlier/later trigger
-      }
+        rootMargin: "0px", // Adjust for earlier/later trigger
+      },
     );
 
     if (sectionRef.current) {
@@ -172,13 +172,21 @@ const Hero = () => {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M12 2l2.6 5.6L20 9l-4 3.6L17.2 20 12 16.9 6.8 20 8 12.6 4 9l5.4-1.4L12 2z"
+          <rect
+            x="3"
+            y="5"
+            width="18"
+            height="14"
+            rx="2"
             stroke="currentColor"
-            strokeWidth="1.1"
+            strokeWidth="1.6"
+          />
+          <path
+            d="M3 8l9 6 9-6"
+            stroke="currentColor"
+            strokeWidth="1.6"
             strokeLinecap="round"
             strokeLinejoin="round"
-            fill="transparent"
           />
         </svg>
       ),
@@ -192,18 +200,24 @@ const Hero = () => {
       className="min-h-screen bg-gradient-to-b from-navy-blue via-navy-blue to-dark-bg relative overflow-hidden"
     >
       {/* Animated background elements */}
-      <div className={`absolute inset-0 overflow-hidden transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      <div
+        className={`absolute inset-0 overflow-hidden transition-opacity duration-700 ${isVisible ? "opacity-100" : "opacity-0"}`}
+      >
         <div className="absolute top-20 left-10 w-72 h-72 bg-neon-aqua/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-olive-green/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="relative z-10 container mx-auto px-8 min-h-screen flex flex-col justify-center items-center py-12">
         {/* Main Content */}
-        <div className={`w-full max-w-6xl transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div
+          className={`w-full max-w-6xl transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        >
           {/* Top Section: Photo + Name */}
           <div className="flex flex-col lg:flex-row items-center justify-center gap-12 mb-16">
             {/* Profile Photo with TiltedCard */}
-            <div className={`flex-shrink-0 ${isVisible ? 'animate-fade-in delay-100 ' : 'animate-fade-out delay-100'}`}>
+            <div
+              className={`flex-shrink-0 ${isVisible ? "animate-fade-in delay-100 " : "animate-fade-out delay-100"}`}
+            >
               <div className="relative">
                 {/* Glowing border effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-olive-green to-neon-aqua rounded-full blur-2xl opacity-30 animate-pulse"></div>
@@ -230,22 +244,30 @@ const Hero = () => {
 
             {/* Name & Title */}
             <div className="text-center lg:text-left space-y-6 flex-1">
-              <h1 className={`font-orbitron font-bold text-4xl md:text-5xl lg:text-6xl ${isVisible ? 'animate-fade-in-up' : 'animate-fade-out-down'}`}>
+              <h1
+                className={`font-orbitron font-bold text-4xl md:text-5xl lg:text-6xl ${isVisible ? "animate-fade-in-up" : "animate-fade-out-down"}`}
+              >
                 <span className="text-neon-aqua">Andika Saktidana Hernadi</span>
               </h1>
 
-              <div className={`relative ${isVisible ? 'animate-fade-in-up delay-200' : 'animate-fade-out-down delay-200'}`}>
+              <div
+                className={`relative ${isVisible ? "animate-fade-in-up delay-200" : "animate-fade-out-down delay-200"}`}
+              >
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-orbitron font-semibold text-soft-white italic">
                   Fullstack Developer + UI/UX Designer
                 </h2>
               </div>
 
-              <p className={`text-olive-green text-lg md:text-xl font-inter ${isVisible ? 'animate-fade-in-up delay-300' : 'animate-fade-out-down delay-300'}`}>
+              <p
+                className={`text-olive-green text-lg md:text-xl font-inter ${isVisible ? "animate-fade-in-up delay-300" : "animate-fade-out-down delay-300"}`}
+              >
                 Recreational endurance and strength training
               </p>
 
               {/* Download CV Button + Social Links */}
-              <div className={`flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 ${isVisible ? 'animate-fade-in-up delay-400' : 'animate-fade-out-down delay-400'}`}>
+              <div
+                className={`flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 ${isVisible ? "animate-fade-in-up delay-400" : "animate-fade-out-down delay-400"}`}
+              >
                 {/* Download CV Button */}
                 <button
                   onClick={handleDownloadCV}
@@ -293,7 +315,9 @@ const Hero = () => {
           </div>
 
           {/* Quick Menu - Updated with SVG icons */}
-          <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 ${isVisible ? 'animate-fade-in-down delay-500' : 'animate-fade-out-up delay-500'}`}>
+          <div
+            className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 ${isVisible ? "animate-fade-in-down delay-500" : "animate-fade-out-up delay-500"}`}
+          >
             {quickMenuItems.map((item) => (
               <button
                 key={item.id}
