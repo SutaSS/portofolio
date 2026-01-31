@@ -231,7 +231,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-7xl mx-auto items-stretch">
           
           {/* LEFT SIDE - Chat Form */}
-          <div className={`bg-navy-blue/50 rounded-2xl border-2 border-olive-green/20 p-5 md:p-6 lg:p-8 flex flex-col min-h-[500px] lg:min-h-0 ${
+          <div className={`bg-navy-blue/50 rounded-2xl border-2 border-olive-green/20 p-5 md:p-6 lg:p-8 flex flex-col ${
             isVisible ? "animate-fade-in-left" : ""
           }`}>
             <h3 className="text-lg md:text-xl font-orbitron font-bold text-neon-aqua mb-4">
@@ -241,7 +241,7 @@ const Contact = () => {
             {/* Chat Messages Container */}
             <div 
               ref={chatContainerRef}
-              className="flex-1 overflow-y-auto mb-4 space-y-3 pr-2 scrollbar-thin scrollbar-thumb-neon-aqua/30 scrollbar-track-navy-blue/50 scroll-smooth"
+              className="max-h-[350px] md:max-h-[400px] overflow-y-scroll mb-4 space-y-3 pr-2 scrollbar-thin scrollbar-thumb-neon-aqua/30 scrollbar-track-navy-blue/50 scroll-smooth"
             >
               {chatMessages.map((msg) => (
                 <div
