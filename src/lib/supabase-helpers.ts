@@ -79,11 +79,11 @@ export async function uploadImage(file: File, bucket: string = 'images') {
   }
 
   // Get public URL
-  const { data: { publicUrl } } = supabase.storage
+  const { data: urlData } = supabase.storage
     .from(bucket)
     .getPublicUrl(filePath);
 
-  return publicUrl;
+  return urlData.publicUrl;
 }
 
 // 7. Contoh: Realtime subscription

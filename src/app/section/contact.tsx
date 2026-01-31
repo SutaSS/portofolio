@@ -142,7 +142,7 @@ const Contact = () => {
         setFormData(prev => ({ ...prev, name: value }));
         addBotMessage(`Nice to meet you, ${value}!`);
         await new Promise(resolve => setTimeout(resolve, 600));
-        addBotMessage("What's your email address?");
+        addBotMessage("What&apos;s your email address?");
         setCurrentStep('email');
         break;
         
