@@ -145,13 +145,21 @@ export const navigationItems = [
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          d="M12 2l2.6 5.6L20 9l-4 3.6L17.2 20 12 16.9 6.8 20 8 12.6 4 9l5.4-1.4L12 2z"
+        <rect
+          x="3"
+          y="5"
+          width="18"
+          height="14"
+          rx="2"
           stroke="currentColor"
-          strokeWidth="1.1"
+          strokeWidth="1.6"
+        />
+        <path
+          d="M3 8l9 6 9-6"
+          stroke="currentColor"
+          strokeWidth="1.6"
           strokeLinecap="round"
           strokeLinejoin="round"
-          fill="transparent"
         />
       </svg>
     ),
