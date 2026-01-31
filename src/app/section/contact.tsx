@@ -16,13 +16,13 @@ const Contact = () => {
     {
       id: '1',
       type: 'bot',
-      message: "Hi! I'm Andika's virtual assistant. I'd love to hear from you!",
+      message: "Hi! I&apos;m Andika&apos;s virtual assistant. I&apos;d love to hear from you!",
       timestamp: new Date()
     },
     {
       id: '2',
       type: 'bot',
-      message: "What's your name?",
+      message: "What&apos;s your name?",
       timestamp: new Date()
     }
   ]);
@@ -150,7 +150,7 @@ const Contact = () => {
         // Simple email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
-          addBotMessage("Hmm, that doesn't look like a valid email. Can you try again?");
+          addBotMessage("Hmm, that doesn&apos;t look like a valid email. Can you try again?");
           return;
         }
         setFormData(prev => ({ ...prev, email: value }));
@@ -179,20 +179,20 @@ const Contact = () => {
               {
                 id: '1',
                 type: 'bot',
-                message: "Hi! I'm Andika's virtual assistant. I'd love to hear from you!",
+                message: "Hi! I&apos;m Andika&apos;s virtual assistant. I&apos;d love to hear from you!",
                 timestamp: new Date()
               },
               {
                 id: '2',
                 type: 'bot',
-                message: "What's your name?",
+                message: "What&apos;s your name?",
                 timestamp: new Date()
               }
             ]);
             setCurrentStep('name');
             setFormData({ name: '', email: '', message: '' });
           }, 3000);
-        } catch (error) {
+        } catch {
           addBotMessage("Oops! Something went wrong. Please try again later.");
         } finally {
           setIsSubmitting(false);
@@ -223,7 +223,7 @@ const Contact = () => {
           <p className={`text-olive-green/80 text-base md:text-lg font-inter ${
             isVisible ? "animate-fade-in-up delay-200" : ""
           }`}>
-            Let's start a conversation
+            Let&apos;s start a conversation
           </p>
         </div>
 

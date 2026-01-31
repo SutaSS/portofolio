@@ -18,7 +18,7 @@ export async function getAchievements() {
 }
 
 // 3. Contoh: Menambahkan data baru
-export async function addAchievement(achievement: any) {
+export async function addAchievement(achievement: Record<string, unknown>) {
   const { data, error } = await supabase
     .from('achievements')
     .insert([achievement])
@@ -33,7 +33,7 @@ export async function addAchievement(achievement: any) {
 }
 
 // 4. Contoh: Update data
-export async function updateAchievement(id: string, updates: any) {
+export async function updateAchievement(id: string, updates: Record<string, unknown>) {
   const { data, error } = await supabase
     .from('achievements')
     .update(updates)
@@ -69,7 +69,7 @@ export async function uploadImage(file: File, bucket: string = 'images') {
   const fileName = `${Math.random()}.${fileExt}`;
   const filePath = `${fileName}`;
 
-  const { data, error } = await supabase.storage
+  const { error } = await supabase.storage
     .from(bucket)
     .upload(filePath, file);
 
@@ -87,7 +87,7 @@ export async function uploadImage(file: File, bucket: string = 'images') {
 }
 
 // 7. Contoh: Realtime subscription
-export function subscribeToAchievements(callback: (payload: any) => void) {
+export function subscribeToAchievements(callback: (payload: unknown) => void) {
   const channel = supabase
     .channel('achievements-changes')
     .on(
