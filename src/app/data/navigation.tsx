@@ -136,8 +136,8 @@ export const navigationItems = [
     ),
   },
   {
-    label: "Achievements",
-    href: "#achievements",
+    label: "Contact",
+    href: "#contact",
     icon: (
       <svg
         viewBox="0 0 24 24"

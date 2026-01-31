@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# local markdown files
+SUPABASE_SETUP.md
+CONTACT_PAGE_GUIDE.md
+RESEND_SETUP_FINAL.md

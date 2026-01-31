@@ -162,9 +162,9 @@ const Hero = () => {
       ),
     },
     {
-      id: "achievements",
-      label: "Achievements",
-      description: "My milestones",
+      id: "contact",
+      label: "Contact",
+      description: "Get in touch",
       icon: (
         <svg
           viewBox="0 0 24 24"
