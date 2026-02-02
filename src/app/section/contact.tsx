@@ -71,10 +71,12 @@ const Contact = () => {
     }
   }, [chatMessages]);
 
-  // Focus input when step changes
+  // Focus input when step changes (only if section is visible)
   useEffect(() => {
-    inputRef.current?.focus();
-  }, [currentStep]);
+    if (isVisible) {
+      inputRef.current?.focus();
+    }
+  }, [currentStep, isVisible]);
 
   // Achievement navigation handlers
   const handleNextAchievement = () => {
