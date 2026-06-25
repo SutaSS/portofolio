@@ -16,84 +16,66 @@ const TechStack = () => {
     const ctx = gsap.context(() => {
       if (!sectionRef.current) return;
 
-      // Pure fade in animation for desktop orbital bubbles
-      gsap.fromTo(
-        bubblesRef.current,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 1.5,
-          stagger: 0.08,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-            onEnter: () => {
-              bubblesRef.current.forEach((el, index) => {
-                if (!el) return;
-                gsap.to(el, {
-                  y: -16,
-                  duration: 2 + (index % 3) * 0.4,
-                  repeat: -1,
-                  yoyo: true,
-                  ease: "power1.inOut",
-                  delay: 1.5 + index * 0.1,
-                });
-              });
-            },
-          },
-        }
-      );
+      // Bubbles already visible — just trigger the floating animation on scroll
+      gsap.set(bubblesRef.current, { opacity: 1 });
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 80%",
+        toggleActions: "play none none none",
+        onEnter: () => {
+          bubblesRef.current.forEach((el, index) => {
+            if (!el) return;
+            gsap.to(el, {
+              y: -16,
+              duration: 2 + (index % 3) * 0.4,
+              repeat: -1,
+              yoyo: true,
+              ease: "power1.inOut",
+              delay: index * 0.08,
+            });
+          });
+        },
+      });
 
-      // Pure fade in animation for mobile bubbles
-      gsap.fromTo(
-        mobileBubblesRef.current,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 1.5,
-          stagger: 0.08,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
-            onEnter: () => {
-              mobileBubblesRef.current.forEach((el, index) => {
-                if (!el) return;
-                gsap.to(el, {
-                  y: -12,
-                  duration: 2 + (index % 3) * 0.4,
-                  repeat: -1,
-                  yoyo: true,
-                  ease: "power1.inOut",
-                  delay: 1.5 + index * 0.1,
-                });
-              });
-            },
-          },
-        }
-      );
+      // Mobile bubbles
+      gsap.set(mobileBubblesRef.current, { opacity: 1 });
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 85%",
+        toggleActions: "play none none none",
+        onEnter: () => {
+          mobileBubblesRef.current.forEach((el, index) => {
+            if (!el) return;
+            gsap.to(el, {
+              y: -12,
+              duration: 2 + (index % 3) * 0.4,
+              repeat: -1,
+              yoyo: true,
+              ease: "power1.inOut",
+              delay: index * 0.08,
+            });
+          });
+        },
+      });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  // Orbital positions: center shifted left for visual balance
-  // Center: x=440, y=390 (center of 780px wrapper)
+  // Orbital positions: center shifted slightly right for balance
+  // Center: x=480, y=390
   // Ring 1 (8 items): Radius X=320px, Radius Y=240px
   // Ring 2 (11 items): Radius X=500px, Radius Y=360px
   const getOrbitalPosition = (index: number) => {
     if (index < 8) {
       const angle = (index / 8) * 2 * Math.PI;
-      const x = 440 + Math.round(Math.cos(angle) * 320);
+      const x = 480 + Math.round(Math.cos(angle) * 320);
       const y = 390 + Math.round(Math.sin(angle) * 240);
       return { left: `${x}px`, top: `${y}px` };
     } else {
       const subIndex = index - 8;
       const angle = (subIndex / 11) * 2 * Math.PI;
-      const x = 440 + Math.round(Math.cos(angle) * 500);
+      const x = 480 + Math.round(Math.cos(angle) * 500);
       const y = 390 + Math.round(Math.sin(angle) * 360);
       return { left: `${x}px`, top: `${y}px` };
     }
