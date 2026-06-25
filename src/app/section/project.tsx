@@ -13,6 +13,11 @@ const ProjectSection = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
+  // Drag to scroll state
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
   useEffect(() => {
     setIsTransitioning(true);
     const timer = setTimeout(() => {
@@ -49,6 +54,30 @@ const ProjectSection = () => {
     };
   }, []);
 
+  // Mouse Drag Handlers for horizontal scrolling
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeft(scrollContainerRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // scroll speed multiplier
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
   return (
     <section
       id="projects"
@@ -56,13 +85,13 @@ const ProjectSection = () => {
     >
       {/* Title Area (Centered Container) */}
       <div className="container mx-auto px-6 lg:px-12 max-w-7xl mb-16">
-        <div className="max-w-3xl">
-          <h4 className="mono-label text-coral mb-2">Portfolio Showcase</h4>
-          <h2 className="section-display text-primary mb-4">
+        <div className="max-w-3xl space-y-4">
+          <h4 className="mono-label text-coral mb-2 text-lg font-bold">Portfolio Showcase</h4>
+          <h2 className="section-display text-primary font-black mb-4 tracking-tight">
             Featured Projects
           </h2>
-          <p className="body-large text-body-muted">
-            Explore my body of work across fullstack applications, UI/UX design documentation, and artwork. Hover over the projects on the right to scroll horizontally through the timeline.
+          <p className="body-large text-body-muted text-xl leading-relaxed">
+            Explore my body of work across fullstack applications, UI/UX design documentation, and artwork. Hover or click and drag sideways on the projects to scroll horizontally through the timeline.
           </p>
         </div>
       </div>
@@ -84,7 +113,7 @@ const ProjectSection = () => {
                       : "bg-soft-stone text-ink border-card-border hover:border-coral hover:bg-white/80 font-medium"
                   }`}
                 >
-                  <span className="mono-label text-xs tracking-wide">
+                  <span className="mono-label text-xs tracking-wide font-bold">
                     {category.label}
                   </span>
                   <span
@@ -100,7 +129,13 @@ const ProjectSection = () => {
           {/* Project Horizontal Scroll Content (Right 10 cols on LG - Spans full right width) */}
           <div
             ref={scrollContainerRef}
-            className={`lg:col-span-10 flex flex-row gap-8 overflow-x-auto scrollbar-hide py-4 pl-4 pr-12 lg:pr-24 w-full transition-all duration-700 ease-in-out ${
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            className={`lg:col-span-10 flex flex-row gap-8 overflow-x-auto scrollbar-hide py-4 pl-4 pr-12 lg:pr-24 w-full transition-all duration-700 ease-in-out select-none ${
+              isDragging ? "cursor-grabbing" : "cursor-grab"
+            } ${
               isTransitioning ? "opacity-0 translate-y-4 scale-98" : "opacity-100 translate-y-0 scale-100"
             }`}
           >
@@ -145,7 +180,7 @@ const ProjectSection = () => {
                     <div>
                       {/* Title */}
                       <Link href={`/project/${project.id}`}>
-                        <h3 className="card-heading text-primary group-hover:text-coral transition-colors duration-300 mb-3 text-2xl">
+                        <h3 className="card-heading text-primary group-hover:text-coral transition-colors duration-300 mb-3 text-2xl font-bold">
                           {project.title}
                         </h3>
                       </Link>
