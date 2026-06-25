@@ -42,13 +42,13 @@ const Experience = () => {
     <section
       ref={containerRef}
       id="experience"
-      className="min-h-screen bg-deep-green bg-grid-pattern text-white relative overflow-hidden py-12 lg:py-16 flex flex-col justify-center border-b border-white/10"
+      className="min-h-screen bg-deep-green bg-grid-pattern text-white relative overflow-hidden pt-12 pb-16 lg:pt-16 lg:pb-20 flex flex-col justify-start border-b border-white/10"
     >
       <div className="container mx-auto px-6 lg:px-12 mb-6 flex-shrink-0">
         {/* Title */}
         <div className="max-w-3xl">
           <h4 className="mono-label text-coral mb-1">Riwayat Kerja & Organisasi</h4>
-          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-3">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-white mb-3">
             Experience Timeline
           </h2>
           <p className="body-large text-white/80">
@@ -63,7 +63,7 @@ const Experience = () => {
           {experiences.map((exp, index) => (
             <div
               key={exp.id}
-              className="card-lift w-[340px] md:w-[420px] lg:w-[480px] max-h-[60vh] overflow-y-auto bg-primary rounded-3xl p-6 lg:p-8 border border-white/10 flex flex-col justify-between shadow-xl flex-shrink-0 relative group"
+              className="card-lift w-[340px] md:w-[420px] lg:w-[480px] max-h-[72vh] lg:max-h-[75vh] overflow-y-auto bg-primary rounded-3xl p-6 lg:p-8 border border-white/10 flex flex-col justify-between shadow-xl flex-shrink-0 relative group"
             >
               <div>
                 {/* Header / Period */}
