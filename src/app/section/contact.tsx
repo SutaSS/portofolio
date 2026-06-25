@@ -40,7 +40,7 @@ const Contact = () => {
       <div className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10">
         {/* Title */}
         <div className="text-center mb-16 max-w-2xl mx-auto contact-anim">
-          <h4 className="mono-label text-coral mb-2">Informasi Kontak & Portofolio</h4>
+          <h4 className="mono-label text-coral mb-2">Informasi Kontak </h4>
           <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-white mb-4">
             Get In Touch
           </h2>
@@ -83,7 +83,7 @@ const Contact = () => {
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">IFEST Showcase 1</span>
+                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">IFEST</span>
                   </div>
                 </div>
                 <div className="relative h-36 sm:h-44 rounded-2xl overflow-hidden border border-white/20 shadow-lg group bg-soft-stone/10">
@@ -94,7 +94,7 @@ const Contact = () => {
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">IFEST Showcase 2</span>
+                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">IFEST</span>
                   </div>
                 </div>
                 <div className="relative h-36 sm:h-44 rounded-2xl overflow-hidden border border-white/20 shadow-lg group bg-soft-stone/10">
@@ -105,7 +105,7 @@ const Contact = () => {
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">Technoday 1</span>
+                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">Technoday</span>
                   </div>
                 </div>
                 <div className="relative h-36 sm:h-44 rounded-2xl overflow-hidden border border-white/20 shadow-lg group bg-soft-stone/10">
@@ -116,7 +116,7 @@ const Contact = () => {
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">Technoday 2</span>
+                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">Technoday</span>
                   </div>
                 </div>
               </div>
@@ -239,7 +239,6 @@ const Contact = () => {
 
               {/* Status */}
               <div className="pt-6 border-t border-white/10 flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full bg-coral animate-pulse"></div>
                 <span className="mono-label text-white/80 text-xs">Available for opportunities</span>
               </div>
             </div>

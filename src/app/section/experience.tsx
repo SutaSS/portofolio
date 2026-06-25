@@ -16,7 +16,7 @@ const Experience = () => {
       const slider = sliderRef.current;
       if (!container || !slider) return;
 
-      const totalWidth = slider.scrollWidth - window.innerWidth;
+      const totalWidth = slider.scrollWidth - window.innerWidth + 120;
 
       if (totalWidth > 0 && window.innerWidth >= 1024) {
         gsap.to(slider, {
@@ -33,6 +33,19 @@ const Experience = () => {
           },
         });
       }
+
+      gsap.from(".experience-anim", {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: container,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      });
 
       // Fix hash navigation bug (e.g. /#projects) caused by GSAP pin spacer height calculation
       const handleHashScroll = () => {
@@ -56,24 +69,24 @@ const Experience = () => {
     <section
       ref={containerRef}
       id="experience"
-      className="h-screen bg-deep-green bg-grid-pattern text-white relative z-20 -mt-20 lg:-mt-32 rounded-t-[40px] lg:rounded-t-[64px] shadow-[0_-20px_50px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col border-b border-white/10"
+      className="h-screen bg-deep-green bg-grid-pattern text-white relative z-20 mt-12 lg:mt-20 rounded-t-[40px] lg:rounded-t-[64px] shadow-[0_-20px_50px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col border-b border-white/10"
     >
       {/* Title block — fixed height at top */}
-      <div className="flex-shrink-0 px-6 lg:px-12 pt-10 pb-4">
+      <div className="flex-shrink-0 px-6 lg:px-12 pt-10 pb-4 experience-anim">
         <div className="max-w-3xl">
           <h4 className="mono-label text-coral mb-1">Riwayat Kerja & Organisasi</h4>
           <h2 className="text-[2.8rem] lg:text-[4.5rem] font-black tracking-tight text-shiny-white mb-2 leading-tight">
             Experience Timeline
           </h2>
           <p className="body-large text-white/70 text-sm lg:text-base">
-            Scroll down to explore my professional journey. On desktop, the timeline slides left as you scroll.
+            A chronological overview of my professional tenure, organizational leadership, and engineering contributions. Discover the milestones that have shaped my technical expertise and architectural philosophy.
           </p>
         </div>
       </div>
 
       {/* Card slider — fills remaining height */}
-      <div className="flex-1 min-h-0 flex items-stretch overflow-x-hidden pl-6 lg:pl-12 pr-6 pb-10">
-        <div ref={sliderRef} className="flex gap-6 lg:gap-8 w-max">
+      <div className="flex-1 min-h-0 flex items-stretch overflow-x-hidden pl-6 lg:pl-12 pr-6 pb-10 experience-anim">
+        <div ref={sliderRef} className="flex gap-6 lg:gap-8 w-max pr-12 lg:pr-24">
           {experiences.map((exp, index) => (
             <div
               key={exp.id}

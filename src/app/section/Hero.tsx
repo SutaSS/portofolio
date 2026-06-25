@@ -264,7 +264,9 @@ const Hero = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="card-vibrate group relative bg-soft-stone border border-card-border rounded-2xl p-6 text-left hover:border-coral transition-all duration-300 hover:shadow-md hover:cursor-pointer flex flex-col justify-between h-full"
+                className={`card-vibrate group relative bg-soft-stone border border-card-border rounded-2xl p-6 text-left hover:border-coral transition-all duration-300 hover:shadow-md hover:cursor-pointer flex flex-col justify-between h-full ${
+                  item.id === "contact" ? "col-span-2 md:col-span-1" : "col-span-1"
+                }`}
               >
                 <div className="mb-4 text-primary group-hover:text-coral transition-colors duration-300">
                   {item.icon}

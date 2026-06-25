@@ -57,8 +57,74 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
   const imageUrl = project.imageUrl || "/assets/Hero-1.jpg";
   const techList = project.technologies || [];
-  const isArtwork = project.category === "artwork";
+  const isInstagramProject = project.category === "artwork" || project.category === "design-docs";
   const artworkUrl = project.liveUrl || "https://instagram.com/andikahernadi";
+
+  const getNarrative = () => {
+    if (project.id === "8" || project.id === "9" || project.id === "3") {
+      // Final Assessment projects (PAPB, SolarQuiz, FFOUND)
+      return {
+        ch1Title: "Project Overview & The Challenge",
+        ch1P1: `"${project.title}" was architected to deliver a robust and impactful solution addressing the core objective to ${project.description.toLowerCase()}.`,
+        ch1P2: `The primary challenge encountered during this final assessment was architecting a highly reliable system, structuring an efficient database schema, and delivering an intuitive user interface under tight academic deadlines.`,
+        ch2Title: "The Solution & Engineering Execution",
+        ch2P1: `To accomplish our objectives for this final assessment, I worked within a collaborative group where we divided engineering and design tasks evenly among all team members.`,
+        ch2P2: `We implemented rigorous project management by organizing structured schedules and agile sprint cycles. This systematic approach ensured that every core feature of ${project.title} was delivered on time with clean, maintainable, and scalable code.`
+      };
+    } else if (project.id === "1") {
+      // Hackathon (OptiMind 2.0)
+      return {
+        ch1Title: "Project Overview & The Challenge",
+        ch1P1: `"${project.title}" is an innovative digital solution born out of an intensive Hackathon/Technoday competition, focusing specifically on ${project.description.toLowerCase()}.`,
+        ch1P2: `In this high-pressure competitive environment, the primary challenge was conceptualizing a high-value product, designing seamless user journeys, and validating the underlying business mechanics within an extremely short timeframe.`,
+        ch2Title: "The Solution & Engineering Execution",
+        ch2P1: `To achieve the winning solution, I took on the dual roles of Frontend Developer and UI/UX Designer, crafting an elegant, highly interactive, and intuitive prototype.`,
+        ch2P2: `Beyond spearheading the visual aesthetics and frontend engineering, I rapidly learned and formulated the entire business model in record time—ensuring flawless alignment between our beautiful interface and the product's ultimate market viability.`
+      };
+    } else if (project.id === "5") {
+      // MMD FILKOM UB Kelompok 38
+      return {
+        ch1Title: "Project Overview & The Challenge",
+        ch1P1: `"${project.title}" carries a vital community development mission, focusing heavily on ${project.description.toLowerCase()}.`,
+        ch1P2: `The primary challenge during this Mahasiswa Membangun Desa (MMD) initiative was capturing the village's full potential, publishing social activities, and establishing robust digital awareness effectively and aesthetically.`,
+        ch2Title: "The Solution & Team Execution",
+        ch2P1: `As the definitive communication and visualization solution, I was appointed as the head of the Design, Documentation, and Media (DDM) division for the full 1-month tenure on location.`,
+        ch2P2: `Together with my DDM team, we executed comprehensive media coverage, crafted a captivating visual identity, and produced in-depth digital publications—establishing an inspiring digital footprint that brought immense real-world value to the local community.`
+      };
+    } else if (project.id === "6") {
+      // Design Documentation Porsimaba 2025
+      return {
+        ch1Title: "Project Overview & The Challenge",
+        ch1P1: `"${project.title}" was established as the grand design documentation and visual identity foundation to celebrate and elevate ${project.description.toLowerCase()}.`,
+        ch1P2: `The large-scale challenge inherent in this flagship event was maintaining absolute consistency in visual direction, coordinating diverse publication assets, and unifying the aesthetic vision across all organizing committees.`,
+        ch2Title: "The Solution & Team Management",
+        ch2P1: `To resolve the complexities of large-scale visual coordination, I actively participated as Vice Chairman / Vice Lead of Infrastructure Technology & Design.`,
+        ch2P2: `I successfully managed and directed the entire design and documentation team, established highly efficient design workflows, and supervised asset production to ensure every deliverable adhered to the highest standards of visual excellence.`
+      };
+    } else if (project.category === "artwork" || project.id === "7") {
+      // Digital Artwork
+      return {
+        ch1Title: "Project Overview & Artistic Vision",
+        ch1P1: `The "${project.title}" collection represents an immersive exploration of visual storytelling and digital illustration centered around ${project.description.toLowerCase()}.`,
+        ch1P2: `The primary challenge in this ongoing project is finding the perfect harmony between color theory composition, dramatic lighting, and a distinct, expressive illustration style.`,
+        ch2Title: "The Solution & Creative Expression",
+        ch2P1: `As a creative solution, crafting these digital illustrations serves as a profound avenue for self-expression and a deeply fulfilling personal hobby outside of daily software engineering.`,
+        ch2P2: `Each piece is executed with uncompromising dedication to detail, blending pure passion, aesthetic exploration, and authentic, evocative visual storytelling.`
+      };
+    } else {
+      // General web-mobile (e.g. Serenia)
+      return {
+        ch1Title: "Project Overview & The Challenge",
+        ch1P1: `"${project.title}" was custom-architected to deliver a powerful, seamless digital solution addressing the core need for ${project.description.toLowerCase()}.`,
+        ch1P2: `The primary challenge involved establishing a solid architectural model, ensuring reliable state management, and designing an uncompromised, beautiful user interface.`,
+        ch2Title: "The Solution & Engineering Execution",
+        ch2P1: `As a solution, we adopted clean architecture principles to decouple core business logic from UI rendering concerns, ensuring long-term maintainability and instant data synchronization.`,
+        ch2P2: `Through structured team collaboration and disciplined iterative development, the entire vision was executed into a premium, high-performance digital product.`
+      };
+    }
+  };
+
+  const narrative = getNarrative();
 
   return (
     <main className="min-h-screen bg-canvas text-ink flex flex-col justify-between overflow-x-hidden">
@@ -83,7 +149,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 <FaGithub size={18} />
               </a>
             )}
-            {project.liveUrl && !isArtwork && (
+            {project.liveUrl && !isInstagramProject && (
               <a
                 href={project.liveUrl}
                 target="_blank"
@@ -94,13 +160,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 <FaExternalLinkAlt size={16} />
               </a>
             )}
-            {isArtwork && (
+            {isInstagramProject && (
               <a
                 href={artworkUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-coral hover:text-primary transition-all duration-300"
-                aria-label="Instagram Artwork"
+                aria-label="View on Instagram"
               >
                 <FaInstagram size={18} />
               </a>
@@ -146,8 +212,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 rel="noopener noreferrer"
                 className="btn-shiny px-8 py-4 bg-coral text-primary rounded-full font-bold mono-label text-sm tracking-wide shadow-xl hover:bg-white transition-all duration-300 flex items-center gap-2 justify-center"
               >
-                {isArtwork ? (
-                  <>View Full Story <FaInstagram size={18} /></>
+                {isInstagramProject ? (
+                  <>View on Instagram <FaInstagram size={18} /></>
                 ) : (
                   <>Launch Live Demo <FaExternalLinkAlt /></>
                 )}
@@ -195,41 +261,33 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             {/* Problem Statement */}
             <div className="card-lift bg-deep-green text-white rounded-3xl p-8 lg:p-12 shadow-xl space-y-6">
               <h4 className="mono-label text-coral">Chapter 1</h4>
-              <h2 className="card-heading text-white">The Challenge & Problem Space</h2>
+              <h2 className="card-heading text-white">{narrative.ch1Title}</h2>
               <p className="body-large text-white/80 leading-relaxed">
-                {isArtwork
-                  ? "This artwork series was born from a deep desire to merge storytelling with digital illustration. Each piece explores themes of identity, technology, and emotion through a unique visual language."
-                  : "When embarking on this project, the primary challenge was bridging the gap between highly complex backend logic and a seamless, intuitive frontend interface. Users frequently encounter cognitive overload when interacting with traditional solutions in this domain."}
+                {narrative.ch1P1}
               </p>
               <p className="body text-white/70 leading-relaxed">
-                {isArtwork
-                  ? "The creative process involved extensive research into color theory, composition techniques, and character design — resulting in a cohesive style that feels both contemporary and timeless."
-                  : "Our objective was to strip away unnecessary clutter, establish a rock-solid data pipeline, and construct an experience that felt both highly performant and deeply responsive to user input."}
+                {narrative.ch1P2}
               </p>
             </div>
 
             {/* Solution & Architecture / Creative Process */}
             <div className="card-lift bg-primary text-white rounded-3xl p-8 lg:p-12 shadow-xl space-y-6">
               <h4 className="mono-label text-coral">Chapter 2</h4>
-              <h2 className="card-heading text-white">{isArtwork ? "The Creative Process & Execution" : "The Solution & Execution"}</h2>
+              <h2 className="card-heading text-white">{narrative.ch2Title}</h2>
               <p className="body-large text-white/80 leading-relaxed">
-                {isArtwork
-                  ? "Each illustration was crafted using industry-standard tools with deliberate attention to detail. Layers of texture, lighting, and shadow were carefully composed to create depth and visual impact."
-                  : "By implementing a strict clean architecture paradigm, we isolated the domain models from external UI concerns. Using state-of-the-art frameworks and state management, we ensured that data synchronization happens instantly without rendering bottlenecks."}
+                {narrative.ch2P1}
               </p>
               <p className="body text-white/70 leading-relaxed">
-                {isArtwork
-                  ? "The final works represent hours of iteration, refinement, and artistic exploration — each piece a reflection of personal growth and evolving creative vision."
-                  : "Every component was built using custom design tokens, ensuring visual consistency while enabling robust accessibility and responsiveness across all devices and viewport dimensions."}
+                {narrative.ch2P2}
               </p>
-              {isArtwork && artworkUrl && (
+              {isInstagramProject && artworkUrl && (
                 <a
                   href={artworkUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-shiny inline-flex items-center gap-3 px-8 py-4 bg-coral text-primary rounded-full font-bold mono-label text-sm tracking-wide shadow-xl hover:bg-white transition-all duration-300 mt-2"
                 >
-                  <FaInstagram size={18} /> View Full Story on Instagram
+                  <FaInstagram size={18} /> View on Instagram
                 </a>
               )}
             </div>

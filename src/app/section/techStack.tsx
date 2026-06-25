@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect, useState } from "react";
 import { techStacks } from "../data/techStack";
 import Image from "next/image";
 import gsap from "gsap";
@@ -8,6 +8,8 @@ const TechStack = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const bubblesRef = useRef<Array<HTMLDivElement | null>>([]);
   const mobileBubblesRef = useRef<Array<HTMLDivElement | null>>([]);
+  const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -66,8 +68,18 @@ const TechStack = () => {
     <section
       ref={sectionRef}
       id="tech-stack"
+      onMouseMove={(e) => setMousePos({ x: e.clientX, y: e.clientY })}
       className="min-h-screen bg-soft-stone bg-grid-pattern text-ink relative overflow-hidden py-24 border-b border-border-light flex flex-col justify-center items-center"
     >
+      {/* Floating Cursor Tooltip */}
+      {hoveredTech && (
+        <div
+          className="fixed pointer-events-none z-50 bg-ink text-canvas mono-label text-xs font-bold px-4 py-2 rounded-xl shadow-2xl border border-coral flex items-center gap-2 backdrop-blur-md bg-opacity-95 transform -translate-x-1/2 -translate-y-12 transition-transform duration-75 ease-out"
+          style={{ left: mousePos.x, top: mousePos.y }}
+        >
+          {hoveredTech}
+        </div>
+      )}
       {/* DESKTOP / TABLET ORBITAL LAYOUT (Perfectly Centered via Fixed Absolute Wrapper) */}
       <div className="hidden lg:block relative w-[1100px] h-[780px] my-12 pointer-events-none mx-auto">
         {/* Title Exactly in the Center of the Wrapper (550px, 390px) */}
@@ -91,6 +103,8 @@ const TechStack = () => {
                 ref={(el) => {
                   bubblesRef.current[index] = el;
                 }}
+                onMouseEnter={() => setHoveredTech(tech.name)}
+                onMouseLeave={() => setHoveredTech(null)}
                 style={{ left: pos.left, top: pos.top }}
                 className="absolute -translate-x-1/2 -translate-y-1/2 card-lift w-28 h-28 bg-canvas/90 backdrop-blur-xl border border-card-border rounded-full p-3 flex flex-col items-center justify-center gap-2 shadow-xl hover:border-coral hover:shadow-2xl transition-all duration-300 group hover:cursor-pointer z-20"
               >
@@ -134,6 +148,8 @@ const TechStack = () => {
               ref={(el) => {
                 mobileBubblesRef.current[index] = el;
               }}
+              onMouseEnter={() => setHoveredTech(tech.name)}
+              onMouseLeave={() => setHoveredTech(null)}
               className="card-lift w-28 h-28 bg-canvas/90 backdrop-blur-xl border border-card-border rounded-full p-3 flex flex-col items-center justify-center gap-2 shadow-xl hover:border-coral hover:shadow-2xl transition-all duration-300 group hover:cursor-pointer"
             >
               {/* Inner circle turns white/light with coral border on hover, NEVER black */}

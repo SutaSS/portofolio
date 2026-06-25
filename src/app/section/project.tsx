@@ -1,17 +1,42 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { projects } from "../data/projects";
 import { projectCategories } from "../data/ProjectCategories";
-import { FaGithub, FaExternalLinkAlt, FaStar, FaArrowRight, FaInstagram } from "react-icons/fa";
+import { FaGithub, FaExternalLinkAlt, FaArrowRight, FaInstagram } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import { Project } from "../types/project";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const ProjectSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects as unknown as Project[]);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      if (sectionRef.current) {
+        gsap.from(".project-anim", {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   // Drag to scroll state
   const [isDragging, setIsDragging] = useState(false);
@@ -87,24 +112,25 @@ const ProjectSection = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="projects"
       className="min-h-screen bg-canvas bg-grid-pattern text-ink relative overflow-hidden py-24 border-b border-border-light w-full"
     >
       {/* Title Area (Centered Container) */}
-      <div className="container mx-auto px-6 lg:px-12 max-w-7xl mb-16">
+      <div className="container mx-auto px-6 lg:px-12 max-w-7xl mb-16 project-anim">
         <div className="max-w-3xl space-y-4">
           <h4 className="mono-label text-coral mb-2 text-lg font-bold">Portfolio Showcase</h4>
           <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-4">
             Featured Projects
           </h2>
           <p className="body-large text-body-muted text-xl leading-relaxed">
-            Explore my body of work across fullstack applications, UI/UX design documentation, and artwork. Hover or click and drag sideways on the projects to scroll horizontally through the timeline.
+            Explore my comprehensive body of work spanning high-performance fullstack applications, meticulous UI/UX design documentation, and engaging digital illustrations. Each project represents a dedication to clean architecture and visual excellence.
           </p>
         </div>
       </div>
 
       {/* Sidebar + Horizontal Slider Layout (Full Screen Width) */}
-      <div className="w-full pl-6 lg:pl-12 pr-0">
+      <div className="w-full pl-6 lg:pl-12 pr-0 project-anim">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start w-full">
           {/* Sidebar Category Selector (Left 2 cols on LG) */}
           <div className="lg:col-span-2 lg:sticky lg:top-36 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 scrollbar-hide w-full z-10 pr-4">
@@ -150,7 +176,7 @@ const ProjectSection = () => {
               const isHighlighted = index === 0 || project.featured;
               const imageUrl = project.imageUrl || "/assets/Hero-1.jpg";
               const techList = project.technologies || [];
-              const isArtwork = project.category === "artwork";
+              const isArtwork = project.category === "artwork" || project.category === "design-docs";
 
               return (
                 <div
@@ -159,13 +185,6 @@ const ProjectSection = () => {
                     isHighlighted ? "border-coral/60 shadow-md shadow-coral/10" : "border-card-border hover:border-coral"
                   }`}
                 >
-                  {/* Highlight Badge */}
-                  {isHighlighted && (
-                    <div className="absolute top-4 left-4 z-20 bg-coral text-primary mono-label px-4 py-1 rounded-full text-xs font-bold shadow-md flex items-center gap-1.5">
-                      <FaStar className="text-primary animate-pulse" /> Highlighted Project
-                    </div>
-                  )}
-
                   {/* Project Image Link / Preview */}
                   <Link href={`/project/${project.id}`} className="relative w-full h-64 overflow-hidden block bg-primary/10">
                     <Image

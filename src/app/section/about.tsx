@@ -1,10 +1,11 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useLayoutEffect } from "react";
 import { FaLaptopCode, FaRunning, FaSearch, FaUserGraduate, FaHeart, FaChartLine, FaCheck } from "react-icons/fa";
 import TiltedCard from "../components/animations/TiltedCard";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const About = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const [dimensions, setDimensions] = React.useState({
@@ -14,27 +15,26 @@ const About = () => {
     imageWidth: "300px",
   });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      {
-        threshold: 0.15,
-        rootMargin: "0px",
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      if (sectionRef.current) {
+        gsap.from(".about-anim", {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
       }
-    );
+    }, sectionRef);
 
-    const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
+    return () => ctx.revert();
   }, []);
 
   useEffect(() => {
@@ -67,18 +67,10 @@ const About = () => {
       id="about"
       className="min-h-fit bg-canvas bg-grid-pattern text-ink relative z-10 overflow-hidden pt-24 pb-24 border-t border-border-light"
     >
-      <div
-        className={`relative z-10 container mx-auto px-6 lg:px-12 max-w-7xl justify-center flex flex-col transition-all duration-700 ${
-          isVisible ? "opacity-100" : "opacity-0"
-        }`}
-      >
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 max-w-7xl justify-center flex flex-col">
         {/* Title */}
-        <div className="text-center mb-16">
-          <h2
-            className={`text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-4 ${
-              isVisible ? "animate-fade-in-down delay-100" : "animate-fade-out-down delay-100"
-            }`}
-          >
+        <div className="text-center mb-16 about-anim">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-4">
             About Me
           </h2>
           <p className="body-large text-body-muted max-w-2xl mx-auto">
@@ -87,7 +79,7 @@ const About = () => {
         </div>
 
         {/* 2 Pillars Layout */}
-        <div className="grid lg:grid-cols-2 gap-10 items-stretch w-full mb-20">
+        <div className="grid lg:grid-cols-2 gap-10 items-stretch w-full mb-20 about-anim">
           {/* Pillar 1: The Software Engineer */}
           <div className="card-vibrate bg-soft-stone border border-card-border rounded-3xl p-8 lg:p-12 flex flex-col justify-between shadow-sm">
             <div>
@@ -110,11 +102,11 @@ const About = () => {
               </div>
               <div className="flex items-center gap-3">
                 <FaCheck className="text-coral flex-shrink-0" />
-                <span className="body text-ink font-medium">Fullstack Engineering (Next.js, Flutter, Node)</span>
+                <span className="body text-ink font-medium">Fullstack Engineering (Next.js, Laravel, Jetpack Compose)</span>
               </div>
               <div className="flex items-center gap-3">
                 <FaCheck className="text-coral flex-shrink-0" />
-                <span className="body text-ink font-medium">UI/UX Excellence & Advanced Animation (GSAP)</span>
+                <span className="body text-ink font-medium">UI/UX Excellence</span>
               </div>
             </div>
           </div>
@@ -152,7 +144,7 @@ const About = () => {
         </div>
 
         {/* Character & Photo Section */}
-        <div className="grid lg:grid-cols-12 gap-12 items-center w-full">
+        <div className="grid lg:grid-cols-12 gap-12 items-center w-full about-anim">
           {/* Left - Image */}
           <div className="lg:col-span-5 flex justify-center lg:justify-start">
             <div className="relative card-vibrate bg-soft-stone p-4 rounded-[28px] border border-card-border shadow-sm">
