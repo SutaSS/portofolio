@@ -1,7 +1,8 @@
 import React from "react";
 import { projects } from "../../data/projects";
 import Link from "next/link";
-import { FaArrowLeft, FaGithub, FaExternalLinkAlt, FaCheck, FaStar } from "react-icons/fa";
+import Image from "next/image";
+import { FaArrowLeft, FaGithub, FaExternalLinkAlt, FaCheck, FaStar, FaInstagram } from "react-icons/fa";
 import Footer from "../../components/layout/Footer";
 import { Project } from "../../types/project";
 
@@ -56,6 +57,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
   const imageUrl = project.imageUrl || "/assets/Hero-1.jpg";
   const techList = project.technologies || [];
+  const isArtwork = project.category === "artwork";
+  const artworkUrl = project.liveUrl || "https://instagram.com/andikahernadi";
 
   return (
     <main className="min-h-screen bg-canvas text-ink flex flex-col justify-between overflow-x-hidden">
@@ -80,7 +83,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 <FaGithub size={18} />
               </a>
             )}
-            {project.liveUrl && (
+            {project.liveUrl && !isArtwork && (
               <a
                 href={project.liveUrl}
                 target="_blank"
@@ -89,6 +92,17 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 aria-label="Live Demo"
               >
                 <FaExternalLinkAlt size={16} />
+              </a>
+            )}
+            {isArtwork && (
+              <a
+                href={artworkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-coral hover:text-primary transition-all duration-300"
+                aria-label="Instagram Artwork"
+              >
+                <FaInstagram size={18} />
               </a>
             )}
           </div>
@@ -118,7 +132,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
         {/* Hero Photo Card */}
         <div className="card-vibrate relative w-full h-[400px] md:h-[540px] lg:h-[640px] rounded-[32px] overflow-hidden bg-soft-stone border border-card-border shadow-2xl mb-20">
-          <img src={imageUrl} alt={project.title} className="w-full h-full object-cover" />
+          <Image src={imageUrl} alt={project.title} fill priority className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
           <div className="absolute bottom-8 left-8 right-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 z-10">
             <div className="flex flex-wrap gap-2">
@@ -128,7 +142,16 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 </span>
               ))}
             </div>
-            {project.liveUrl && (
+            {isArtwork ? (
+              <a
+                href={artworkUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-shiny px-8 py-4 bg-coral text-primary rounded-full font-bold mono-label text-sm tracking-wide shadow-xl hover:bg-white transition-all duration-300 flex items-center gap-2 justify-center"
+              >
+                Go to Instagram <FaInstagram size={18} />
+              </a>
+            ) : project.liveUrl ? (
               <a
                 href={project.liveUrl}
                 target="_blank"
@@ -137,7 +160,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               >
                 Launch Live Demo <FaExternalLinkAlt />
               </a>
-            )}
+            ) : null}
           </div>
         </div>
 
