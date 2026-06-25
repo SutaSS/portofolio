@@ -44,7 +44,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   if (!project) {
     return (
       <main className="min-h-screen bg-canvas text-ink flex flex-col items-center justify-center p-6">
-        <div className="card-vibrate max-w-md w-full bg-soft-stone border border-card-border rounded-3xl p-8 text-center shadow-xl">
+        <div className="card-lift max-w-md w-full bg-soft-stone border border-card-border rounded-3xl p-8 text-center shadow-xl">
           <h2 className="section-heading text-primary mb-4">Project Not Found</h2>
           <p className="body text-body-muted mb-8">The project story you are looking for does not exist or has been moved.</p>
           <Link href="/" className="btn-shiny px-8 py-4 bg-primary text-white rounded-full font-bold mono-label inline-block">
@@ -131,7 +131,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </div>
 
         {/* Hero Photo Card */}
-        <div className="card-vibrate relative w-full h-[400px] md:h-[540px] lg:h-[640px] rounded-[32px] overflow-hidden bg-soft-stone border border-card-border shadow-2xl mb-20">
+        <div className="card-lift relative w-full h-[400px] md:h-[540px] lg:h-[640px] rounded-[32px] overflow-hidden bg-soft-stone border border-card-border shadow-2xl mb-20">
           <Image src={imageUrl} alt={project.title} fill priority className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent"></div>
           <div className="absolute bottom-8 left-8 right-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 z-10">
@@ -167,7 +167,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         {/* Storytelling Narrative Band */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
           {/* Left Summary Box (4 cols) */}
-          <div className="lg:col-span-4 lg:sticky lg:top-32 card-vibrate bg-soft-stone border border-card-border rounded-3xl p-8 shadow-sm space-y-6">
+          <div className="lg:col-span-4 lg:sticky lg:top-32 card-lift bg-soft-stone border border-card-border rounded-3xl p-8 shadow-sm space-y-6">
             <h3 className="card-heading text-primary">Project Overview</h3>
             <p className="body text-body-muted leading-relaxed">
               This initiative exemplifies clean architecture, scalability, and seamless user interaction. Built to solve critical workflow challenges while maintaining extreme aesthetic discipline.
@@ -201,7 +201,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           {/* Right Deep Narrative Box (8 cols) */}
           <div className="lg:col-span-8 space-y-12">
             {/* Problem Statement */}
-            <div className="card-vibrate bg-deep-green text-white rounded-3xl p-8 lg:p-12 shadow-xl space-y-6">
+            <div className="card-lift bg-deep-green text-white rounded-3xl p-8 lg:p-12 shadow-xl space-y-6">
               <h4 className="mono-label text-coral">Chapter 1</h4>
               <h2 className="card-heading text-white">The Challenge & Problem Space</h2>
               <p className="body-large text-white/80 leading-relaxed">
@@ -213,7 +213,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </div>
 
             {/* Solution & Architecture */}
-            <div className="card-vibrate bg-primary text-white rounded-3xl p-8 lg:p-12 shadow-xl space-y-6">
+            <div className="card-lift bg-primary text-white rounded-3xl p-8 lg:p-12 shadow-xl space-y-6">
               <h4 className="mono-label text-coral">Chapter 2</h4>
               <h2 className="card-heading text-white">The Solution & Execution</h2>
               <p className="body-large text-white/80 leading-relaxed">
