@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { FaGithub, FaLinkedin, FaInstagram, FaTrophy, FaRunning, FaLaptopCode } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -79,34 +79,6 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-
-            {/* Key Milestones */}
-            <div className="space-y-4 pt-6 border-t border-white/10">
-              <h4 className="mono-label text-coral text-xs font-bold tracking-wider uppercase">Milestone Benchmarks</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex items-start gap-3 shadow-sm">
-                  <FaTrophy className="text-coral text-lg mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h5 className="mono-label text-white text-xs font-bold mb-1">Vice Design Porsimaba</h5>
-                    <p className="micro text-white/70">Led visual branding & design asset engineering for Porsimaba 2025.</p>
-                  </div>
-                </div>
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex items-start gap-3 shadow-sm">
-                  <FaRunning className="text-coral text-lg mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h5 className="mono-label text-white text-xs font-bold mb-1">94kg to 68kg Benchmark</h5>
-                    <p className="micro text-white/70">Successfully transformed fitness metrics through disciplined endurance running.</p>
-                  </div>
-                </div>
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex items-start gap-3 shadow-sm sm:col-span-2">
-                  <FaLaptopCode className="text-coral text-lg mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h5 className="mono-label text-white text-xs font-bold mb-1">Enterprise Clean Architecture</h5>
-                    <p className="micro text-white/70">Robust fullstack deployment leveraging Next.js, Flutter, and GSAP micro-animations.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Right Side: Quick Links & Social (5 cols) */}
@@ -147,9 +119,8 @@ const Footer = () => {
         </div>
 
         {/* Bottom Copyright */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-white/50 micro">
+        <div className="pt-8 border-t border-white/10 flex justify-between items-center gap-4 text-white/50 micro">
           <p>&copy; {new Date().getFullYear()} Andika Saktidana Hernadi. All rights reserved.</p>
-          <p>Engineered with Next.js, Tailwind CSS, & GSAP.</p>
         </div>
       </div>
     </footer>
