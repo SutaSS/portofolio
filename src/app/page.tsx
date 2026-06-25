@@ -9,13 +9,13 @@ import Achievements from "./section/contact";
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-canvas text-ink min-h-screen overflow-hidden">
       <Header />
       <Hero />
       <About />
-      <Project/>
-      <TechStack />
       <Experience />
+      <Project />
+      <TechStack />
       <Achievements />
       <Footer />
     </main>
