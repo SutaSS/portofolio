@@ -35,16 +35,23 @@ const ProjectSection = () => {
     return () => clearTimeout(timer);
   }, [activeCategory]);
 
-  // Intercept wheel events on the horizontal scroll container when hovered
+  // Intercept wheel events intelligently to allow seamless vertical scroll when at boundaries
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
     const handleWheel = (e: WheelEvent) => {
-      if (e.deltaY !== 0) {
+      const atLeft = container.scrollLeft === 0;
+      const atRight = container.scrollLeft + container.clientWidth >= container.scrollWidth - 1;
+
+      if (e.deltaY > 0 && !atRight) {
+        container.scrollLeft += e.deltaY;
+        e.preventDefault();
+      } else if (e.deltaY < 0 && !atLeft) {
         container.scrollLeft += e.deltaY;
         e.preventDefault();
       }
+      // If at boundary, let default vertical scroll happen seamlessly!
     };
 
     container.addEventListener("wheel", handleWheel, { passive: false });
