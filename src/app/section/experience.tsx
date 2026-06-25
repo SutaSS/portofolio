@@ -16,9 +16,9 @@ const Experience = () => {
       const slider = sliderRef.current;
       if (!container || !slider) return;
 
-      const totalWidth = slider.scrollWidth - window.innerWidth + 120;
+      const totalWidth = slider.scrollWidth - window.innerWidth + (window.innerWidth < 1024 ? 24 : 96);
 
-      if (totalWidth > 0 && window.innerWidth >= 1024) {
+      if (totalWidth > 0) {
         gsap.to(slider, {
           x: -totalWidth,
           ease: "none",
@@ -137,10 +137,11 @@ const Experience = () => {
               {/* Footer — always stuck at bottom */}
               <div className="flex-shrink-0 px-6 lg:px-8 py-4 border-t border-white/10 flex items-center justify-between">
                 <span className="micro text-white/50">Engineering Chapter</span>
-                <div className="w-2 h-2 rounded-full bg-coral group-hover:scale-150 transition-transform duration-300"></div>
               </div>
             </div>
           ))}
+          {/* Explicit end spacer to guarantee the last card is fully visible with a beautiful gap at the end */}
+          <div className="w-[120px] lg:w-[240px] h-full flex-shrink-0" />
         </div>
       </div>
     </section>

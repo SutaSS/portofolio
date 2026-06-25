@@ -130,10 +130,10 @@ const ProjectSection = () => {
       </div>
 
       {/* Sidebar + Horizontal Slider Layout (Full Screen Width) */}
-      <div className="w-full pl-6 lg:pl-12 pr-0 project-anim">
+      <div className="w-full px-6 lg:pl-12 lg:pr-0 project-anim">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start w-full">
           {/* Sidebar Category Selector (Left 2 cols on LG) */}
-          <div className="lg:col-span-2 lg:sticky lg:top-36 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 scrollbar-hide w-full z-10 pr-4">
+          <div className="lg:col-span-2 lg:sticky lg:top-36 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 scrollbar-hide w-full z-10 pr-2 lg:pr-4">
             {projectCategories.map((category) => {
               const isActive = activeCategory === category.id;
               return (
@@ -166,7 +166,7 @@ const ProjectSection = () => {
             onMouseLeave={handleMouseLeave}
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
-            className={`lg:col-span-10 flex flex-row gap-8 overflow-x-auto scrollbar-hide py-4 pl-4 pr-12 lg:pr-24 w-full transition-all duration-700 ease-in-out select-none ${
+            className={`lg:col-span-10 flex flex-row gap-8 overflow-x-auto scrollbar-hide py-4 pl-0 lg:pl-4 pr-6 lg:pr-24 w-full transition-all duration-700 ease-in-out select-none ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
             } ${
               isTransitioning ? "opacity-0 translate-y-4 scale-98" : "opacity-100 translate-y-0 scale-100"
@@ -181,7 +181,7 @@ const ProjectSection = () => {
               return (
                 <div
                   key={project.id}
-                  className={`card-vibrate group relative bg-soft-stone border rounded-[28px] overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 w-[340px] md:w-[420px] flex-shrink-0 ${
+                  className={`card-vibrate group relative bg-soft-stone border rounded-[28px] overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 w-[calc(100vw-3rem)] sm:w-[340px] md:w-[420px] flex-shrink-0 ${
                     isHighlighted ? "border-coral/60 shadow-md shadow-coral/10" : "border-card-border hover:border-coral"
                   }`}
                 >
