@@ -142,25 +142,20 @@ export default async function ProjectDetailPage({ params }: PageProps) {
                 </span>
               ))}
             </div>
-            {isArtwork ? (
-              <a
-                href={artworkUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-shiny px-8 py-4 bg-coral text-primary rounded-full font-bold mono-label text-sm tracking-wide shadow-xl hover:bg-white transition-all duration-300 flex items-center gap-2 justify-center"
-              >
-                Go to Instagram <FaInstagram size={18} />
-              </a>
-            ) : project.liveUrl ? (
+            {project.liveUrl && (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-shiny px-8 py-4 bg-coral text-primary rounded-full font-bold mono-label text-sm tracking-wide shadow-xl hover:bg-white transition-all duration-300 flex items-center gap-2 justify-center"
               >
-                Launch Live Demo <FaExternalLinkAlt />
+                {isArtwork ? (
+                  <>View Full Story <FaInstagram size={18} /></>
+                ) : (
+                  <>Launch Live Demo <FaExternalLinkAlt /></>
+                )}
               </a>
-            ) : null}
+            )}
           </div>
         </div>
 
@@ -205,23 +200,41 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               <h4 className="mono-label text-coral">Chapter 1</h4>
               <h2 className="card-heading text-white">The Challenge & Problem Space</h2>
               <p className="body-large text-white/80 leading-relaxed">
-                When embarking on this project, the primary challenge was bridging the gap between highly complex backend logic and a seamless, intuitive frontend interface. Users frequently encounter cognitive overload when interacting with traditional solutions in this domain.
+                {isArtwork
+                  ? "This artwork series was born from a deep desire to merge storytelling with digital illustration. Each piece explores themes of identity, technology, and emotion through a unique visual language."
+                  : "When embarking on this project, the primary challenge was bridging the gap between highly complex backend logic and a seamless, intuitive frontend interface. Users frequently encounter cognitive overload when interacting with traditional solutions in this domain."}
               </p>
               <p className="body text-white/70 leading-relaxed">
-                Our objective was to strip away unnecessary clutter, establish a rock-solid data pipeline, and construct an experience that felt both highly performant and deeply responsive to user input.
+                {isArtwork
+                  ? "The creative process involved extensive research into color theory, composition techniques, and character design — resulting in a cohesive style that feels both contemporary and timeless."
+                  : "Our objective was to strip away unnecessary clutter, establish a rock-solid data pipeline, and construct an experience that felt both highly performant and deeply responsive to user input."}
               </p>
             </div>
 
-            {/* Solution & Architecture */}
+            {/* Solution & Architecture / Creative Process */}
             <div className="card-lift bg-primary text-white rounded-3xl p-8 lg:p-12 shadow-xl space-y-6">
               <h4 className="mono-label text-coral">Chapter 2</h4>
-              <h2 className="card-heading text-white">The Solution & Execution</h2>
+              <h2 className="card-heading text-white">{isArtwork ? "The Creative Process & Execution" : "The Solution & Execution"}</h2>
               <p className="body-large text-white/80 leading-relaxed">
-                By implementing a strict clean architecture paradigm, we isolated the domain models from external UI concerns. Using state-of-the-art frameworks and state management, we ensured that data synchronization happens instantly without rendering bottlenecks.
+                {isArtwork
+                  ? "Each illustration was crafted using industry-standard tools with deliberate attention to detail. Layers of texture, lighting, and shadow were carefully composed to create depth and visual impact."
+                  : "By implementing a strict clean architecture paradigm, we isolated the domain models from external UI concerns. Using state-of-the-art frameworks and state management, we ensured that data synchronization happens instantly without rendering bottlenecks."}
               </p>
               <p className="body text-white/70 leading-relaxed">
-                Every component was built using custom design tokens, ensuring visual consistency while enabling robust accessibility and responsiveness across all devices and viewport dimensions.
+                {isArtwork
+                  ? "The final works represent hours of iteration, refinement, and artistic exploration — each piece a reflection of personal growth and evolving creative vision."
+                  : "Every component was built using custom design tokens, ensuring visual consistency while enabling robust accessibility and responsiveness across all devices and viewport dimensions."}
               </p>
+              {isArtwork && artworkUrl && (
+                <a
+                  href={artworkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-shiny inline-flex items-center gap-3 px-8 py-4 bg-coral text-primary rounded-full font-bold mono-label text-sm tracking-wide shadow-xl hover:bg-white transition-all duration-300 mt-2"
+                >
+                  <FaInstagram size={18} /> View Full Story on Instagram
+                </a>
+              )}
             </div>
           </div>
         </div>
