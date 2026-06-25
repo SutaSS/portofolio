@@ -132,6 +132,23 @@ body {
 }
 
 /* ============================================
+   BACKGROUND GRID PATTERN (aksen garis-garis)
+   ============================================ */
+
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.bg-deep-green.bg-grid-pattern,
+.bg-primary.bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ============================================
    COHERE TYPOGRAPHY HIERARCHY
    ============================================ */
 
@@ -252,17 +269,18 @@ body {
 }
 
 /* ============================================
-   SHINY TEXT SHEEN EFFECT (For 5 Main Headers)
+   SHINY TEXT SHEEN EFFECT (For Main Headers)
    ============================================ */
 
-.text-shiny {
+/* Text shiny with powerfully dark colors for light backgrounds */
+.text-shiny-dark {
   background: linear-gradient(
     120deg,
-    var(--primary) 0%,
-    var(--primary) 35%,
-    var(--coral) 50%,
-    var(--primary) 65%,
-    var(--primary) 100%
+    #071829 0%,
+    #000000 35%,
+    #ff7759 50%,
+    #071829 65%,
+    #000000 100%
   );
   background-size: 200% auto;
   color: transparent;
@@ -271,6 +289,7 @@ body {
   animation: text-shine 5s linear infinite;
 }
 
+/* Text shiny with bright white colors for dark backgrounds */
 .text-shiny-white {
   background: linear-gradient(
     120deg,
