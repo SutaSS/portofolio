@@ -7,11 +7,28 @@ const Header = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Draggable bubble states
-  const [position, setPosition] = useState({ x: 20, y: 20 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  // Use refs for drag position to avoid re-render lag on every mousemove
   const bubbleRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
+  const dragStartRef = useRef({ x: 0, y: 0 });
+  const posRef = useRef({ x: 20, y: 20 });
+  const rafRef = useRef<number | null>(null);
+
+  // Apply position directly to DOM — no React state needed for smooth drag
+  const applyPosition = useCallback((x: number, y: number) => {
+    if (!bubbleRef.current) return;
+    const maxX = window.innerWidth - 72;
+    const maxY = window.innerHeight - 72;
+    const clampedX = Math.max(0, Math.min(x, maxX));
+    const clampedY = Math.max(0, Math.min(y, maxY));
+    posRef.current = { x: clampedX, y: clampedY };
+    bubbleRef.current.style.transform = `translate(${clampedX}px, ${clampedY}px)`;
+  }, []);
+
+  useEffect(() => {
+    // Set initial position via DOM
+    applyPosition(posRef.current.x, posRef.current.y);
+  }, [applyPosition]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,11 +47,10 @@ const Header = () => {
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isVisible]);
 
-  // Lock body scroll when mobile menu is open to avoid layout shift
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (menuOpen) {
       const originalOverflow = document.body.style.overflow;
@@ -47,83 +63,75 @@ const Header = () => {
     }
   }, [menuOpen]);
 
-  // Draggable handlers for mobile bubble
-  const handleTouchStart = (e: React.TouchEvent) => {
+  // --- Touch drag handlers ---
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (menuOpen) return;
-    setIsDragging(true);
+    isDraggingRef.current = true;
     const touch = e.touches[0];
-    setDragStart({
-      x: touch.clientX - position.x,
-      y: touch.clientY - position.y,
-    });
-  };
+    dragStartRef.current = {
+      x: touch.clientX - posRef.current.x,
+      y: touch.clientY - posRef.current.y,
+    };
+  }, [menuOpen]);
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging || menuOpen) return;
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isDraggingRef.current || menuOpen) return;
+    e.preventDefault();
     const touch = e.touches[0];
-    const newX = touch.clientX - dragStart.x;
-    const newY = touch.clientY - dragStart.y;
-
-    // Boundaries
-    const maxX = window.innerWidth - 64;
-    const maxY = window.innerHeight - 64;
-
-    setPosition({
-      x: Math.max(0, Math.min(newX, maxX)),
-      y: Math.max(0, Math.min(newY, maxY)),
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      applyPosition(
+        touch.clientX - dragStartRef.current.x,
+        touch.clientY - dragStartRef.current.y
+      );
     });
-  };
+  }, [menuOpen, applyPosition]);
 
-  const handleTouchEnd = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (menuOpen) return;
-    setIsDragging(true);
-    setDragStart({
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
-    });
-  };
-
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (!isDragging || menuOpen) return;
-    const newX = e.clientX - dragStart.x;
-    const newY = e.clientY - dragStart.y;
-
-    const maxX = window.innerWidth - 64;
-    const overlayY = window.innerHeight - 64;
-
-    setPosition({
-      x: Math.max(0, Math.min(newX, maxX)),
-      y: Math.max(0, Math.min(newY, overlayY)),
-    });
-  }, [isDragging, menuOpen, dragStart]);
-
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
+  const handleTouchEnd = useCallback(() => {
+    isDraggingRef.current = false;
   }, []);
 
-  useEffect(() => {
-    if (!isDragging) return;
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+  // --- Mouse drag handlers ---
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (menuOpen) return;
+    e.preventDefault();
+    isDraggingRef.current = true;
+    if (bubbleRef.current) bubbleRef.current.style.cursor = "grabbing";
+    dragStartRef.current = {
+      x: e.clientX - posRef.current.x,
+      y: e.clientY - posRef.current.y,
     };
-  }, [isDragging, handleMouseMove, handleMouseUp]);
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDraggingRef.current) return;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        applyPosition(
+          e.clientX - dragStartRef.current.x,
+          e.clientY - dragStartRef.current.y
+        );
+      });
+    };
+
+    const onMouseUp = () => {
+      if (!isDraggingRef.current) return;
+      isDraggingRef.current = false;
+      if (bubbleRef.current) bubbleRef.current.style.cursor = "grab";
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    window.addEventListener("mouseup", onMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+  }, [applyPosition]);
 
   const handleNavClick = (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-
-    if (menuOpen) {
-      setMenuOpen(false);
-    }
-
+    if (menuOpen) setMenuOpen(false);
     const targetId = href.replace(/^\/?#/, "");
     const element = document.getElementById(targetId || "home");
     if (element) {
@@ -183,17 +191,16 @@ const Header = () => {
           />
         )}
 
-        {/* Draggable Bubble Button */}
+        {/* Draggable Bubble Button — uses transform for GPU-accelerated, jank-free motion */}
         <div
           ref={bubbleRef}
-          className={`fixed z-50 transition-all duration-200 ${
-            isDragging ? "scale-110" : "scale-100"
-          } ${menuOpen ? "scale-0 opacity-0" : ""}`}
+          className={`fixed z-50 top-0 left-0 will-change-transform ${
+            menuOpen ? "scale-0 opacity-0 pointer-events-none" : ""
+          }`}
           style={{
-            left: `${position.x}px`,
-            top: `${position.y}px`,
-            cursor: isDragging ? "grabbing" : "grab",
+            cursor: "grab",
             touchAction: "none",
+            transition: menuOpen ? "opacity 0.2s, transform 0.2s" : "none",
           }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -203,7 +210,7 @@ const Header = () => {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              if (!isDragging) setMenuOpen(true);
+              if (!isDraggingRef.current) setMenuOpen(true);
             }}
             className="btn-shiny w-16 h-16 bg-primary/90 backdrop-blur-md
             border-2 border-coral/30 rounded-full 
@@ -211,7 +218,7 @@ const Header = () => {
             flex items-center justify-center
             hover:shadow-xl hover:shadow-coral/40
             active:scale-95
-            transition-all duration-300"
+            transition-shadow duration-300"
             aria-label="Open menu"
           >
             {/* Burger Icon */}
