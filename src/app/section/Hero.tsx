@@ -155,7 +155,7 @@ const Hero = () => {
     <section
       ref={sectionRef}
       id="home"
-      className="min-h-screen bg-canvas text-ink relative overflow-hidden pt-24 pb-16 border-b border-border-light"
+      className="min-h-screen bg-soft-stone/40 bg-grid-pattern text-ink relative overflow-hidden pt-24 pb-32 lg:pb-48 border-b border-border-light z-0"
     >
       <div className="relative z-10 container mx-auto px-6 lg:px-12 min-h-[calc(100vh-6rem)] flex flex-col justify-center items-center py-12">
         <div
