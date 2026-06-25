@@ -16,17 +16,15 @@ const TechStack = () => {
     const ctx = gsap.context(() => {
       if (!sectionRef.current) return;
 
-      // Fade in desktop orbital bubbles on scroll
+      // Pure fade in animation for desktop orbital bubbles
       gsap.fromTo(
         bubblesRef.current,
-        { opacity: 0, scale: 0.4, y: 40 },
+        { opacity: 0 },
         {
           opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 1.2,
-          stagger: 0.06,
-          ease: "back.out(1.7)",
+          duration: 1.5,
+          stagger: 0.08,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 80%",
@@ -40,7 +38,7 @@ const TechStack = () => {
                   repeat: -1,
                   yoyo: true,
                   ease: "power1.inOut",
-                  delay: 1.2 + index * 0.1,
+                  delay: 1.5 + index * 0.1,
                 });
               });
             },
@@ -48,17 +46,15 @@ const TechStack = () => {
         }
       );
 
-      // Fade in mobile bubbles on scroll
+      // Pure fade in animation for mobile bubbles
       gsap.fromTo(
         mobileBubblesRef.current,
-        { opacity: 0, scale: 0.4, y: 40 },
+        { opacity: 0 },
         {
           opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 1.2,
+          duration: 1.5,
           stagger: 0.08,
-          ease: "back.out(1.7)",
+          ease: "power2.out",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 85%",
@@ -72,7 +68,7 @@ const TechStack = () => {
                   repeat: -1,
                   yoyo: true,
                   ease: "power1.inOut",
-                  delay: 1.2 + index * 0.1,
+                  delay: 1.5 + index * 0.1,
                 });
               });
             },
@@ -84,21 +80,21 @@ const TechStack = () => {
     return () => ctx.revert();
   }, []);
 
-  // Compute absolute positions for 19 items in two orbiting rings around the center text
-  // Ring 1 (8 items): Radius X = 320px, Radius Y = 250px
-  // Ring 2 (11 items): Radius X = 520px, Radius Y = 390px
+  // Compute absolute positions for 19 items in two orbiting rings around the exact absolute center (550px, 390px)
+  // Ring 1 (8 items): Radius X = 330px, Radius Y = 250px
+  // Ring 2 (11 items): Radius X = 520px, Radius Y = 380px
   const getOrbitalPosition = (index: number) => {
     if (index < 8) {
       const angle = (index / 8) * 2 * Math.PI;
-      const x = Math.round(Math.cos(angle) * 330);
-      const y = Math.round(Math.sin(angle) * 250);
-      return { left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)` };
+      const x = 550 + Math.round(Math.cos(angle) * 330);
+      const y = 390 + Math.round(Math.sin(angle) * 250);
+      return { left: `${x}px`, top: `${y}px` };
     } else {
       const subIndex = index - 8;
       const angle = (subIndex / 11) * 2 * Math.PI;
-      const x = Math.round(Math.cos(angle) * 530);
-      const y = Math.round(Math.sin(angle) * 390);
-      return { left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)` };
+      const x = 550 + Math.round(Math.cos(angle) * 520);
+      const y = 390 + Math.round(Math.sin(angle) * 380);
+      return { left: `${x}px`, top: `${y}px` };
     }
   };
 
@@ -108,12 +104,12 @@ const TechStack = () => {
       id="tech-stack"
       className="min-h-screen bg-soft-stone text-ink relative overflow-hidden py-24 border-b border-border-light flex flex-col justify-center items-center"
     >
-      {/* DESKTOP / TABLET ORBITAL LAYOUT (hidden on mobile) */}
-      <div className="hidden lg:flex relative w-full min-h-[950px] items-center justify-center overflow-hidden max-w-[1300px] mx-auto">
-        {/* Title Exactly in the Center */}
-        <div className="absolute z-30 text-center max-w-md mx-auto px-6 pointer-events-none space-y-4">
+      {/* DESKTOP / TABLET ORBITAL LAYOUT (Perfectly Centered via Fixed Absolute Wrapper) */}
+      <div className="hidden lg:block relative w-[1100px] h-[780px] my-12 pointer-events-none mx-auto">
+        {/* Title Exactly in the Center of the Wrapper (550px, 390px) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md text-center pointer-events-none z-30 space-y-4">
           <h4 className="mono-label text-coral text-lg font-bold">Keahlian & Alat</h4>
-          <h2 className="section-display text-primary font-black tracking-tight">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny mb-4">
             Tech Stack
           </h2>
           <p className="body text-body-muted text-lg leading-relaxed">
@@ -121,7 +117,7 @@ const TechStack = () => {
           </p>
         </div>
 
-        {/* Orbiting Bubbles surrounding the Center Text */}
+        {/* Orbiting Bubbles surrounding the Exact Center Text */}
         <div className="absolute inset-0 w-full h-full pointer-events-auto">
           {techStacks.map((tech, index) => {
             const pos = getOrbitalPosition(index);
@@ -154,11 +150,11 @@ const TechStack = () => {
       </div>
 
       {/* MOBILE / NARROW LAYOUT (shown on screens < lg) */}
-      <div className="lg:hidden container mx-auto px-6 flex flex-col items-center justify-center relative z-10 space-y-16">
+      <div className="lg:hidden container mx-auto px-6 flex flex-col items-center justify-center relative z-10 space-y-16 py-12">
         {/* Title */}
         <div className="text-center max-w-xl mx-auto space-y-4">
           <h4 className="mono-label text-coral text-lg font-bold">Keahlian & Alat</h4>
-          <h2 className="section-display text-primary font-black tracking-tight">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny mb-4">
             Tech Stack
           </h2>
           <p className="body text-body-muted text-lg leading-relaxed">
