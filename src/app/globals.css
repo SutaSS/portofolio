@@ -91,6 +91,11 @@ body {
   max-width: 100vw;
 }
 
+/* Hide horizontal scrollbar completely per user request */
+::-webkit-scrollbar:horizontal {
+  display: none !important;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -108,6 +113,15 @@ body {
   background: var(--neon-aqua);
 }
 
+/* Scrollbar hide utility classes */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none !important;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -118,86 +132,86 @@ body {
 }
 
 /* ============================================
-   COHERE TYPOGRAPHY HIERARCHY
+   COHERE TYPOGRAPHY HIERARCHY (ENLARGED & BOLDER)
    ============================================ */
 
 .hero-display {
   font-family: var(--font-orbitron), monospace;
-  font-size: 5rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-size: 6rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 @media (max-width: 768px) {
   .hero-display {
-    font-size: 2.75rem;
+    font-size: 3.25rem;
   }
 }
 
 .product-display {
   font-family: var(--font-orbitron), monospace;
-  font-size: 4.5rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-size: 5.5rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 @media (max-width: 768px) {
   .product-display {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 }
 
 .section-display {
   font-family: var(--font-orbitron), monospace;
-  font-size: 3.75rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-size: 4.5rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 @media (max-width: 768px) {
   .section-display {
-    font-size: 2.25rem;
+    font-size: 2.75rem;
   }
 }
 
 .section-heading {
   font-family: var(--font-inter), sans-serif;
-  font-size: 3rem;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 @media (max-width: 768px) {
   .section-heading {
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
 }
 
 .card-heading {
   font-family: var(--font-inter), sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.25rem;
+  font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.01em;
 }
 @media (max-width: 768px) {
   .card-heading {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
 }
 
 .feature-heading {
   font-family: var(--font-inter), sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.3;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.25;
 }
 
 .body-large {
   font-family: var(--font-inter), sans-serif;
   font-size: 1.125rem;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .body {
@@ -224,7 +238,7 @@ body {
 .mono-label {
   font-family: var(--font-orbitron), monospace;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.4;
   letter-spacing: 0.02em;
   text-transform: uppercase;
