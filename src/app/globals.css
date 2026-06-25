@@ -132,7 +132,7 @@ body {
 }
 
 /* ============================================
-   COHERE TYPOGRAPHY HIERARCHY (REVERTED TO ORIGINAL)
+   COHERE TYPOGRAPHY HIERARCHY
    ============================================ */
 
 .hero-display {
@@ -249,6 +249,48 @@ body {
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 1.4;
+}
+
+/* ============================================
+   SHINY TEXT SHEEN EFFECT (For 5 Main Headers)
+   ============================================ */
+
+.text-shiny {
+  background: linear-gradient(
+    120deg,
+    var(--primary) 0%,
+    var(--primary) 35%,
+    var(--coral) 50%,
+    var(--primary) 65%,
+    var(--primary) 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: text-shine 5s linear infinite;
+}
+
+.text-shiny-white {
+  background: linear-gradient(
+    120deg,
+    #ffffff 0%,
+    #ffffff 35%,
+    var(--coral) 50%,
+    #ffffff 65%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: text-shine 5s linear infinite;
+}
+
+@keyframes text-shine {
+  to {
+    background-position: 200% center;
+  }
 }
 
 /* ============================================
