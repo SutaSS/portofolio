@@ -271,7 +271,7 @@ body {
   transform: translateX(200%);
 }
 
-/* Card Lift & Gentle Vibrate Effect with Timeout (0.5s vibrate, 1s pause) */
+/* Card Lift & Gentle Vibrate Effect (For clickable cards that open new pages) */
 @keyframes vibrate-pause {
   0% { transform: translateY(-8px) rotate(0deg); }
   7% { transform: translateY(-8px) rotate(-0.5deg); }
@@ -288,6 +288,15 @@ body {
 
 .card-vibrate:hover {
   animation: vibrate-pause 1.5s ease-in-out infinite;
+  transform: translateY(-8px);
+}
+
+/* Card Lift Effect (For static non-clickable component cards) */
+.card-lift {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-lift:hover {
   transform: translateY(-8px);
 }
 
