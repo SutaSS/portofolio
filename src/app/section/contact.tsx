@@ -71,13 +71,13 @@ const Contact = () => {
     <section
       ref={containerRef}
       id="contact"
-      className="min-h-screen bg-soft-stone text-ink relative overflow-hidden py-24 flex flex-col justify-center border-b border-border-light"
+      className="min-h-screen bg-soft-stone bg-grid-pattern text-ink relative overflow-hidden py-24 flex flex-col justify-center border-b border-border-light"
     >
       <div className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10">
         {/* Title */}
         <div className="text-center mb-16 max-w-2xl mx-auto contact-anim">
           <h4 className="mono-label text-coral mb-2">Informasi Kontak</h4>
-          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny mb-4">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-4">
             Get In Touch
           </h2>
           <p className="body-large text-body-muted">
