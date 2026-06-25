@@ -41,7 +41,7 @@ const Contact = () => {
         {/* Title */}
         <div className="text-center mb-16 max-w-2xl mx-auto contact-anim">
           <h4 className="mono-label text-coral mb-2">Informasi Kontak & Portofolio</h4>
-          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-white mb-4">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-white mb-4">
             Get In Touch
           </h2>
           <p className="body-large text-white/70">
