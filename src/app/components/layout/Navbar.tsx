@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { navigationItems } from "../../data/navigation";
 
 const Header = () => {
@@ -87,23 +87,23 @@ const Header = () => {
     });
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!isDragging || menuOpen) return;
     const newX = e.clientX - dragStart.x;
     const newY = e.clientY - dragStart.y;
 
     const maxX = window.innerWidth - 64;
-    const maxY = window.innerHeight - 64;
+    const overlayY = window.innerHeight - 64;
 
     setPosition({
       x: Math.max(0, Math.min(newX, maxX)),
-      y: Math.max(0, Math.min(newY, maxY)),
+      y: Math.max(0, Math.min(newY, overlayY)),
     });
-  };
+  }, [isDragging, menuOpen, dragStart]);
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
   useEffect(() => {
     if (!isDragging) return;
@@ -120,7 +120,6 @@ const Header = () => {
   const handleNavClick = (href: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
 
-    // Close menu immediately (for mobile) or just perform smooth scroll (desktop)
     if (menuOpen) {
       setMenuOpen(false);
     }
@@ -128,7 +127,6 @@ const Header = () => {
     const targetId = href.replace(/^\/?#/, "");
     const element = document.getElementById(targetId || "home");
     if (element) {
-      // Slight timeout so DOM updates (menu close) apply before scroll
       setTimeout(() => {
         element.scrollIntoView({ behavior: "instant" });
       }, 50);
@@ -151,9 +149,9 @@ const Header = () => {
         {/* Desktop Bubble Navbar */}
         <nav
           className="hidden lg:flex items-center gap-2 
-          bg-[#1A2A44]/80 backdrop-blur-xl border border-white/20 
+          bg-primary/90 backdrop-blur-xl border border-white/20 
           rounded-full px-3 py-2 
-          shadow-lg shadow-[#7FFFD4]/10
+          shadow-lg shadow-black/20
           group hover:gap-1
           transition-all duration-300"
         >
@@ -162,12 +160,12 @@ const Header = () => {
               key={item.label}
               href={item.href}
               onClick={handleNavClick(item.href)}
-              className="relative flex items-center gap-0 overflow-hidden rounded-full px-3 py-2 text-[#7FFFD4] hover:bg-[#708D81]/20 transition-all duration-300 group/item"
+              className="btn-shiny relative flex items-center gap-0 overflow-hidden rounded-full px-4 py-2.5 text-coral hover:bg-white/10 transition-all duration-300 group/item"
             >
-              <span className="flex-shrink-0 transition-colors duration-500 group-hover/item:text-[#7FFFD4]">
+              <span className="flex-shrink-0 transition-colors duration-500 group-hover/item:text-coral">
                 {item.icon}
               </span>
-              <span className="max-w-0 opacity-0 whitespace-nowrap overflow-hidden text-sm text-[#F5F5F5] group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-2 transition-all duration-300 group-hover/item:text-[#7FFFD4]">
+              <span className="mono-label max-w-0 opacity-0 whitespace-nowrap overflow-hidden text-xs text-white group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-2 transition-all duration-300 group-hover/item:text-coral">
                 {item.label}
               </span>
             </a>
@@ -180,7 +178,7 @@ const Header = () => {
         {/* Blur Background Overlay */}
         {menuOpen && (
           <div
-            className="fixed inset-0 bg-[#0D1B2A]/60 backdrop-blur-lg z-40 animate-fade-in"
+            className="fixed inset-0 bg-primary/60 backdrop-blur-lg z-40 animate-fade-in"
             onClick={() => setMenuOpen(false)}
           />
         )}
@@ -207,20 +205,20 @@ const Header = () => {
               e.stopPropagation();
               if (!isDragging) setMenuOpen(true);
             }}
-            className="w-16 h-16 bg-gradient-to-br from-[#1A2A44]/90 to-[#708D81]/90 backdrop-blur-md
-            border-2 border-[#7FFFD4]/30 rounded-full 
-            shadow-lg shadow-[#7FFFD4]/20 
+            className="btn-shiny w-16 h-16 bg-primary/90 backdrop-blur-md
+            border-2 border-coral/30 rounded-full 
+            shadow-lg shadow-black/20 
             flex items-center justify-center
-            hover:shadow-xl hover:shadow-[#7FFFD4]/40
+            hover:shadow-xl hover:shadow-coral/40
             active:scale-95
             transition-all duration-300"
             aria-label="Open menu"
           >
             {/* Burger Icon */}
             <div className="flex flex-col space-y-1.5">
-              <span className="w-5 h-0.5 bg-[#7FFFD4] rounded-full" />
-              <span className="w-5 h-0.5 bg-[#7FFFD4] rounded-full" />
-              <span className="w-5 h-0.5 bg-[#7FFFD4] rounded-full" />
+              <span className="w-5 h-0.5 bg-coral rounded-full" />
+              <span className="w-5 h-0.5 bg-coral rounded-full" />
+              <span className="w-5 h-0.5 bg-coral rounded-full" />
             </div>
           </button>
         </div>
@@ -231,18 +229,18 @@ const Header = () => {
             {/* Close Button Bubble */}
             <button
               onClick={() => setMenuOpen(false)}
-              className="absolute top-6 right-6 w-12 h-12 
-              bg-gradient-to-br from-[#1A2A44]/90 to-[#708D81]/90 backdrop-blur-md
-              border-2 border-[#7FFFD4]/30 rounded-full 
-              shadow-lg shadow-[#7FFFD4]/20
+              className="btn-shiny absolute top-6 right-6 w-12 h-12 
+              bg-primary/90 backdrop-blur-md
+              border-2 border-coral/30 rounded-full 
+              shadow-lg shadow-black/20
               flex items-center justify-center
-              hover:shadow-xl hover:shadow-[#7FFFD4]/40
+              hover:shadow-xl hover:shadow-coral/40
               active:scale-95
               transition-all duration-300 animate-fade-in-down"
               aria-label="Close menu"
             >
               <svg
-                className="w-6 h-6 text-[#7FFFD4]"
+                className="w-6 h-6 text-coral"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -263,41 +261,35 @@ const Header = () => {
                   key={item.label}
                   href={item.href}
                   onClick={handleNavClick(item.href)}
-                  className={`group relative flex flex-col items-center justify-center gap-3 
-                  bg-gradient-to-br from-[#1A2A44]/90 to-[#708D81]/90 backdrop-blur-md
-                  border-2 border-[#7FFFD4]/20 rounded-3xl 
+                  className={`btn-shiny group relative flex flex-col items-center justify-center gap-3 
+                  bg-primary/90 backdrop-blur-md
+                  border-2 border-coral/20 rounded-3xl 
                   p-6 min-h-[120px]
-                  shadow-lg shadow-[#7FFFD4]/10
-                  hover:shadow-xl hover:shadow-[#7FFFD4]/30
-                  hover:border-[#7FFFD4]/50
+                  shadow-lg shadow-black/10
+                  hover:shadow-xl hover:shadow-coral/30
+                  hover:border-coral/50
                   active:scale-95
                   transition-all duration-300 animate-fade-in-up`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {/* Icon Bubble */}
                   <div
-                    className="w-12 h-12 bg-[#7FFFD4]/10 rounded-full 
+                    className="w-12 h-12 bg-coral/10 rounded-full 
                     flex items-center justify-center
-                    group-hover:bg-[#7FFFD4]/20
+                    group-hover:bg-coral/20
                     group-hover:scale-110
                     transition-all duration-300"
                   >
-                    <span className="text-[#7FFFD4] text-2xl">{item.icon}</span>
+                    <span className="text-coral text-2xl">{item.icon}</span>
                   </div>
 
                   {/* Label */}
                   <span
-                    className="text-[#F5F5F5] text-sm font-medium 
-                    group-hover:text-[#7FFFD4] transition-colors duration-300"
+                    className="mono-label text-white text-sm font-medium 
+                    group-hover:text-coral transition-colors duration-300"
                   >
                     {item.label}
                   </span>
-
-                  {/* Glow Effect on Hover */}
-                  <div
-                    className="absolute inset-0 rounded-3xl bg-[#7FFFD4]/0 
-                    group-hover:bg-[#7FFFD4]/5 transition-all duration-300"
-                  />
                 </a>
               ))}
             </div>
