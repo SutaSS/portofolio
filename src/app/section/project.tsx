@@ -2,15 +2,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { projects } from "../data/projects";
 import { projectCategories } from "../data/ProjectCategories";
-import { FaGithub, FaExternalLinkAlt, FaStar, FaArrowRight } from "react-icons/fa";
+import { FaGithub, FaExternalLinkAlt, FaStar, FaArrowRight, FaInstagram } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 import { Project } from "../types/project";
 
 const ProjectSection = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects as unknown as Project[]);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const sectionRef = useRef<HTMLElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setIsTransitioning(true);
@@ -29,9 +30,27 @@ const ProjectSection = () => {
     return () => clearTimeout(timer);
   }, [activeCategory]);
 
+  // Intercept wheel events on the horizontal scroll container when hovered
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY !== 0) {
+        container.scrollLeft += e.deltaY;
+        e.preventDefault();
+      }
+    };
+
+    container.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+
   return (
     <section
-      ref={sectionRef}
       id="projects"
       className="min-h-screen bg-canvas text-ink relative overflow-hidden py-24 border-b border-border-light"
     >
@@ -43,12 +62,12 @@ const ProjectSection = () => {
             Featured Projects
           </h2>
           <p className="body-large text-body-muted">
-            Explore my body of work across fullstack applications, UI/UX design documentation, and artwork. Use the category sidebar to filter by project type.
+            Explore my body of work across fullstack applications, UI/UX design documentation, and artwork. Hover over the projects on the right to scroll horizontally through the timeline.
           </p>
         </div>
 
-        {/* Sidebar + Content Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        {/* Sidebar + Horizontal Slider Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Sidebar Category Selector (Left 3 cols on LG) */}
           <div className="lg:col-span-3 lg:sticky lg:top-32 flex flex-row lg:flex-col gap-3 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 scrollbar-hide w-full z-10">
             {projectCategories.map((category) => {
@@ -76,9 +95,10 @@ const ProjectSection = () => {
             })}
           </div>
 
-          {/* Project Grid Content (Right 9 cols on LG) */}
+          {/* Project Horizontal Scroll Content (Right 9 cols on LG) */}
           <div
-            className={`lg:col-span-9 grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-500 ease-in-out ${
+            ref={scrollContainerRef}
+            className={`lg:col-span-9 flex flex-row gap-8 overflow-x-auto scrollbar-hide py-4 pl-4 pr-12 w-full transition-all duration-500 ease-in-out ${
               isTransitioning ? "opacity-0 translate-y-4 scale-98" : "opacity-100 translate-y-0 scale-100"
             }`}
           >
@@ -86,11 +106,12 @@ const ProjectSection = () => {
               const isHighlighted = index === 0 || project.featured;
               const imageUrl = project.imageUrl || "/assets/Hero-1.jpg";
               const techList = project.technologies || [];
+              const isArtwork = project.category === "artwork";
 
               return (
                 <div
                   key={project.id}
-                  className={`card-vibrate group relative bg-soft-stone border rounded-[28px] overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 ${
+                  className={`card-vibrate group relative bg-soft-stone border rounded-[28px] overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 w-[340px] md:w-[400px] flex-shrink-0 ${
                     isHighlighted ? "border-coral/60 shadow-md shadow-coral/10" : "border-card-border hover:border-coral"
                   }`}
                 >
@@ -102,16 +123,17 @@ const ProjectSection = () => {
                   )}
 
                   {/* Project Image Link / Preview */}
-                  <Link href={`/project/${project.id}`} className="relative w-full h-64 overflow-hidden block bg-primary/10">
-                    <img
+                  <Link href={`/project/${project.id}`} className="relative w-full h-60 overflow-hidden block bg-primary/10">
+                    <Image
                       src={imageUrl}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                       <span className="btn-shiny px-6 py-3 bg-canvas text-primary mono-label rounded-full text-xs font-bold shadow-lg flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        View Full Story <FaArrowRight />
+                        {isArtwork ? "View on Instagram" : "View Full Story"} <FaArrowRight />
                       </span>
                     </div>
                   </Link>
@@ -121,7 +143,7 @@ const ProjectSection = () => {
                     <div>
                       {/* Title */}
                       <Link href={`/project/${project.id}`}>
-                        <h3 className="card-heading text-primary group-hover:text-coral transition-colors duration-300 mb-3">
+                        <h3 className="card-heading text-primary group-hover:text-coral transition-colors duration-300 mb-3 text-2xl">
                           {project.title}
                         </h3>
                       </Link>
@@ -149,12 +171,12 @@ const ProjectSection = () => {
                       <div className="pt-6 border-t border-hairline flex items-center justify-between">
                         <Link
                           href={`/project/${project.id}`}
-                          className="btn-shiny inline-flex items-center gap-2 px-6 py-2.5 bg-primary text-white hover:bg-coral hover:text-primary rounded-full mono-label text-xs font-bold transition-all duration-300"
+                          className="btn-shiny inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white hover:bg-coral hover:text-primary rounded-full mono-label text-xs font-bold transition-all duration-300"
                         >
-                          Story Details <FaArrowRight />
+                          {isArtwork ? "Go to Instagram" : "Story Details"} <FaArrowRight />
                         </Link>
 
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                           {project.githubUrl && (
                             <a
                               href={project.githubUrl}
@@ -166,7 +188,7 @@ const ProjectSection = () => {
                               <FaGithub size={18} />
                             </a>
                           )}
-                          {project.liveUrl && (
+                          {project.liveUrl && !isArtwork && (
                             <a
                               href={project.liveUrl}
                               target="_blank"
@@ -175,6 +197,17 @@ const ProjectSection = () => {
                               aria-label="Live Demo"
                             >
                               <FaExternalLinkAlt size={16} />
+                            </a>
+                          )}
+                          {isArtwork && (
+                            <a
+                              href={project.liveUrl || "https://instagram.com/andikahernadi"}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-10 h-10 rounded-full bg-white border border-hairline flex items-center justify-center text-ink hover:border-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-sm"
+                              aria-label="Instagram Artwork"
+                            >
+                              <FaInstagram size={18} />
                             </a>
                           )}
                         </div>
