@@ -1,4 +1,3 @@
-import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Navbar";
 import About from "./section/about";
 import TechStack from "./section/techStack";
@@ -17,7 +16,6 @@ export default function Home() {
       <Project />
       <TechStack />
       <Achievements />
-      <Footer />
     </main>
   );
 }
