@@ -9,8 +9,8 @@ const Footer = () => {
     <footer className="bg-primary text-on-dark py-20 border-t border-white/10">
       <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16 items-start">
-          {/* Left Side: Achievement & Profile Photo (6 cols) */}
-          <div className="lg:col-span-7 bg-white/5 border border-white/10 rounded-3xl p-8 shadow-xl space-y-6">
+          {/* Left Side: Achievement Showcase Gallery & Profile (7 cols) */}
+          <div className="lg:col-span-7 bg-white/5 border border-white/10 rounded-3xl p-8 shadow-xl space-y-8">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
               {/* User Photo */}
               <div className="w-24 h-24 sm:w-28 sm:h-28 relative rounded-full overflow-hidden border-2 border-coral shadow-xl flex-shrink-0 bg-soft-stone">
@@ -29,9 +29,60 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Achievements Highlights */}
+            {/* Achievements Showcase Gallery (Displaying images from public/assets/achievements) */}
             <div className="space-y-4 pt-6 border-t border-white/10">
-              <h4 className="mono-label text-coral text-xs font-bold tracking-wider uppercase">Key Achievements & Milestones</h4>
+              <h4 className="mono-label text-coral text-xs font-bold tracking-wider uppercase">Gallery & Achievements</h4>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="relative h-36 sm:h-44 rounded-2xl overflow-hidden border border-white/20 shadow-lg group bg-soft-stone/10">
+                  <Image
+                    src="/assets/achievements/IFEST-1.jpg"
+                    alt="IFEST Achievement 1"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">IFEST Showcase 1</span>
+                  </div>
+                </div>
+                <div className="relative h-36 sm:h-44 rounded-2xl overflow-hidden border border-white/20 shadow-lg group bg-soft-stone/10">
+                  <Image
+                    src="/assets/achievements/IFEST-2.jpg"
+                    alt="IFEST Achievement 2"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">IFEST Showcase 2</span>
+                  </div>
+                </div>
+                <div className="relative h-36 sm:h-44 rounded-2xl overflow-hidden border border-white/20 shadow-lg group bg-soft-stone/10">
+                  <Image
+                    src="/assets/achievements/Technoday-1.jpg"
+                    alt="Technoday Achievement 1"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">Technoday 1</span>
+                  </div>
+                </div>
+                <div className="relative h-36 sm:h-44 rounded-2xl overflow-hidden border border-white/20 shadow-lg group bg-soft-stone/10">
+                  <Image
+                    src="/assets/achievements/Technoday-2.jpg"
+                    alt="Technoday Achievement 2"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                    <span className="mono-label text-[10px] text-white font-bold tracking-wide">Technoday 2</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Key Milestones */}
+            <div className="space-y-4 pt-6 border-t border-white/10">
+              <h4 className="mono-label text-coral text-xs font-bold tracking-wider uppercase">Milestone Benchmarks</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex items-start gap-3 shadow-sm">
                   <FaTrophy className="text-coral text-lg mt-0.5 flex-shrink-0" />
