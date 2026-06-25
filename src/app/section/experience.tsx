@@ -16,7 +16,6 @@ const Experience = () => {
       const slider = sliderRef.current;
       if (!container || !slider) return;
 
-      // We want to pin the container and slide the inner container to the left
       const totalWidth = slider.scrollWidth - window.innerWidth;
 
       if (totalWidth > 0 && window.innerWidth >= 1024) {
@@ -27,6 +26,8 @@ const Experience = () => {
             trigger: container,
             pin: true,
             scrub: 1,
+            // Trigger pin when container is perfectly centered so full card height is completely readable before sliding starts
+            start: "center center",
             end: () => `+=${slider.scrollWidth}`,
             invalidateOnRefresh: true,
           },
@@ -41,7 +42,7 @@ const Experience = () => {
     <section
       ref={containerRef}
       id="experience"
-      className="min-h-screen bg-deep-green text-white relative overflow-hidden py-24 flex flex-col justify-center border-b border-white/10"
+      className="min-h-screen bg-deep-green text-white relative overflow-hidden py-16 flex flex-col justify-center border-b border-white/10"
     >
       <div className="container mx-auto px-6 lg:px-12 mb-12 flex-shrink-0">
         {/* Title */}
@@ -57,7 +58,7 @@ const Experience = () => {
       </div>
 
       {/* Horizontal Slider Container */}
-      <div className="flex-1 flex items-center overflow-x-auto lg:overflow-x-visible pl-6 lg:pl-12 pr-6 py-8 scrollbar-hide">
+      <div className="flex-1 flex items-center overflow-x-auto lg:overflow-x-visible pl-6 lg:pl-12 pr-6 py-4 scrollbar-hide">
         <div ref={sliderRef} className="flex gap-8 w-max items-stretch">
           {experiences.map((exp, index) => (
             <div
@@ -116,7 +117,7 @@ const Experience = () => {
       </div>
 
       {/* Call to Action */}
-      <div className="container mx-auto px-6 lg:px-12 mt-12 text-center flex-shrink-0">
+      <div className="container mx-auto px-6 lg:px-12 mt-8 text-center flex-shrink-0">
         <a
           href="#contact"
           className="btn-shiny inline-block px-8 py-4 bg-canvas text-primary rounded-full font-inter font-medium text-sm tracking-wide shadow-lg hover:bg-coral hover:text-primary transition-all duration-300 group"
