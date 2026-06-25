@@ -125,9 +125,6 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <h1 className="product-display text-primary">
             {project.title}
           </h1>
-          <p className="section-heading text-ink font-normal max-w-4xl text-2xl lg:text-3xl leading-relaxed">
-            {project.description}
-          </p>
         </div>
 
         {/* Hero Photo Card */}
@@ -164,8 +161,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           {/* Left Summary Box (4 cols) */}
           <div className="lg:col-span-4 lg:sticky lg:top-32 card-lift bg-soft-stone border border-card-border rounded-3xl p-8 shadow-sm space-y-6">
             <h3 className="card-heading text-primary">Project Overview</h3>
-            <p className="body text-body-muted leading-relaxed">
-              This initiative exemplifies clean architecture, scalability, and seamless user interaction. Built to solve critical workflow challenges while maintaining extreme aesthetic discipline.
+            <p className="body-large text-body-muted leading-relaxed">
+              {project.description}
             </p>
             <div className="space-y-4 pt-6 border-t border-hairline">
               <div className="flex items-start gap-3">

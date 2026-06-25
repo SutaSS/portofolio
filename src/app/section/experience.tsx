@@ -33,6 +33,20 @@ const Experience = () => {
           },
         });
       }
+
+      // Fix hash navigation bug (e.g. /#projects) caused by GSAP pin spacer height calculation
+      const handleHashScroll = () => {
+        ScrollTrigger.refresh();
+        if (window.location.hash) {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            target.scrollIntoView({ behavior: "instant" });
+          }
+        }
+      };
+
+      setTimeout(handleHashScroll, 50);
+      setTimeout(handleHashScroll, 250);
     }, containerRef);
 
     return () => ctx.revert();

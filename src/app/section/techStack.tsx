@@ -3,7 +3,6 @@ import React, { useRef, useLayoutEffect } from "react";
 import { techStacks } from "../data/techStack";
 import Image from "next/image";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 
 const TechStack = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -11,51 +10,33 @@ const TechStack = () => {
   const mobileBubblesRef = useRef<Array<HTMLDivElement | null>>([]);
 
   useLayoutEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
     const ctx = gsap.context(() => {
       if (!sectionRef.current) return;
 
-      // Bubbles already visible — just trigger the floating animation on scroll
-      gsap.set(bubblesRef.current, { opacity: 1 });
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 80%",
-        toggleActions: "play none none none",
-        onEnter: () => {
-          bubblesRef.current.forEach((el, index) => {
-            if (!el) return;
-            gsap.to(el, {
-              y: -16,
-              duration: 2 + (index % 3) * 0.4,
-              repeat: -1,
-              yoyo: true,
-              ease: "power1.inOut",
-              delay: index * 0.08,
-            });
-          });
-        },
+      // Bubbles stay visible from the start — float continuously without animation-in
+      bubblesRef.current.forEach((el, index) => {
+        if (!el) return;
+        gsap.to(el, {
+          y: -16,
+          duration: 2 + (index % 3) * 0.4,
+          repeat: -1,
+          yoyo: true,
+          ease: "power1.inOut",
+          delay: index * 0.08,
+        });
       });
 
       // Mobile bubbles
-      gsap.set(mobileBubblesRef.current, { opacity: 1 });
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 85%",
-        toggleActions: "play none none none",
-        onEnter: () => {
-          mobileBubblesRef.current.forEach((el, index) => {
-            if (!el) return;
-            gsap.to(el, {
-              y: -12,
-              duration: 2 + (index % 3) * 0.4,
-              repeat: -1,
-              yoyo: true,
-              ease: "power1.inOut",
-              delay: index * 0.08,
-            });
-          });
-        },
+      mobileBubblesRef.current.forEach((el, index) => {
+        if (!el) return;
+        gsap.to(el, {
+          y: -12,
+          duration: 2 + (index % 3) * 0.4,
+          repeat: -1,
+          yoyo: true,
+          ease: "power1.inOut",
+          delay: index * 0.08,
+        });
       });
     }, sectionRef);
 

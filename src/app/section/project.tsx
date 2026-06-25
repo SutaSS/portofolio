@@ -174,12 +174,6 @@ const ProjectSection = () => {
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                      <span className="btn-shiny px-6 py-3 bg-canvas text-primary mono-label rounded-full text-xs font-bold shadow-lg flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        {isArtwork ? "View on Instagram" : "View Full Story"} <FaArrowRight />
-                      </span>
-                    </div>
                   </Link>
 
                   {/* Project Details */}
@@ -217,7 +211,7 @@ const ProjectSection = () => {
                           href={`/project/${project.id}`}
                           className="btn-shiny inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white hover:bg-coral hover:text-primary rounded-full mono-label text-xs font-bold transition-all duration-300"
                         >
-                          {isArtwork ? "Go to Instagram" : "Story Details"} <FaArrowRight />
+                          Story Details <FaArrowRight />
                         </Link>
 
                         <div className="flex items-center gap-3">
