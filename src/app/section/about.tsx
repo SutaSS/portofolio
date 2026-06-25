@@ -75,7 +75,7 @@ const About = () => {
         {/* Title */}
         <div className="text-center mb-16">
           <h2
-            className={`section-display text-primary font-black mb-4 ${
+            className={`text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny mb-4 ${
               isVisible ? "animate-fade-in-down delay-100" : "animate-fade-out-down delay-100"
             }`}
           >
