@@ -102,14 +102,14 @@ const TechStack = () => {
     <section
       ref={sectionRef}
       id="tech-stack"
-      className="min-h-screen bg-soft-stone text-ink relative overflow-hidden py-24 border-b border-border-light flex flex-col justify-center items-center"
+      className="min-h-screen bg-soft-stone bg-grid-pattern text-ink relative overflow-hidden py-24 border-b border-border-light flex flex-col justify-center items-center"
     >
       {/* DESKTOP / TABLET ORBITAL LAYOUT (Perfectly Centered via Fixed Absolute Wrapper) */}
       <div className="hidden lg:block relative w-[1100px] h-[780px] my-12 pointer-events-none mx-auto">
         {/* Title Exactly in the Center of the Wrapper (550px, 390px) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md text-center pointer-events-none z-30 space-y-4">
           <h4 className="mono-label text-coral text-lg font-bold">Keahlian & Alat</h4>
-          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny mb-4">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-4">
             Tech Stack
           </h2>
           <p className="body text-body-muted text-lg leading-relaxed">
@@ -154,7 +154,7 @@ const TechStack = () => {
         {/* Title */}
         <div className="text-center max-w-xl mx-auto space-y-4">
           <h4 className="mono-label text-coral text-lg font-bold">Keahlian & Alat</h4>
-          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny mb-4">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-4">
             Tech Stack
           </h2>
           <p className="body text-body-muted text-lg leading-relaxed">
