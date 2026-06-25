@@ -292,19 +292,20 @@ body {
 
 /* Text shiny with bright white colors for dark backgrounds */
 .text-shiny-white {
+  color: white; /* Fallback in case background-clip is unsupported */
   background: linear-gradient(
     120deg,
     #ffffff 0%,
-    #ffffff 35%,
-    var(--coral) 50%,
-    #ffffff 65%,
+    #e0e0e0 30%,
+    #ff7759 48%,
+    #e0e0e0 68%,
     #ffffff 100%
   );
-  background-size: 200% auto;
-  color: transparent;
+  background-size: 250% auto;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: text-shine 5s linear infinite;
+  -webkit-text-fill-color: transparent;
+  animation: text-shine 4s linear infinite;
 }
 
 @keyframes text-shine {
