@@ -52,11 +52,11 @@ const ProjectSection = () => {
   return (
     <section
       id="projects"
-      className="min-h-screen bg-canvas text-ink relative overflow-hidden py-24 border-b border-border-light"
+      className="min-h-screen bg-canvas text-ink relative overflow-hidden py-24 border-b border-border-light w-full"
     >
-      <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
-        {/* Title */}
-        <div className="mb-16 max-w-3xl">
+      {/* Title Area (Centered Container) */}
+      <div className="container mx-auto px-6 lg:px-12 max-w-7xl mb-16">
+        <div className="max-w-3xl">
           <h4 className="mono-label text-coral mb-2">Portfolio Showcase</h4>
           <h2 className="section-display text-primary mb-4">
             Featured Projects
@@ -65,24 +65,26 @@ const ProjectSection = () => {
             Explore my body of work across fullstack applications, UI/UX design documentation, and artwork. Hover over the projects on the right to scroll horizontally through the timeline.
           </p>
         </div>
+      </div>
 
-        {/* Sidebar + Horizontal Slider Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Sidebar Category Selector (Left 3 cols on LG) */}
-          <div className="lg:col-span-3 lg:sticky lg:top-32 flex flex-row lg:flex-col gap-3 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 scrollbar-hide w-full z-10">
+      {/* Sidebar + Horizontal Slider Layout (Full Screen Width) */}
+      <div className="w-full pl-6 lg:pl-12 pr-0">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start w-full">
+          {/* Sidebar Category Selector (Left 2 cols on LG) */}
+          <div className="lg:col-span-2 lg:sticky lg:top-36 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 scrollbar-hide w-full z-10 pr-4">
             {projectCategories.map((category) => {
               const isActive = activeCategory === category.id;
               return (
                 <button
                   key={category.id}
                   onClick={() => setActiveCategory(category.id)}
-                  className={`btn-shiny text-left px-6 py-4 rounded-2xl border transition-all duration-300 flex items-center justify-between group flex-shrink-0 lg:flex-shrink-0 hover:cursor-pointer ${
+                  className={`btn-shiny text-left px-5 py-4 rounded-2xl border transition-all duration-300 flex items-center justify-between group flex-shrink-0 lg:flex-shrink-0 hover:cursor-pointer ${
                     isActive
                       ? "bg-primary text-white border-primary shadow-lg shadow-black/10 font-bold scale-105"
                       : "bg-soft-stone text-ink border-card-border hover:border-coral hover:bg-white/80 font-medium"
                   }`}
                 >
-                  <span className="mono-label text-sm tracking-wide">
+                  <span className="mono-label text-xs tracking-wide">
                     {category.label}
                   </span>
                   <span
@@ -95,10 +97,10 @@ const ProjectSection = () => {
             })}
           </div>
 
-          {/* Project Horizontal Scroll Content (Right 9 cols on LG) */}
+          {/* Project Horizontal Scroll Content (Right 10 cols on LG - Spans full right width) */}
           <div
             ref={scrollContainerRef}
-            className={`lg:col-span-9 flex flex-row gap-8 overflow-x-auto scrollbar-hide py-4 pl-4 pr-12 w-full transition-all duration-500 ease-in-out ${
+            className={`lg:col-span-10 flex flex-row gap-8 overflow-x-auto scrollbar-hide py-4 pl-4 pr-12 lg:pr-24 w-full transition-all duration-700 ease-in-out ${
               isTransitioning ? "opacity-0 translate-y-4 scale-98" : "opacity-100 translate-y-0 scale-100"
             }`}
           >
@@ -111,7 +113,7 @@ const ProjectSection = () => {
               return (
                 <div
                   key={project.id}
-                  className={`card-vibrate group relative bg-soft-stone border rounded-[28px] overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 w-[340px] md:w-[400px] flex-shrink-0 ${
+                  className={`card-vibrate group relative bg-soft-stone border rounded-[28px] overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 w-[340px] md:w-[420px] flex-shrink-0 ${
                     isHighlighted ? "border-coral/60 shadow-md shadow-coral/10" : "border-card-border hover:border-coral"
                   }`}
                 >
@@ -123,7 +125,7 @@ const ProjectSection = () => {
                   )}
 
                   {/* Project Image Link / Preview */}
-                  <Link href={`/project/${project.id}`} className="relative w-full h-60 overflow-hidden block bg-primary/10">
+                  <Link href={`/project/${project.id}`} className="relative w-full h-64 overflow-hidden block bg-primary/10">
                     <Image
                       src={imageUrl}
                       alt={project.title}
