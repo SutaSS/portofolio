@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://andikahernadi.com"),
+  metadataBase: new URL("https://andikasaktih.com"),
   title: {
     default: "Andika Saktidana Hernadi — Fullstack Software Engineer & UI/UX Designer",
     template: "%s | Andika Saktidana Hernadi",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://andikahernadi.com",
+    url: "https://andikasaktih.com",
     title: "Andika Saktidana Hernadi — Fullstack Software Engineer & UI/UX Designer",
     description: "Portfolio of Andika Saktidana Hernadi, a Software Engineer and UI/UX Designer crafting clean architecture applications.",
     siteName: "Andika Saktidana Hernadi Portfolio",

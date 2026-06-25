@@ -164,7 +164,7 @@ const Contact = () => {
                 <div className="space-y-4">
                   {/* Email */}
                   <a
-                    href="mailto:andikahernadi@gmail.com"
+                    href="mailto:andikasaktih@gmail.com"
                     className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-coral hover:bg-white/10 transition-all duration-300 group hover:cursor-pointer"
                   >
                     <div className="w-11 h-11 rounded-xl bg-coral/20 text-coral flex items-center justify-center group-hover:bg-coral group-hover:text-primary transition-all duration-300 flex-shrink-0">
@@ -172,7 +172,7 @@ const Contact = () => {
                     </div>
                     <div className="overflow-hidden">
                       <h4 className="mono-label text-white/60 text-xs group-hover:text-coral transition-colors">Email</h4>
-                      <p className="body font-medium text-white text-sm truncate">andikahernadi@gmail.com</p>
+                      <p className="body font-medium text-white text-sm truncate">andikasaktih@gmail.com</p>
                     </div>
                   </a>
 
