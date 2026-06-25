@@ -1,21 +1,14 @@
 "use client";
 import React, { useState, useRef, useLayoutEffect } from "react";
-import { FaPaperPlane, FaWhatsapp, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import { FaLinkedin, FaEnvelope, FaMapMarkerAlt, FaPaperPlane, FaCheck } from "react-icons/fa";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 const Contact = () => {
-  const [messages, setMessages] = useState<Array<{ sender: string; text: string; time: string }>>([
-    {
-      sender: "andika",
-      text: "Hello! Thank you for visiting my portfolio. Do you have any questions or project opportunities you'd like to discuss?",
-      time: "Just now",
-    },
-  ]);
-  const [inputText, setInputText] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const containerRef = useRef<HTMLElement | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -39,54 +32,49 @@ const Contact = () => {
     return () => ctx.revert();
   }, []);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputText.trim()) return;
+    setStatus("loading");
+    setErrorMessage("");
 
-    const newMsg = {
-      sender: "user",
-      text: inputText,
-      time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-    };
+    try {
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    setMessages((prev) => [...prev, newMsg]);
-    setInputText("");
-    setTimeout(scrollToBottom, 100);
+      if (!res.ok) {
+        throw new Error("Failed to send message. Please try emailing directly.");
+      }
 
-    setIsTyping(true);
-    setTimeout(() => {
-      setIsTyping(false);
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "andika",
-          text: "Thanks for reaching out! I have received your message. For immediate response, feel free to connect via WhatsApp or Email using the links beside.",
-          time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        },
-      ]);
-      setTimeout(scrollToBottom, 100);
-    }, 1500);
+      setStatus("success");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage("An unexpected error occurred.");
+      }
+      setStatus("error");
+    }
   };
 
   return (
     <section
       ref={containerRef}
       id="contact"
-      className="min-h-screen bg-dark-navy text-white relative overflow-hidden py-24 flex flex-col justify-center"
+      className="min-h-screen bg-soft-stone text-ink relative overflow-hidden py-24 flex flex-col justify-center border-b border-border-light"
     >
       <div className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10">
         {/* Title */}
         <div className="text-center mb-16 max-w-2xl mx-auto contact-anim">
           <h4 className="mono-label text-coral mb-2">Informasi Kontak</h4>
-          <h2 className="section-display text-white mb-4">
+          <h2 className="section-display text-primary mb-4">
             Get In Touch
           </h2>
-          <p className="body-large text-white/80">
-            Let&apos;s build something phenomenal together. Drop a message in the interactive chat box below or reach out via direct channels.
+          <p className="body-large text-body-muted">
+            Let&apos;s build something phenomenal together. Fill out the secure contact form below or connect with me directly via LinkedIn and Email.
           </p>
         </div>
 
@@ -118,19 +106,19 @@ const Contact = () => {
                     </div>
                   </a>
 
-                  {/* WhatsApp */}
+                  {/* LinkedIn */}
                   <a
-                    href="https://wa.me/628123456789" // replace with actual WA
+                    href="https://linkedin.com/in/andika-hernadi"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-coral hover:bg-white/10 transition-all duration-300 group hover:cursor-pointer"
                   >
                     <div className="w-12 h-12 rounded-xl bg-coral/20 text-coral flex items-center justify-center group-hover:bg-coral group-hover:text-primary transition-all duration-300">
-                      <FaWhatsapp size={20} />
+                      <FaLinkedin size={20} />
                     </div>
                     <div>
-                      <h4 className="mono-label text-white/60 group-hover:text-coral transition-colors">WhatsApp</h4>
-                      <p className="body font-medium text-white">Let&apos;s chat directly</p>
+                      <h4 className="mono-label text-white/60 group-hover:text-coral transition-colors">LinkedIn</h4>
+                      <p className="body font-medium text-white">Connect with me</p>
                     </div>
                   </a>
 
@@ -155,79 +143,99 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Interactive Chat Box (Right 7 cols) */}
+          {/* Resend Contact Form Card (Right 7 cols) */}
           <div className="lg:col-span-7 flex flex-col contact-anim">
-            <div className="card-vibrate bg-primary border border-white/10 rounded-3xl overflow-hidden shadow-xl flex-1 flex flex-col h-[600px]">
-              {/* Chat Header */}
-              <div className="p-6 bg-white/5 border-b border-white/10 flex items-center gap-4">
-                <div className="relative">
-                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-coral">
-                    <img src="/assets/Hero-1.jpg" alt="Andika" className="w-full h-full object-cover" />
-                  </div>
-                  <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-primary rounded-full"></div>
-                </div>
-                <div>
-                  <h3 className="mono-label text-white font-bold">Andika Saktidana Hernadi</h3>
-                  <p className="micro text-white/60">Fullstack Software Engineer & UI/UX Designer</p>
-                </div>
-              </div>
+            <div className="card-vibrate bg-canvas border border-card-border rounded-3xl p-8 lg:p-12 shadow-xl flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="card-heading text-primary mb-2">Send a Message</h3>
+                <p className="body text-body-muted mb-8">
+                  Fill out the fields below to send an inquiry directly to my email via Resend API.
+                </p>
 
-              {/* Chat Messages */}
-              <div className="flex-1 p-6 overflow-y-auto space-y-4 scrollbar-hide bg-black/20">
-                {messages.map((msg, index) => {
-                  const isAndika = msg.sender === "andika";
-                  return (
-                    <div key={index} className={`flex ${isAndika ? "justify-start" : "justify-end"}`}>
-                      <div
-                        className={`max-w-[80%] p-4 rounded-2xl body shadow-md ${
-                          isAndika
-                            ? "bg-white/10 text-white rounded-tl-none border border-white/10"
-                            : "bg-coral text-primary font-medium rounded-tr-none"
-                        }`}
-                      >
-                        <p className="leading-relaxed">{msg.text}</p>
-                        <span
-                          className={`micro block mt-2 text-right opacity-70 ${
-                            isAndika ? "text-white/60" : "text-primary"
-                          }`}
-                        >
-                          {msg.time}
-                        </span>
-                      </div>
+                {status === "success" && (
+                  <div className="mb-8 p-6 bg-pale-green border border-green-300 rounded-2xl flex items-center gap-4 text-deep-green animate-fade-in">
+                    <div className="w-10 h-10 bg-deep-green text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">
+                      <FaCheck />
                     </div>
-                  );
-                })}
-
-                {/* Typing Indicator */}
-                {isTyping && (
-                  <div className="flex justify-start">
-                    <div className="bg-white/10 border border-white/10 text-white p-4 rounded-2xl rounded-tl-none flex items-center gap-2 shadow-md">
-                      <div className="w-2 h-2 bg-coral rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-coral rounded-full animate-bounce delay-100"></div>
-                      <div className="w-2 h-2 bg-coral rounded-full animate-bounce delay-200"></div>
+                    <div>
+                      <h4 className="mono-label text-deep-green font-bold">Message Sent Successfully!</h4>
+                      <p className="body text-sm">Thank you for reaching out. I will get back to you shortly.</p>
                     </div>
                   </div>
                 )}
-                <div ref={messagesEndRef} />
-              </div>
 
-              {/* Chat Input Form */}
-              <form onSubmit={handleSendMessage} className="p-4 bg-white/5 border-t border-white/10 flex gap-3 items-center">
-                <input
-                  type="text"
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Click here to type a message..."
-                  className="flex-1 bg-white/10 border border-white/20 rounded-full px-6 py-4 text-white placeholder-white/50 focus:outline-none focus:border-coral transition-colors body"
-                />
-                <button
-                  type="submit"
-                  className="btn-shiny w-14 h-14 bg-coral text-primary rounded-full flex items-center justify-center hover:bg-white hover:text-primary transition-all duration-300 shadow-lg flex-shrink-0 hover:cursor-pointer"
-                  aria-label="Send Message"
-                >
-                  <FaPaperPlane size={18} />
-                </button>
-              </form>
+                {status === "error" && (
+                  <div className="mb-8 p-6 bg-red-50 border border-red-200 rounded-2xl text-error animate-fade-in">
+                    <h4 className="mono-label font-bold mb-1">Error Sending Message</h4>
+                    <p className="body text-sm">{errorMessage}</p>
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <label className="mono-label text-primary block mb-2 text-xs">Your Name</label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="John Doe"
+                        className="w-full bg-soft-stone border border-hairline rounded-xl px-4 py-3.5 text-ink placeholder-muted focus:outline-none focus:border-coral transition-colors body text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="mono-label text-primary block mb-2 text-xs">Your Email</label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="john@example.com"
+                        className="w-full bg-soft-stone border border-hairline rounded-xl px-4 py-3.5 text-ink placeholder-muted focus:outline-none focus:border-coral transition-colors body text-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="mono-label text-primary block mb-2 text-xs">Subject</label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      placeholder="Project Opportunity / Clean Architecture Consultation"
+                      className="w-full bg-soft-stone border border-hairline rounded-xl px-4 py-3.5 text-ink placeholder-muted focus:outline-none focus:border-coral transition-colors body text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mono-label text-primary block mb-2 text-xs">Message</label>
+                    <textarea
+                      required
+                      rows={5}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="Tell me about your project, goals, or timeline..."
+                      className="w-full bg-soft-stone border border-hairline rounded-xl p-4 text-ink placeholder-muted focus:outline-none focus:border-coral transition-colors body text-sm resize-none"
+                    ></textarea>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={status === "loading"}
+                    className="btn-shiny w-full py-4 bg-primary text-white hover:bg-coral hover:text-primary rounded-full font-bold mono-label text-xs tracking-wide shadow-xl transition-all duration-300 flex items-center justify-center gap-2 hover:cursor-pointer disabled:opacity-50"
+                  >
+                    {status === "loading" ? (
+                      <span className="animate-pulse">Sending Message...</span>
+                    ) : (
+                      <>
+                        <FaPaperPlane /> Send Message via Resend API
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
