@@ -94,7 +94,7 @@ const ProjectSection = () => {
       <div className="container mx-auto px-6 lg:px-12 max-w-7xl mb-16">
         <div className="max-w-3xl space-y-4">
           <h4 className="mono-label text-coral mb-2 text-lg font-bold">Portfolio Showcase</h4>
-          <h2 className="section-display text-primary font-black mb-4 tracking-tight">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny mb-4">
             Featured Projects
           </h2>
           <p className="body-large text-body-muted text-xl leading-relaxed">
