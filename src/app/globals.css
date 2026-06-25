@@ -97,7 +97,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 16px;
 }
 
 ::-webkit-scrollbar-track {
@@ -105,12 +105,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--olive-green);
-  border-radius: 4px;
+  background: var(--coral);
+  border-radius: 8px;
+  border: 3px solid var(--navy-blue);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--neon-aqua);
+  background: #ff5722;
 }
 
 /* Scrollbar hide utility classes */
