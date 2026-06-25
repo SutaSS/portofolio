@@ -1,8 +1,8 @@
 import { ProjectCategory } from "../types/projectCategory";
 
 export const projectCategories: ProjectCategory[] = [
-  { id: 'all', label: '🌐 All Projects' },
-  { id: 'web-mobile', label: '📱 Web & Mobile' },
-  { id: 'design-docs', label: '🎨 Design & Docs' },
-  { id: 'artwork', label: '🖼️ Artwork' },
+  { id: 'all', label: 'All Projects' },
+  { id: 'web-mobile', label: 'Web & Mobile' },
+  { id: 'design-docs', label: 'Design & Docs' },
+  { id: 'artwork', label: 'Artwork' },
 ];
