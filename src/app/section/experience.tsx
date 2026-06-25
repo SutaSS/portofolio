@@ -42,7 +42,7 @@ const Experience = () => {
     <section
       ref={containerRef}
       id="experience"
-      className="min-h-screen bg-deep-green text-white relative overflow-hidden py-16 flex flex-col justify-center border-b border-white/10"
+      className="min-h-screen bg-deep-green bg-grid-pattern text-white relative overflow-hidden py-24 flex flex-col justify-center border-b border-white/10"
     >
       <div className="container mx-auto px-6 lg:px-12 mb-12 flex-shrink-0">
         {/* Title */}
