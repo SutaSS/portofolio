@@ -20,17 +20,15 @@ const Experience = () => {
 
       if (totalWidth > 0 && window.innerWidth >= 1024) {
         gsap.to(slider, {
-          x: -totalWidth - 80,
+          x: -totalWidth,
           ease: "none",
           scrollTrigger: {
             trigger: container,
             pin: true,
             scrub: 1.5,
-            // Only start the horizontal scroll once the section is fully in view (bottom of section hits bottom of viewport)
             start: "top top",
-            end: () => `+=${slider.scrollWidth + window.innerWidth}`,
+            end: () => `+=${slider.scrollWidth}`,
             invalidateOnRefresh: true,
-            // Prevent animation from clipping cards at the start
             anticipatePin: 1,
           },
         });
@@ -44,30 +42,31 @@ const Experience = () => {
     <section
       ref={containerRef}
       id="experience"
-      className="min-h-screen bg-deep-green bg-grid-pattern text-white relative overflow-hidden pt-12 pb-16 lg:pt-16 lg:pb-20 flex flex-col justify-start border-b border-white/10"
+      className="h-screen bg-deep-green bg-grid-pattern text-white relative overflow-hidden flex flex-col border-b border-white/10"
     >
-      <div className="container mx-auto px-6 lg:px-12 mb-6 flex-shrink-0">
-        {/* Title */}
+      {/* Title block — fixed height at top */}
+      <div className="flex-shrink-0 px-6 lg:px-12 pt-10 pb-4">
         <div className="max-w-3xl">
           <h4 className="mono-label text-coral mb-1">Riwayat Kerja & Organisasi</h4>
-          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-white mb-3">
+          <h2 className="text-[2.8rem] lg:text-[4.5rem] font-black tracking-tight text-shiny-white mb-2 leading-tight">
             Experience Timeline
           </h2>
-          <p className="body-large text-white/80">
-            Scroll down to explore my professional journey. On desktop, watch the timeline smoothly slide to the left as you scroll through the chapters of my engineering career.
+          <p className="body-large text-white/70 text-sm lg:text-base">
+            Scroll down to explore my professional journey. On desktop, the timeline slides left as you scroll.
           </p>
         </div>
       </div>
 
-      {/* Horizontal Slider Container */}
-      <div className="flex-1 flex items-start overflow-x-auto lg:overflow-x-visible pl-6 lg:pl-12 pr-6 py-2 scrollbar-hide">
-        <div ref={sliderRef} className="flex gap-8 w-max">
+      {/* Card slider — fills remaining height */}
+      <div className="flex-1 min-h-0 flex items-stretch overflow-x-hidden pl-6 lg:pl-12 pr-6 pb-10">
+        <div ref={sliderRef} className="flex gap-6 lg:gap-8 w-max">
           {experiences.map((exp, index) => (
             <div
               key={exp.id}
-              className="card-lift w-[340px] md:w-[420px] lg:w-[480px] bg-primary rounded-3xl p-6 lg:p-8 border border-white/10 flex flex-col shadow-xl flex-shrink-0 relative group"
+              className="card-lift w-[320px] md:w-[400px] lg:w-[460px] h-full bg-primary rounded-3xl border border-white/10 shadow-xl flex-shrink-0 relative group flex flex-col"
             >
-              <div>
+              {/* Card body — scrollable if content overflows */}
+              <div className="flex-1 overflow-y-auto scrollbar-hide p-6 lg:p-8">
                 {/* Header / Period */}
                 <div className="flex items-center justify-between gap-4 mb-6">
                   <span
@@ -98,7 +97,7 @@ const Experience = () => {
                 </div>
 
                 {/* Description */}
-                <ul className="space-y-3 text-white/80 body mb-6">
+                <ul className="space-y-3 text-white/80 body">
                   {exp.description.map((desc, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <span className="text-coral mt-1 flex-shrink-0">•</span>
@@ -108,24 +107,14 @@ const Experience = () => {
                 </ul>
               </div>
 
-              {/* Bottom Decorative Indicator */}
-              <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+              {/* Footer — always stuck at bottom */}
+              <div className="flex-shrink-0 px-6 lg:px-8 py-4 border-t border-white/10 flex items-center justify-between">
                 <span className="micro text-white/50">Engineering Chapter</span>
                 <div className="w-2 h-2 rounded-full bg-coral group-hover:scale-150 transition-transform duration-300"></div>
               </div>
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Call to Action */}
-      <div className="container mx-auto px-6 lg:px-12 mt-8 text-center flex-shrink-0">
-        <a
-          href="#contact"
-          className="btn-shiny inline-block px-8 py-4 bg-canvas text-primary rounded-full font-inter font-medium text-sm tracking-wide shadow-lg hover:bg-coral hover:text-primary transition-all duration-300 group"
-        >
-          Let&apos;s Work Together
-        </a>
       </div>
     </section>
   );
