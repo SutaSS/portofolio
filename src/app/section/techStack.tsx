@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useLayoutEffect } from "react";
 import { techStacks } from "../data/techStack";
+import Image from "next/image";
 import gsap from "gsap";
 
 const TechStack = () => {
@@ -49,13 +50,15 @@ const TechStack = () => {
               ref={(el) => {
                 iconsRef.current[index] = el;
               }}
-              className="card-vibrate bg-canvas border border-card-border rounded-2xl p-6 flex flex-col items-center justify-center gap-4 shadow-sm hover:border-coral hover:shadow-md transition-all duration-300 group"
+              className="card-lift bg-canvas border border-card-border rounded-2xl p-6 flex flex-col items-center justify-center gap-4 shadow-sm hover:border-coral hover:shadow-md transition-all duration-300 group"
             >
               <div className="w-16 h-16 relative flex items-center justify-center p-2 rounded-xl bg-soft-stone border border-hairline group-hover:bg-primary transition-colors duration-300">
-                <img
+                <Image
                   src={tech.icon}
                   alt={tech.name}
-                  className="w-12 h-12 object-contain filter transition-transform duration-300 group-hover:scale-110"
+                  width={48}
+                  height={48}
+                  className="object-contain filter transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
               <span className="mono-label text-primary text-center text-xs group-hover:text-coral transition-colors duration-300">
