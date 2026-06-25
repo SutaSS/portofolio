@@ -48,7 +48,7 @@ const Experience = () => {
         {/* Title */}
         <div className="max-w-3xl">
           <h4 className="mono-label text-coral mb-2">Riwayat Kerja & Organisasi</h4>
-          <h2 className="section-display text-white font-black mb-4">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-white mb-4">
             Experience Timeline
           </h2>
           <p className="body-large text-white/80">
