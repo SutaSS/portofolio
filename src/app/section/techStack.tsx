@@ -8,6 +8,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 const TechStack = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const bubblesRef = useRef<Array<HTMLDivElement | null>>([]);
+  const mobileBubblesRef = useRef<Array<HTMLDivElement | null>>([]);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -15,27 +16,58 @@ const TechStack = () => {
     const ctx = gsap.context(() => {
       if (!sectionRef.current) return;
 
-      // When scrolling into section for the first time, fade in the bubbles
+      // Fade in desktop orbital bubbles on scroll
       gsap.fromTo(
         bubblesRef.current,
-        { opacity: 0, scale: 0.4, y: 50 },
+        { opacity: 0, scale: 0.4, y: 40 },
         {
           opacity: 1,
           scale: 1,
           y: 0,
           duration: 1.2,
-          stagger: 0.1,
+          stagger: 0.06,
           ease: "back.out(1.7)",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 80%",
             toggleActions: "play none none none",
             onEnter: () => {
-              // Start floating bubble animation after fade-in
               bubblesRef.current.forEach((el, index) => {
                 if (!el) return;
                 gsap.to(el, {
                   y: -16,
+                  duration: 2 + (index % 3) * 0.4,
+                  repeat: -1,
+                  yoyo: true,
+                  ease: "power1.inOut",
+                  delay: 1.2 + index * 0.1,
+                });
+              });
+            },
+          },
+        }
+      );
+
+      // Fade in mobile bubbles on scroll
+      gsap.fromTo(
+        mobileBubblesRef.current,
+        { opacity: 0, scale: 0.4, y: 40 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 1.2,
+          stagger: 0.08,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+            onEnter: () => {
+              mobileBubblesRef.current.forEach((el, index) => {
+                if (!el) return;
+                gsap.to(el, {
+                  y: -12,
                   duration: 2 + (index % 3) * 0.4,
                   repeat: -1,
                   yoyo: true,
@@ -52,44 +84,109 @@ const TechStack = () => {
     return () => ctx.revert();
   }, []);
 
+  // Compute absolute positions for 19 items in two orbiting rings around the center text
+  // Ring 1 (8 items): Radius X = 320px, Radius Y = 250px
+  // Ring 2 (11 items): Radius X = 520px, Radius Y = 390px
+  const getOrbitalPosition = (index: number) => {
+    if (index < 8) {
+      const angle = (index / 8) * 2 * Math.PI;
+      const x = Math.round(Math.cos(angle) * 330);
+      const y = Math.round(Math.sin(angle) * 250);
+      return { left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)` };
+    } else {
+      const subIndex = index - 8;
+      const angle = (subIndex / 11) * 2 * Math.PI;
+      const x = Math.round(Math.cos(angle) * 530);
+      const y = Math.round(Math.sin(angle) * 390);
+      return { left: `calc(50% + ${x}px)`, top: `calc(50% + ${y}px)` };
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
       id="tech-stack"
-      className="min-h-screen bg-soft-stone text-ink relative overflow-hidden py-32 border-b border-border-light flex flex-col justify-center items-center"
+      className="min-h-screen bg-soft-stone text-ink relative overflow-hidden py-24 border-b border-border-light flex flex-col justify-center items-center"
     >
-      <div className="container mx-auto px-6 lg:px-12 max-w-7xl flex flex-col items-center justify-center relative z-10">
-        {/* Title Centered in Section */}
-        <div className="text-center mb-20 max-w-3xl mx-auto space-y-4">
+      {/* DESKTOP / TABLET ORBITAL LAYOUT (hidden on mobile) */}
+      <div className="hidden lg:flex relative w-full min-h-[950px] items-center justify-center overflow-hidden max-w-[1300px] mx-auto">
+        {/* Title Exactly in the Center */}
+        <div className="absolute z-30 text-center max-w-md mx-auto px-6 pointer-events-none space-y-4">
           <h4 className="mono-label text-coral text-lg font-bold">Keahlian & Alat</h4>
           <h2 className="section-display text-primary font-black tracking-tight">
             Tech Stack
           </h2>
-          <p className="body-large text-body-muted text-xl leading-relaxed">
+          <p className="body text-body-muted text-lg leading-relaxed">
+            A concise display of the languages, frameworks, and architectural tools I employ to build premium, high-performance applications.
+          </p>
+        </div>
+
+        {/* Orbiting Bubbles surrounding the Center Text */}
+        <div className="absolute inset-0 w-full h-full pointer-events-auto">
+          {techStacks.map((tech, index) => {
+            const pos = getOrbitalPosition(index);
+            return (
+              <div
+                key={tech.id}
+                ref={(el) => {
+                  bubblesRef.current[index] = el;
+                }}
+                style={{ left: pos.left, top: pos.top }}
+                className="absolute -translate-x-1/2 -translate-y-1/2 card-lift w-28 h-28 bg-canvas/90 backdrop-blur-xl border border-card-border rounded-full p-3 flex flex-col items-center justify-center gap-2 shadow-xl hover:border-coral hover:shadow-2xl transition-all duration-300 group hover:cursor-pointer z-20"
+              >
+                {/* Inner circle turns white/light with coral border on hover, NEVER black */}
+                <div className="w-12 h-12 relative flex items-center justify-center p-2 rounded-full bg-soft-stone border border-hairline group-hover:bg-white group-hover:border-coral transition-all duration-300 shadow-inner">
+                  <Image
+                    src={tech.icon}
+                    alt={tech.name}
+                    width={48}
+                    height={48}
+                    className="object-contain filter transition-transform duration-300 group-hover:scale-115 w-8 h-8"
+                  />
+                </div>
+                <span className="mono-label text-primary text-center text-[10px] font-bold group-hover:text-coral transition-colors duration-300 line-clamp-1">
+                  {tech.name}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* MOBILE / NARROW LAYOUT (shown on screens < lg) */}
+      <div className="lg:hidden container mx-auto px-6 flex flex-col items-center justify-center relative z-10 space-y-16">
+        {/* Title */}
+        <div className="text-center max-w-xl mx-auto space-y-4">
+          <h4 className="mono-label text-coral text-lg font-bold">Keahlian & Alat</h4>
+          <h2 className="section-display text-primary font-black tracking-tight">
+            Tech Stack
+          </h2>
+          <p className="body text-body-muted text-lg leading-relaxed">
             A concise display of the languages, frameworks, and architectural tools I employ to build premium, high-performance applications.
           </p>
         </div>
 
         {/* Tech Floating Bubbles Grid */}
-        <div className="flex flex-wrap gap-8 justify-center items-center max-w-6xl mx-auto">
+        <div className="flex flex-wrap gap-6 justify-center items-center max-w-2xl mx-auto">
           {techStacks.map((tech, index) => (
             <div
               key={tech.id}
               ref={(el) => {
-                bubblesRef.current[index] = el;
+                mobileBubblesRef.current[index] = el;
               }}
-              className="card-lift w-28 h-28 sm:w-36 sm:h-36 bg-canvas/90 backdrop-blur-xl border border-card-border rounded-full p-4 flex flex-col items-center justify-center gap-2 sm:gap-3 shadow-xl hover:border-coral hover:shadow-2xl transition-all duration-300 group hover:cursor-pointer"
+              className="card-lift w-28 h-28 bg-canvas/90 backdrop-blur-xl border border-card-border rounded-full p-3 flex flex-col items-center justify-center gap-2 shadow-xl hover:border-coral hover:shadow-2xl transition-all duration-300 group hover:cursor-pointer"
             >
-              <div className="w-12 h-12 sm:w-16 sm:h-16 relative flex items-center justify-center p-2 rounded-full bg-soft-stone border border-hairline group-hover:bg-primary transition-colors duration-300 shadow-inner">
+              {/* Inner circle turns white/light with coral border on hover, NEVER black */}
+              <div className="w-12 h-12 relative flex items-center justify-center p-2 rounded-full bg-soft-stone border border-hairline group-hover:bg-white group-hover:border-coral transition-all duration-300 shadow-inner">
                 <Image
                   src={tech.icon}
                   alt={tech.name}
                   width={48}
                   height={48}
-                  className="object-contain filter transition-transform duration-300 group-hover:scale-115 w-8 h-8 sm:w-12 sm:h-12"
+                  className="object-contain filter transition-transform duration-300 group-hover:scale-115 w-8 h-8"
                 />
               </div>
-              <span className="mono-label text-primary text-center text-[10px] sm:text-xs font-bold group-hover:text-coral transition-colors duration-300 line-clamp-1">
+              <span className="mono-label text-primary text-center text-[10px] font-bold group-hover:text-coral transition-colors duration-300 line-clamp-1">
                 {tech.name}
               </span>
             </div>
