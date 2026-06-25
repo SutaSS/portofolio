@@ -50,6 +50,35 @@ export const navigationItems = [
     ),
   },
   {
+    label: "Experience",
+    href: "#experience",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        className="w-5 h-5"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x="3"
+          y="7"
+          width="18"
+          height="12"
+          rx="2"
+          stroke="currentColor"
+          strokeWidth="1.6"
+        />
+        <path
+          d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  {
     label: "Projects",
     href: "#projects",
     icon: (
@@ -102,35 +131,6 @@ export const navigationItems = [
           stroke="currentColor"
           strokeWidth="1.6"
           strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    label: "Experience",
-    href: "#experience",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        className="w-5 h-5"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          x="3"
-          y="7"
-          width="18"
-          height="12"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.6"
-        />
-        <path
-          d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
         />
       </svg>
     ),

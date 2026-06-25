@@ -1,4 +1,3 @@
-import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Navbar";
 import About from "./section/about";
 import TechStack from "./section/techStack";
@@ -9,15 +8,14 @@ import Achievements from "./section/contact";
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-canvas text-ink min-h-screen overflow-hidden">
       <Header />
       <Hero />
       <About />
-      <Project/>
-      <TechStack />
       <Experience />
+      <Project />
+      <TechStack />
       <Achievements />
-      <Footer />
     </main>
   );
 }

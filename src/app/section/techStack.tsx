@@ -1,216 +1,172 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
-import Image from "next/image";
+import React, { useRef, useLayoutEffect, useState } from "react";
 import { techStacks } from "../data/techStack";
+import Image from "next/image";
+import gsap from "gsap";
 
 const TechStack = () => {
-  const [hoveredTech, setHoveredTech] = useState<string | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
+  const bubblesRef = useRef<Array<HTMLDivElement | null>>([]);
+  const mobileBubblesRef = useRef<Array<HTMLDivElement | null>>([]);
+  const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      {
-        threshold: 0.05,
-        rootMargin: "-80px 0px -200px 0px",
-      }
-    );
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      if (!sectionRef.current) return;
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+      // Bubbles stay visible from the start — float continuously without animation-in
+      bubblesRef.current.forEach((el, index) => {
+        if (!el) return;
+        gsap.to(el, {
+          y: -16,
+          duration: 2 + (index % 3) * 0.4,
+          repeat: -1,
+          yoyo: true,
+          ease: "power1.inOut",
+          delay: index * 0.08,
+        });
+      });
 
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+      // Mobile bubbles
+      mobileBubblesRef.current.forEach((el, index) => {
+        if (!el) return;
+        gsap.to(el, {
+          y: -12,
+          duration: 2 + (index % 3) * 0.4,
+          repeat: -1,
+          yoyo: true,
+          ease: "power1.inOut",
+          delay: index * 0.08,
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
-  // Group tech stack by category
-  const frontendTech = techStacks.filter((tech) => tech.category === "frontend");
-  const backendTech = techStacks.filter((tech) => tech.category === "backend");
-  const mobileTech = techStacks.filter((tech) => tech.category === "mobile");
-  const databaseTech = techStacks.filter((tech) => tech.category === "database");
-  const toolsTech = techStacks.filter((tech) => tech.category === "tools");
-
-  const renderTechCard = (tech: typeof techStacks[0], index: number, delay: number = 0) => (
-    <div
-      key={tech.id}
-      onMouseEnter={() => setHoveredTech(tech.id)}
-      onMouseLeave={() => setHoveredTech(null)}
-      className={`group relative h-full ${
-        isVisible ? "animate-fade-in-up" : "opacity-0"
-      }`}
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      <div
-        className="relative bg-navy-blue/50 backdrop-blur-sm rounded-2xl p-6 border-2 h-full transition-all duration-300 transform hover:scale-105 hover:shadow-2xl flex flex-col items-center justify-center"
-        style={{
-          borderColor:
-            hoveredTech === tech.id
-              ? tech.color
-              : "rgba(112, 141, 129, 0.2)",
-          boxShadow:
-            hoveredTech === tech.id
-              ? `0 0 30px ${tech.color}40`
-              : "none",
-        }}
-      >
-        {/* Icon */}
-        <div
-          className="w-16 h-16 flex items-center justify-center transition-all duration-300 mb-3"
-          style={{
-            filter:
-              hoveredTech === tech.id
-                ? "none"
-                : "grayscale(100%) opacity(0.7)",
-          }}
-        >
-          <Image
-            src={tech.icon}
-            alt={tech.name}
-            width={64}
-            height={64}
-            className="w-full h-full object-contain"
-          />
-        </div>
-
-        {/* Name */}
-        <h3
-          className="text-sm font-semibold text-center transition-all duration-300"
-          style={{
-            color: hoveredTech === tech.id ? tech.color : "#708D81",
-          }}
-        >
-          {tech.name}
-        </h3>
-
-        {/* Glow effect on hover */}
-        {hoveredTech === tech.id && (
-          <div
-            className="absolute inset-0 rounded-2xl blur-xl opacity-20 -z-10"
-            style={{
-              backgroundColor: tech.color,
-            }}
-          />
-        )}
-      </div>
-    </div>
-  );
+  // Orbital positions: center shifted slightly right for balance
+  // Center: x=480, y=390
+  // Ring 1 (8 items): Radius X=320px, Radius Y=240px
+  // Ring 2 (11 items): Radius X=500px, Radius Y=360px
+  const getOrbitalPosition = (index: number) => {
+    if (index < 8) {
+      const angle = (index / 8) * 2 * Math.PI;
+      const x = 480 + Math.round(Math.cos(angle) * 320);
+      const y = 390 + Math.round(Math.sin(angle) * 240);
+      return { left: `${x}px`, top: `${y}px` };
+    } else {
+      const subIndex = index - 8;
+      const angle = (subIndex / 11) * 2 * Math.PI;
+      const x = 480 + Math.round(Math.cos(angle) * 500);
+      const y = 390 + Math.round(Math.sin(angle) * 360);
+      return { left: `${x}px`, top: `${y}px` };
+    }
+  };
 
   return (
     <section
       ref={sectionRef}
       id="tech-stack"
-      className="min-h-screen bg-dark-bg relative overflow-visible pt-16 lg:pt-0"
+      onMouseMove={(e) => setMousePos({ x: e.clientX, y: e.clientY })}
+      className="min-h-screen bg-soft-stone bg-grid-pattern text-ink relative overflow-hidden py-24 border-b border-border-light flex flex-col justify-center items-center"
     >
-      <div
-        className={`relative z-10 container mx-auto px-4 lg:px-8 justify-center flex flex-col py-12 lg:py-20 transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
-      >
-        {/* Title */}
-        <div className="text-center mb-16">
-          <h2
-            className={`text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4 ${
-              isVisible ? "animate-fade-in-down" : "animate-fade-out-up"
-            }`}
-          >
+      {/* Floating Cursor Tooltip */}
+      {hoveredTech && (
+        <div
+          className="fixed pointer-events-none z-50 bg-ink text-canvas mono-label text-xs font-bold px-4 py-2 rounded-xl shadow-2xl border border-coral flex items-center gap-2 backdrop-blur-md bg-opacity-95 transform -translate-x-1/2 -translate-y-12 transition-transform duration-75 ease-out"
+          style={{ left: mousePos.x, top: mousePos.y }}
+        >
+          {hoveredTech}
+        </div>
+      )}
+      {/* DESKTOP / TABLET ORBITAL LAYOUT (Perfectly Centered via Fixed Absolute Wrapper) */}
+      <div className="hidden lg:block relative w-[1100px] h-[780px] my-12 pointer-events-none mx-auto">
+        {/* Title Exactly in the Center of the Wrapper (550px, 390px) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md text-center pointer-events-none z-30 space-y-4">
+          <h4 className="mono-label text-coral text-lg font-bold">Keahlian & Alat</h4>
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-4">
             Tech Stack
           </h2>
-
-          <p
-            className={`text-olive-green/80 mt-6 text-lg font-inter ${
-              isVisible
-                ? "animate-fade-in-up delay-200"
-                : "animate-fade-out-down delay-200"
-            }`}
-          >
-            Technologies and tools I use to bring ideas to life
+          <p className="body text-body-muted text-lg leading-relaxed">
+            A concise display of the languages, frameworks, and architectural tools I employ to build premium, high-performance applications.
           </p>
         </div>
 
-        {/* Bento Grid Layout */}
-        <div className="max-w-7xl mx-auto w-full space-y-6">
-          {/* Row 1: Frontend (Full Width) */}
-          <div className="bg-navy-blue/30 backdrop-blur-sm rounded-3xl p-6 border border-olive-green/20">
-            <div className="flex items-center gap-3 mb-6">
-              <h3 className="text-neon-aqua text-xl font-orbitron font-bold">
-                Frontend
-              </h3>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-              {frontendTech.map((tech, index) =>
-                renderTechCard(tech, index, 300 + index * 100)
-              )}
-            </div>
-          </div>
+        {/* Orbiting Bubbles surrounding the Exact Center Text */}
+        <div className="absolute inset-0 w-full h-full pointer-events-auto">
+          {techStacks.map((tech, index) => {
+            const pos = getOrbitalPosition(index);
+            return (
+              <div
+                key={tech.id}
+                ref={(el) => {
+                  bubblesRef.current[index] = el;
+                }}
+                onMouseEnter={() => setHoveredTech(tech.name)}
+                onMouseLeave={() => setHoveredTech(null)}
+                style={{ left: pos.left, top: pos.top }}
+                className="absolute -translate-x-1/2 -translate-y-1/2 card-lift w-28 h-28 bg-canvas/90 backdrop-blur-xl border border-card-border rounded-full p-3 flex flex-col items-center justify-center gap-2 shadow-xl hover:border-coral hover:shadow-2xl transition-all duration-300 group hover:cursor-pointer z-20"
+              >
+                {/* Inner circle turns white/light with coral border on hover, NEVER black */}
+                <div className="w-12 h-12 relative flex items-center justify-center p-2 rounded-full bg-soft-stone border border-hairline group-hover:bg-white group-hover:border-coral transition-all duration-300 shadow-inner">
+                  <Image
+                    src={tech.icon}
+                    alt={tech.name}
+                    width={48}
+                    height={48}
+                    className="object-contain filter transition-transform duration-300 group-hover:scale-115 w-8 h-8"
+                  />
+                </div>
+                <span className="mono-label text-primary text-center text-[10px] font-bold group-hover:text-coral transition-colors duration-300 line-clamp-1">
+                  {tech.name}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
-          {/* Row 2: Backend (Large) + Mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Backend - Takes 2 columns */}
-            <div className="lg:col-span-2 bg-navy-blue/30 backdrop-blur-sm rounded-3xl p-6 border border-olive-green/20">
-              <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-neon-aqua text-xl font-orbitron font-bold">
-                  Backend
-                </h3>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {backendTech.map((tech, index) =>
-                  renderTechCard(tech, index, 700 + index * 100)
-                )}
-              </div>
-            </div>
+      {/* MOBILE / NARROW LAYOUT (shown on screens < lg) */}
+      <div className="lg:hidden container mx-auto px-6 flex flex-col items-center justify-center relative z-10 space-y-16 py-12">
+        {/* Title */}
+        <div className="text-center max-w-xl mx-auto space-y-4">
+          <h4 className="mono-label text-coral text-lg font-bold">Keahlian & Alat</h4>
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-4">
+            Tech Stack
+          </h2>
+          <p className="body text-body-muted text-lg leading-relaxed">
+            A concise display of the languages, frameworks, and architectural tools I employ to build premium, high-performance applications.
+          </p>
+        </div>
 
-            {/* Mobile - Takes 1 column */}
-            <div className="bg-navy-blue/30 backdrop-blur-sm rounded-3xl p-6 border border-olive-green/20">
-              <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-neon-aqua text-xl font-orbitron font-bold">
-                  Mobile
-                </h3>
+        {/* Tech Floating Bubbles Grid */}
+        <div className="flex flex-wrap gap-6 justify-center items-center max-w-2xl mx-auto">
+          {techStacks.map((tech, index) => (
+            <div
+              key={tech.id}
+              ref={(el) => {
+                mobileBubblesRef.current[index] = el;
+              }}
+              onMouseEnter={() => setHoveredTech(tech.name)}
+              onMouseLeave={() => setHoveredTech(null)}
+              className="card-lift w-28 h-28 bg-canvas/90 backdrop-blur-xl border border-card-border rounded-full p-3 flex flex-col items-center justify-center gap-2 shadow-xl hover:border-coral hover:shadow-2xl transition-all duration-300 group hover:cursor-pointer"
+            >
+              {/* Inner circle turns white/light with coral border on hover, NEVER black */}
+              <div className="w-12 h-12 relative flex items-center justify-center p-2 rounded-full bg-soft-stone border border-hairline group-hover:bg-white group-hover:border-coral transition-all duration-300 shadow-inner">
+                <Image
+                  src={tech.icon}
+                  alt={tech.name}
+                  width={48}
+                  height={48}
+                  className="object-contain filter transition-transform duration-300 group-hover:scale-115 w-8 h-8"
+                />
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                {mobileTech.map((tech, index) =>
-                  renderTechCard(tech, index, 1300 + index * 100)
-                )}
-              </div>
+              <span className="mono-label text-primary text-center text-[10px] font-bold group-hover:text-coral transition-colors duration-300 line-clamp-1">
+                {tech.name}
+              </span>
             </div>
-          </div>
-
-          {/* Row 3: Database + Tools */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Database */}
-            <div className="bg-navy-blue/30 backdrop-blur-sm rounded-3xl p-6 border border-olive-green/20">
-              <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-neon-aqua text-xl font-orbitron font-bold">
-                  Database
-                </h3>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                {databaseTech.map((tech, index) =>
-                  renderTechCard(tech, index, 1500 + index * 100)
-                )}
-              </div>
-            </div>
-
-            {/* Tools */}
-            <div className="bg-navy-blue/30 backdrop-blur-sm rounded-3xl p-6 border border-olive-green/20">
-              <div className="flex items-center gap-3 mb-6">
-                <h3 className="text-neon-aqua text-xl font-orbitron font-bold">
-                  Tools
-                </h3>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                {toolsTech.map((tech, index) =>
-                  renderTechCard(tech, index, 1700 + index * 100)
-                )}
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

@@ -7,4 +7,5 @@ export interface Project {
   liveUrl?: string;
   imageUrl: string;
   category: string;
+  featured?: boolean;
 }
