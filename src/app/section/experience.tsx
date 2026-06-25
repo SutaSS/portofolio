@@ -1,243 +1,128 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import { experiences } from "../data/experience";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const Experience = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [, setHasAnimated] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [cardVisibility, setCardVisibility] = useState<{[key: string]: boolean}>({});
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const cardRefs = useRef<{[key: string]: HTMLDivElement | null}>({});
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    // Check if mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
 
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+    const ctx = gsap.context(() => {
+      const container = containerRef.current;
+      const slider = sliderRef.current;
+      if (!container || !slider) return;
 
-  useEffect(() => {
-    const currentSection = sectionRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-        setHasAnimated(entry.isIntersecting);
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "0px",
-      }
-    );
+      // We want to pin the container and slide the inner container to the left
+      const totalWidth = slider.scrollWidth - window.innerWidth;
 
-    if (currentSection) {
-      observer.observe(currentSection);
-    }
-
-    return () => {
-      if (currentSection) {
-        observer.unobserve(currentSection);
-      }
-    };
-  }, [isMobile]);
-
-  // Separate effect for cards - only observe after section is visible with delay
-  useEffect(() => {
-    if (!isVisible) return;
-
-    // Delay card observation to allow title animation to complete
-    const timeoutId = setTimeout(() => {
-      const cardObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            const cardId = entry.target.getAttribute('data-card-id');
-            if (cardId) {
-              setCardVisibility(prev => ({
-                ...prev,
-                [cardId]: entry.isIntersecting
-              }));
-            }
-          });
-        },
-        {
-          threshold: 0.2,
-          rootMargin: "-50px",
-        }
-      );
-
-      // Observe all cards
-      Object.values(cardRefs.current).forEach((ref) => {
-        if (ref) cardObserver.observe(ref);
-      });
-
-      return () => {
-        Object.values(cardRefs.current).forEach((ref) => {
-          if (ref) cardObserver.unobserve(ref);
+      if (totalWidth > 0 && window.innerWidth >= 1024) {
+        gsap.to(slider, {
+          x: -totalWidth - 80, // extra padding
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            pin: true,
+            scrub: 1,
+            end: () => `+=${slider.scrollWidth}`,
+            invalidateOnRefresh: true,
+          },
         });
-      };
-    }, 400);
+      }
+    }, containerRef);
 
-    return () => clearTimeout(timeoutId);
-  }, [isVisible]);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
-      ref={sectionRef}
+      ref={containerRef}
       id="experience"
-      className="min-h-screen bg-dark-bg relative overflow-visible pt-16 lg:pt-0"
+      className="min-h-screen bg-deep-green text-white relative overflow-hidden py-24 flex flex-col justify-center border-b border-white/10"
     >
-      <div className={`relative z-10 container mx-auto px-4 lg:px-8 justify-center flex flex-col py-12 lg:py-20 transition-all duration-700 ${
-        isVisible ? "opacity-100" : "opacity-0"
-      }`}>
+      <div className="container mx-auto px-6 lg:px-12 mb-12 flex-shrink-0">
         {/* Title */}
-        <div className="text-center mb-12">
-          <h2 className={`text-neon-aqua text-4xl lg:text-5xl font-orbitron font-bold mb-4 transition-all duration-700 ${
-            isVisible ? "animate-fade-in-down delay-100" : "animate-fade-out-up"
-          }`}>
-            Experience
+        <div className="max-w-3xl">
+          <h4 className="mono-label text-coral mb-2">Riwayat Kerja & Organisasi</h4>
+          <h2 className="section-display text-white mb-4">
+            Experience Timeline
           </h2>
-          <p className={`text-olive-green/80 mt-6 text-lg font-inter italic transition-all duration-700 ${
-            isVisible ? "animate-fade-in-up delay-100" : "animate-fade-out-down"
-          }`}>
-            The Begining of an Era
+          <p className="body-large text-white/80">
+            Scroll down to explore my professional journey. On desktop, watch the timeline smoothly slide to the left as you scroll through the chapters of my engineering career.
           </p>
         </div>
+      </div>
 
-        {/* Timeline Container */}
-        <div className="max-w-4xl mx-auto w-full">
-          <div className="relative">
-            {/* Vertical Line */}
-            <div className={`absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-neon-aqua via-olive-green to-neon-aqua hidden lg:block transition-all duration-1000 origin-top z-0 ${
-              isVisible ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0"
-            }`}></div>
-
-            {/* Timeline Items */}
-            <div className="space-y-12">
-              {experiences.map((exp, index) => (
-                <div
-                  key={exp.id}
-                  className={`relative flex items-center ${
-                    index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
-                  } flex-col lg:gap-0 gap-8`}
-                >
-                  {/* Content Box - Left/Right */}
-                  <div
-                    ref={(el) => { cardRefs.current[exp.id] = el; }}
-                    data-card-id={exp.id}
-                    className={`w-full lg:w-[calc(50%-2rem)] transition-all duration-700 ${
-                      index % 2 === 0
-                        ? "lg:text-right lg:pr-8"
-                        : "lg:text-left lg:pl-8"
-                    } ${
-                      cardVisibility[exp.id] 
-                        ? "opacity-100 translate-y-0" 
-                        : "opacity-0 translate-y-10"
+      {/* Horizontal Slider Container */}
+      <div className="flex-1 flex items-center overflow-x-auto lg:overflow-x-visible pl-6 lg:pl-12 pr-6 py-8 scrollbar-hide">
+        <div ref={sliderRef} className="flex gap-8 w-max items-stretch">
+          {experiences.map((exp, index) => (
+            <div
+              key={exp.id}
+              className="card-vibrate w-[340px] md:w-[420px] lg:w-[480px] bg-primary rounded-3xl p-8 border border-white/10 flex flex-col justify-between shadow-xl flex-shrink-0 relative group"
+            >
+              <div>
+                {/* Header / Period */}
+                <div className="flex items-center justify-between gap-4 mb-6">
+                  <span
+                    className={`mono-label px-4 py-1.5 rounded-full text-xs font-semibold ${
+                      exp.current
+                        ? "bg-coral text-primary font-bold shadow-md shadow-coral/20"
+                        : "bg-white/10 text-white/80"
                     }`}
                   >
-                    <div className="group">
-                      {/* Card */}
-                      <div className="bg-navy-blue/50 rounded-2xl p-6 border-2 border-olive-green/20 hover:border-neon-aqua/50 transition-all duration-300 hover:shadow-2xl hover:shadow-neon-aqua/20 transform hover:scale-105">
-                        {/* Title & Company */}
-                        <div className="space-y-2 mb-4">
-                          <h3 className="text-neon-aqua text-xl font-orbitron font-bold">
-                            {exp.title}
-                          </h3>
-                          <p className="text-soft-white font-inter font-semibold">
-                            {exp.company}
-                          </p>
-                          <p className="text-olive-green/80 text-sm font-inter">
-                            {exp.location}
-                          </p>
-                        </div>
-
-                        {/* Period */}
-                        <div className="mb-4">
-                          <span
-                            className={`inline-block px-4 py-1 rounded-full text-sm font-inter font-semibold ${
-                              exp.current
-                                ? "bg-neon-aqua/20 text-neon-aqua border border-neon-aqua/30"
-                                : "bg-olive-green/20 text-olive-green border border-olive-green/30"
-                            }`}
-                          >
-                            {exp.period}
-                          </span>
-                        </div>
-
-                        {/* Description */}
-                        <ul
-                          className={`space-y-2 text-soft-white/80 text-sm font-inter ${
-                            index % 2 === 0 ? "lg:text-right" : "lg:text-left"
-                          }`}
-                        >
-                          {exp.description.map((desc, i) => (
-                            <li key={i} className="flex items-start gap-2">
-                              <span
-                                className={`text-neon-aqua mt-1 flex-shrink-0 ${
-                                  index % 2 === 0 ? "lg:order-2" : "lg:order-1"
-                                }`}
-                              >
-                                •
-                              </span>
-                              <span
-                                className={
-                                  index % 2 === 0 ? "lg:order-1" : "lg:order-2"
-                                }
-                              >
-                                {desc}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Center Dot */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 hidden lg:flex items-center justify-center z-10">
-                    <div
-                      className={`w-6 h-6 rounded-full border-4 transition-all duration-500 hover:scale-125 ${
-                        exp.current
-                          ? "bg-neon-aqua border-neon-aqua shadow-lg shadow-neon-aqua/50"
-                          : "bg-olive-green border-olive-green shadow-lg shadow-olive-green/50"
-                      } ${
-                        cardVisibility[exp.id] ? "scale-100 opacity-100" : "scale-0 opacity-0"
-                      }`}
-                    >
-                      {exp.current && (
-                        <div className="absolute inset-0 rounded-full bg-neon-aqua animate-ping opacity-75"></div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Empty space for alignment on desktop */}
-                  <div className="w-full lg:w-[calc(50%-2rem)] hidden lg:block"></div>
+                    {exp.period}
+                  </span>
+                  <span className="mono-label text-coral text-xs opacity-60 group-hover:opacity-100 transition-opacity">
+                    0{index + 1}
+                  </span>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
 
-        {/* Call to Action */}
-        <div className={`text-center mt-16 transition-all duration-700 ${
-          isVisible ? "animate-fade-in-up delay-700" : "animate-fade-out-down delay-700"
-        }`}>
-          <button
-            className="inline-block px-8 py-4 bg-transparent border-2 border-neon-aqua text-neon-aqua font-orbitron rounded-lg hover:bg-neon-aqua hover:text-dark-bg transition-all duration-300 transform hover:scale-105"
-          >
-            Let&apos;s Work Together
-          </button>
-          {/* <a
-            href="#contact"
-            className="inline-block px-8 py-4 bg-transparent border-2 border-neon-aqua text-neon-aqua rounded-lg hover:bg-neon-aqua hover:text-dark-bg transition-all duration-300 transform hover:scale-105"
-          >
-            Let&apos;s Work Together
-          </a> */}
+                {/* Title & Company */}
+                <div className="space-y-2 mb-6">
+                  <h3 className="card-heading text-white group-hover:text-coral transition-colors duration-300">
+                    {exp.title}
+                  </h3>
+                  <p className="body-large text-white/90 font-medium">
+                    {exp.company}
+                  </p>
+                  <p className="micro text-white/60">
+                    {exp.location}
+                  </p>
+                </div>
+
+                {/* Description */}
+                <ul className="space-y-3 text-white/80 body mb-6">
+                  {exp.description.map((desc, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="text-coral mt-1 flex-shrink-0">•</span>
+                      <span className="leading-relaxed">{desc}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Bottom Decorative Indicator */}
+              <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+                <span className="micro text-white/50">Engineering Chapter</span>
+                <div className="w-2 h-2 rounded-full bg-coral group-hover:scale-150 transition-transform duration-300"></div>
+              </div>
+            </div>
+          ))}
         </div>
+      </div>
+
+      {/* Call to Action */}
+      <div className="container mx-auto px-6 lg:px-12 mt-12 text-center flex-shrink-0">
+        <a
+          href="#contact"
+          className="btn-shiny inline-block px-8 py-4 bg-canvas text-primary rounded-full font-inter font-medium text-sm tracking-wide shadow-lg hover:bg-coral hover:text-primary transition-all duration-300 group"
+        >
+          Let&apos;s Work Together
+        </a>
       </div>
     </section>
   );
