@@ -80,20 +80,21 @@ const TechStack = () => {
     return () => ctx.revert();
   }, []);
 
-  // Compute absolute positions for 19 items in two orbiting rings around the exact absolute center (550px, 390px)
-  // Ring 1 (8 items): Radius X = 330px, Radius Y = 250px
-  // Ring 2 (11 items): Radius X = 520px, Radius Y = 380px
+  // Orbital positions centered at exact center of the 1100x780px wrapper
+  // Center: x=550 (1100/2), y=390 (780/2)
+  // Ring 1 (8 items): Radius X=320px, Radius Y=240px
+  // Ring 2 (11 items): Radius X=500px, Radius Y=360px
   const getOrbitalPosition = (index: number) => {
     if (index < 8) {
       const angle = (index / 8) * 2 * Math.PI;
-      const x = 380 + Math.round(Math.cos(angle) * 330);
-      const y = 390 + Math.round(Math.sin(angle) * 250);
+      const x = 550 + Math.round(Math.cos(angle) * 320);
+      const y = 390 + Math.round(Math.sin(angle) * 240);
       return { left: `${x}px`, top: `${y}px` };
     } else {
       const subIndex = index - 8;
       const angle = (subIndex / 11) * 2 * Math.PI;
-      const x = 380 + Math.round(Math.cos(angle) * 520);
-      const y = 390 + Math.round(Math.sin(angle) * 380);
+      const x = 550 + Math.round(Math.cos(angle) * 500);
+      const y = 390 + Math.round(Math.sin(angle) * 360);
       return { left: `${x}px`, top: `${y}px` };
     }
   };
