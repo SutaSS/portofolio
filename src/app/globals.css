@@ -271,21 +271,23 @@ body {
   transform: translateX(200%);
 }
 
-/* Card Lift & Vibrate Effect */
-@keyframes vibrate {
-  0%, 100% { transform: translateY(-8px) rotate(0deg); }
-  20% { transform: translateY(-8px) rotate(-1deg); }
-  40% { transform: translateY(-8px) rotate(1deg); }
-  60% { transform: translateY(-8px) rotate(-1deg); }
-  80% { transform: translateY(-8px) rotate(1deg); }
+/* Card Lift & Gentle Vibrate Effect with Timeout (0.5s vibrate, 1s pause) */
+@keyframes vibrate-pause {
+  0% { transform: translateY(-8px) rotate(0deg); }
+  7% { transform: translateY(-8px) rotate(-0.5deg); }
+  14% { transform: translateY(-8px) rotate(0.5deg); }
+  21% { transform: translateY(-8px) rotate(-0.5deg); }
+  28% { transform: translateY(-8px) rotate(0.5deg); }
+  33% { transform: translateY(-8px) rotate(0deg); } /* End of 0.5s vibration */
+  100% { transform: translateY(-8px) rotate(0deg); } /* 1s stationary pause */
 }
 
 .card-vibrate {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .card-vibrate:hover {
-  animation: vibrate 0.4s ease-in-out infinite alternate;
+  animation: vibrate-pause 1.5s ease-in-out infinite;
   transform: translateY(-8px);
 }
 
