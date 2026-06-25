@@ -95,7 +95,8 @@ const Projects = () => {
     if (categoryId === activeCategory) return;
 
     setIsFiltering(true);
-    setShowProjects(false)
+    setShowProjects(false);
+    setCardVisibility({});
 
     setTimeout(() => {
       setActiveCategory(categoryId);
