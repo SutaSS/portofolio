@@ -70,7 +70,7 @@ const Contact = () => {
         {/* Title */}
         <div className="text-center mb-16 max-w-2xl mx-auto contact-anim">
           <h4 className="mono-label text-coral mb-2">Informasi Kontak</h4>
-          <h2 className="section-display text-primary mb-4">
+          <h2 className="section-display text-primary font-black mb-4">
             Get In Touch
           </h2>
           <p className="body-large text-body-muted">
