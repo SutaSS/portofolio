@@ -82,7 +82,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
           {/* Direct Channels & Info (Left 5 cols) */}
           <div className="lg:col-span-5 flex flex-col justify-between gap-8 contact-anim">
-            <div className="card-vibrate bg-primary border border-white/10 rounded-3xl p-8 lg:p-10 shadow-xl flex-1 flex flex-col justify-between">
+            <div className="card-lift bg-primary border border-white/10 rounded-3xl p-8 lg:p-10 shadow-xl flex-1 flex flex-col justify-between">
               <div>
                 <h3 className="card-heading text-white mb-6">
                   Direct Contacts
@@ -143,13 +143,13 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Resend Contact Form Card (Right 7 cols) */}
+          {/* Contact Form Card (Right 7 cols) */}
           <div className="lg:col-span-7 flex flex-col contact-anim">
-            <div className="card-vibrate bg-canvas border border-card-border rounded-3xl p-8 lg:p-12 shadow-xl flex-1 flex flex-col justify-between">
+            <div className="card-lift bg-canvas border border-card-border rounded-3xl p-8 lg:p-12 shadow-xl flex-1 flex flex-col justify-between">
               <div>
                 <h3 className="card-heading text-primary mb-2">Send a Message</h3>
                 <p className="body text-body-muted mb-8">
-                  Fill out the fields below to send an inquiry directly to my email via Resend API.
+                  Fill out the fields below to send an inquiry directly to my email inbox.
                 </p>
 
                 {status === "success" && (
@@ -230,7 +230,7 @@ const Contact = () => {
                       <span className="animate-pulse">Sending Message...</span>
                     ) : (
                       <>
-                        <FaPaperPlane /> Send Message via Resend API
+                        <FaPaperPlane /> Send Message
                       </>
                     )}
                   </button>
