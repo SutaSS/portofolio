@@ -65,7 +65,7 @@ const About = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="min-h-fit bg-canvas text-ink relative overflow-hidden py-24 border-b border-border-light"
+      className="min-h-fit bg-canvas bg-grid-pattern text-ink relative z-20 -mt-20 lg:-mt-32 rounded-t-[40px] lg:rounded-t-[64px] shadow-[0_-20px_50px_rgba(0,0,0,0.12)] overflow-hidden pt-24 pb-24 border-t border-border-light"
     >
       <div
         className={`relative z-10 container mx-auto px-6 lg:px-12 max-w-7xl justify-center flex flex-col transition-all duration-700 ${
@@ -75,7 +75,7 @@ const About = () => {
         {/* Title */}
         <div className="text-center mb-16">
           <h2
-            className={`text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny mb-4 ${
+            className={`text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-4 ${
               isVisible ? "animate-fade-in-down delay-100" : "animate-fade-out-down delay-100"
             }`}
           >
