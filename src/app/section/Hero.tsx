@@ -13,18 +13,19 @@ const Hero = () => {
         setIsVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.4, // Trigger when 40% of section is visible
-        rootMargin: "0px", // Adjust for earlier/later trigger
+        threshold: 0.2,
+        rootMargin: "0px",
       },
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -32,7 +33,7 @@ const Hero = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "auto" });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -51,19 +52,35 @@ const Hero = () => {
       icon: (
         <svg
           viewBox="0 0 24 24"
-          className="w-8 h-8"
+          className="w-8 h-8 text-coral"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle
-            cx="12"
-            cy="8"
-            r="3"
-            stroke="currentColor"
-            strokeWidth="1.6"
-          />
+          <circle cx="12" cy="8" r="3" stroke="currentColor" strokeWidth="1.6" />
           <path
             d="M6 20c1.5-3 4.5-5 6-5s4.5 2 6 5"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: "experience",
+      label: "Experience",
+      description: "Work history",
+      icon: (
+        <svg
+          viewBox="0 0 24 24"
+          className="w-8 h-8 text-coral"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect x="3" y="7" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="1.6" />
+          <path
+            d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"
             stroke="currentColor"
             strokeWidth="1.6"
             strokeLinecap="round"
@@ -79,7 +96,7 @@ const Hero = () => {
       icon: (
         <svg
           viewBox="0 0 24 24"
-          className="w-8 h-8"
+          className="w-8 h-8 text-coral"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -100,64 +117,13 @@ const Hero = () => {
       icon: (
         <svg
           viewBox="0 0 24 24"
-          className="w-8 h-8"
+          className="w-8 h-8 text-coral"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect
-            x="3"
-            y="3"
-            width="18"
-            height="6"
-            rx="1.5"
-            stroke="currentColor"
-            strokeWidth="1.6"
-          />
-          <rect
-            x="3"
-            y="15"
-            width="18"
-            height="6"
-            rx="1.5"
-            stroke="currentColor"
-            strokeWidth="1.6"
-          />
-          <path
-            d="M7 9v6"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-          />
-        </svg>
-      ),
-    },
-    {
-      id: "experience",
-      label: "Experience",
-      description: "Work history",
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          className="w-8 h-8"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <rect
-            x="3"
-            y="7"
-            width="18"
-            height="12"
-            rx="2"
-            stroke="currentColor"
-            strokeWidth="1.6"
-          />
-          <path
-            d="M7 7V5a2 2 0 012-2h6a2 2 0 012 2v2"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          <rect x="3" y="3" width="18" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.6" />
+          <rect x="3" y="15" width="18" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.6" />
+          <path d="M7 9v6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
         </svg>
       ),
     },
@@ -168,19 +134,11 @@ const Hero = () => {
       icon: (
         <svg
           viewBox="0 0 24 24"
-          className="w-8 h-8"
+          className="w-8 h-8 text-coral"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect
-            x="3"
-            y="5"
-            width="18"
-            height="14"
-            rx="2"
-            stroke="currentColor"
-            strokeWidth="1.6"
-          />
+          <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.6" />
           <path
             d="M3 8l9 6 9-6"
             stroke="currentColor"
@@ -197,142 +155,125 @@ const Hero = () => {
     <section
       ref={sectionRef}
       id="home"
-      className="min-h-screen bg-gradient-to-b from-navy-blue via-navy-blue to-dark-bg relative overflow-hidden"
+      className="min-h-screen bg-canvas text-ink relative overflow-hidden pt-24 pb-16 border-b border-border-light"
     >
-      {/* Animated background elements */}
-      <div
-        className={`absolute inset-0 overflow-hidden transition-opacity duration-700 ${isVisible ? "opacity-100" : "opacity-0"}`}
-      >
-        <div className="absolute top-20 left-10 w-72 h-72 bg-neon-aqua/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-olive-green/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
-
-      <div className="relative z-10 container mx-auto px-8 min-h-screen flex flex-col justify-center items-center py-12">
-        {/* Main Content */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 min-h-[calc(100vh-6rem)] flex flex-col justify-center items-center py-12">
         <div
-          className={`w-full max-w-6xl transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+          className={`w-full max-w-7xl transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >
-          {/* Top Section: Photo + Name */}
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-12 mb-16">
-            {/* Profile Photo with TiltedCard */}
-            <div
-              className={`flex-shrink-0 ${isVisible ? "animate-fade-in delay-100 " : "animate-fade-out delay-100"}`}
-            >
-              <div className="relative">
-                {/* Glowing border effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-olive-green to-neon-aqua rounded-full blur-2xl opacity-30 animate-pulse"></div>
-
-                <TiltedCard
-                  imageSrc="/assets/Hero-1.jpg"
-                  altText="Andika Saktidana Hernadi"
-                  captionText="its me!"
-                  containerHeight="300px"
-                  containerWidth="300px"
-                  imageHeight="300px"
-                  imageWidth="300px"
-                  scaleOnHover={1.08}
-                  rotateAmplitude={15}
-                  showMobileWarning={false}
-                  showTooltip={true}
-                />
-
-                {/* Floating decorative elements */}
-                <div className="absolute -top-3 -left-3 w-6 h-6 bg-olive-green rounded-full animate-bounce"></div>
-                <div className="absolute -bottom-3 -right-3 w-5 h-5 bg-neon-aqua rounded-full animate-pulse"></div>
-              </div>
-            </div>
-
-            {/* Name & Title */}
-            <div className="text-center lg:text-left space-y-6 flex-1">
+          {/* Top Section: Title & Photo */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+            {/* Name & Title (Left 7 cols) */}
+            <div className="lg:col-span-7 text-center lg:text-left space-y-8">
               <h1
-                className={`font-orbitron font-bold text-4xl md:text-5xl lg:text-6xl ${isVisible ? "animate-fade-in-up" : "animate-fade-out-down"}`}
+                className={`hero-display text-primary ${isVisible ? "animate-fade-in-up" : "animate-fade-out-down"}`}
               >
-                <span className="text-neon-aqua">Andika Saktidana Hernadi</span>
+                Andika Saktidana Hernadi
               </h1>
 
               <div
                 className={`relative ${isVisible ? "animate-fade-in-up delay-200" : "animate-fade-out-down delay-200"}`}
               >
-                <h2 className="text-xl md:text-2xl lg:text-3xl font-orbitron font-semibold text-soft-white italic">
-                  Fullstack Developer + UI/UX Designer
+                <h2 className="section-heading text-ink">
+                  Fullstack Software Engineer & UI/UX Designer
                 </h2>
               </div>
 
               <p
-                className={`text-olive-green text-lg md:text-xl font-inter ${isVisible ? "animate-fade-in-up delay-300" : "animate-fade-out-down delay-300"}`}
+                className={`body-large text-body-muted max-w-xl ${isVisible ? "animate-fade-in-up delay-300" : "animate-fade-out-down delay-300"}`}
               >
-                Recreational endurance and strength training
+                Crafting clean architecture web and mobile applications with enterprise precision, fueled by a passion for recreational endurance and strength training.
               </p>
 
               {/* Download CV Button + Social Links */}
               <div
-                className={`flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 ${isVisible ? "animate-fade-in-up delay-400" : "animate-fade-out-down delay-400"}`}
+                className={`flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 ${isVisible ? "animate-fade-in-up delay-400" : "animate-fade-out-down delay-400"}`}
               >
                 {/* Download CV Button */}
                 <button
                   onClick={handleDownloadCV}
-                  className="group relative px-6 py-3 bg-gradient-to-r from-neon-aqua to-soft-white rounded-full font-orbitron font-semibold text-navy-blue hover:shadow-lg hover:shadow-neon-aqua/50 hover:cursor-pointer transition-all duration-300 hover:scale-105 flex items-center gap-2"
+                  className="btn-shiny px-8 py-4 bg-primary text-on-primary rounded-full font-inter font-medium text-sm tracking-wide shadow-lg hover:bg-ink hover:cursor-pointer transition-all duration-300 flex items-center gap-3 group"
                 >
-                  <FaDownload className="group-hover:animate-bounce" />
+                  <FaDownload className="group-hover:translate-y-0.5 transition-transform" />
                   Download CV
                 </button>
 
                 {/* Divider */}
-                <div className="hidden sm:block w-px h-8 bg-olive-green/30"></div>
+                <div className="hidden sm:block w-px h-8 bg-hairline"></div>
 
                 {/* Social Links */}
-                <div className="flex gap-3">
+                <div className="flex gap-4">
                   <a
                     href="https://github.com/SutaSS"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full border-2 border-olive-green/30 flex items-center justify-center text-olive-green hover:border-neon-aqua hover:text-neon-aqua hover:scale-110 transition-all duration-300"
+                    className="w-11 h-11 rounded-full border border-hairline flex items-center justify-center text-ink hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
                     aria-label="GitHub"
                   >
-                    <FaGithub size={18} />
+                    <FaGithub size={20} />
                   </a>
                   <a
                     href="https://linkedin.com/in/andika-hernadi"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full border-2 border-olive-green/30 flex items-center justify-center text-olive-green hover:border-neon-aqua hover:text-neon-aqua hover:scale-110 transition-all duration-300"
+                    className="w-11 h-11 rounded-full border border-hairline flex items-center justify-center text-ink hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
                     aria-label="LinkedIn"
                   >
-                    <FaLinkedin size={18} />
+                    <FaLinkedin size={20} />
                   </a>
                   <a
                     href="https://instagram.com/andikahernadi"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full border-2 border-olive-green/30 flex items-center justify-center text-olive-green hover:border-neon-aqua hover:text-neon-aqua hover:scale-110 transition-all duration-300"
+                    className="w-11 h-11 rounded-full border border-hairline flex items-center justify-center text-ink hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
                     aria-label="Instagram"
                   >
-                    <FaInstagram size={18} />
+                    <FaInstagram size={20} />
                   </a>
                 </div>
               </div>
             </div>
+
+            {/* Profile Photo (Right 5 cols) */}
+            <div
+              className={`lg:col-span-5 flex justify-center ${isVisible ? "animate-fade-in delay-200" : "animate-fade-out delay-200"}`}
+            >
+              <div className="relative card-vibrate bg-soft-stone p-4 rounded-[28px] border border-card-border shadow-sm">
+                <TiltedCard
+                  imageSrc="/assets/Hero-1.jpg"
+                  altText="Andika Saktidana Hernadi"
+                  captionText="Hello! I'm Andika."
+                  containerHeight="360px"
+                  containerWidth="360px"
+                  imageHeight="360px"
+                  imageWidth="360px"
+                  scaleOnHover={1.04}
+                  rotateAmplitude={10}
+                  showMobileWarning={false}
+                  showTooltip={true}
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Quick Menu - Updated with SVG icons */}
+          {/* Quick Menu */}
           <div
-            className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 ${isVisible ? "animate-fade-in-down delay-500" : "animate-fade-out-up delay-500"}`}
+            className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 ${isVisible ? "animate-fade-in-down delay-500" : "animate-fade-out-up delay-500"}`}
           >
             {quickMenuItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="group relative bg-navy-blue/50 border-2 border-olive-green/20 rounded-xl p-6 hover:border-neon-aqua/50 transition-all duration-300 hover:scale-105 hover:add-shadow-lg hover:cursor-pointer"
+                className="card-vibrate group relative bg-soft-stone border border-card-border rounded-2xl p-6 text-left hover:border-coral transition-all duration-300 hover:shadow-md hover:cursor-pointer flex flex-col justify-between h-full"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-neon-aqua/0 to-neon-aqua/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative text-center space-y-2">
-                  <div className="text-neon-aqua flex justify-center">
-                    {item.icon}
-                  </div>
-                  <h3 className="font-orbitron font-semibold text-neon-aqua text-sm">
+                <div className="mb-4 text-primary group-hover:text-coral transition-colors duration-300">
+                  {item.icon}
+                </div>
+                <div className="space-y-1">
+                  <h3 className="mono-label text-primary group-hover:text-coral transition-colors duration-300">
                     {item.label}
                   </h3>
-                  <p className="text-olive-green/80 text-xs">
+                  <p className="micro text-body-muted">
                     {item.description}
                   </p>
                 </div>
