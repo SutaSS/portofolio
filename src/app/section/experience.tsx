@@ -26,8 +26,8 @@ const Experience = () => {
             trigger: container,
             pin: true,
             scrub: 1,
-            // Trigger pin when container is perfectly centered so full card height is completely readable before sliding starts
-            start: "center center",
+            // Trigger pin when container reaches top so full card height is completely visible before sliding starts
+            start: "top top",
             end: () => `+=${slider.scrollWidth}`,
             invalidateOnRefresh: true,
           },
@@ -42,13 +42,13 @@ const Experience = () => {
     <section
       ref={containerRef}
       id="experience"
-      className="min-h-screen bg-deep-green bg-grid-pattern text-white relative overflow-hidden py-24 flex flex-col justify-center border-b border-white/10"
+      className="min-h-screen bg-deep-green bg-grid-pattern text-white relative overflow-hidden py-12 lg:py-16 flex flex-col justify-center border-b border-white/10"
     >
-      <div className="container mx-auto px-6 lg:px-12 mb-12 flex-shrink-0">
+      <div className="container mx-auto px-6 lg:px-12 mb-6 flex-shrink-0">
         {/* Title */}
         <div className="max-w-3xl">
-          <h4 className="mono-label text-coral mb-2">Riwayat Kerja & Organisasi</h4>
-          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-white mb-4">
+          <h4 className="mono-label text-coral mb-1">Riwayat Kerja & Organisasi</h4>
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-3">
             Experience Timeline
           </h2>
           <p className="body-large text-white/80">
@@ -58,12 +58,12 @@ const Experience = () => {
       </div>
 
       {/* Horizontal Slider Container */}
-      <div className="flex-1 flex items-center overflow-x-auto lg:overflow-x-visible pl-6 lg:pl-12 pr-6 py-4 scrollbar-hide">
+      <div className="flex-1 flex items-center overflow-x-auto lg:overflow-x-visible pl-6 lg:pl-12 pr-6 py-2 scrollbar-hide">
         <div ref={sliderRef} className="flex gap-8 w-max items-stretch">
           {experiences.map((exp, index) => (
             <div
               key={exp.id}
-              className="card-lift w-[340px] md:w-[420px] lg:w-[480px] bg-primary rounded-3xl p-8 border border-white/10 flex flex-col justify-between shadow-xl flex-shrink-0 relative group"
+              className="card-lift w-[340px] md:w-[420px] lg:w-[480px] max-h-[60vh] overflow-y-auto bg-primary rounded-3xl p-6 lg:p-8 border border-white/10 flex flex-col justify-between shadow-xl flex-shrink-0 relative group"
             >
               <div>
                 {/* Header / Period */}
