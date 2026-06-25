@@ -20,16 +20,18 @@ const Experience = () => {
 
       if (totalWidth > 0 && window.innerWidth >= 1024) {
         gsap.to(slider, {
-          x: -totalWidth - 80, // extra padding
+          x: -totalWidth - 80,
           ease: "none",
           scrollTrigger: {
             trigger: container,
             pin: true,
-            scrub: 1,
-            // Trigger pin when container reaches top so full card height is completely visible before sliding starts
+            scrub: 1.5,
+            // Only start the horizontal scroll once the section is fully in view (bottom of section hits bottom of viewport)
             start: "top top",
-            end: () => `+=${slider.scrollWidth}`,
+            end: () => `+=${slider.scrollWidth + window.innerWidth}`,
             invalidateOnRefresh: true,
+            // Prevent animation from clipping cards at the start
+            anticipatePin: 1,
           },
         });
       }
@@ -48,7 +50,7 @@ const Experience = () => {
         {/* Title */}
         <div className="max-w-3xl">
           <h4 className="mono-label text-coral mb-1">Riwayat Kerja & Organisasi</h4>
-          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-white mb-3">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-white mb-3">
             Experience Timeline
           </h2>
           <p className="body-large text-white/80">
@@ -58,12 +60,12 @@ const Experience = () => {
       </div>
 
       {/* Horizontal Slider Container */}
-      <div className="flex-1 flex items-center overflow-x-auto lg:overflow-x-visible pl-6 lg:pl-12 pr-6 py-2 scrollbar-hide">
-        <div ref={sliderRef} className="flex gap-8 w-max items-stretch">
+      <div className="flex-1 flex items-start overflow-x-auto lg:overflow-x-visible pl-6 lg:pl-12 pr-6 py-2 scrollbar-hide">
+        <div ref={sliderRef} className="flex gap-8 w-max">
           {experiences.map((exp, index) => (
             <div
               key={exp.id}
-              className="card-lift w-[340px] md:w-[420px] lg:w-[480px] max-h-[72vh] lg:max-h-[75vh] overflow-y-auto bg-primary rounded-3xl p-6 lg:p-8 border border-white/10 flex flex-col justify-between shadow-xl flex-shrink-0 relative group"
+              className="card-lift w-[340px] md:w-[420px] lg:w-[480px] bg-primary rounded-3xl p-6 lg:p-8 border border-white/10 flex flex-col shadow-xl flex-shrink-0 relative group"
             >
               <div>
                 {/* Header / Period */}
