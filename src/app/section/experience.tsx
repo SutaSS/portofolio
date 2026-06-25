@@ -63,7 +63,7 @@ const Experience = () => {
           {experiences.map((exp, index) => (
             <div
               key={exp.id}
-              className="card-vibrate w-[340px] md:w-[420px] lg:w-[480px] bg-primary rounded-3xl p-8 border border-white/10 flex flex-col justify-between shadow-xl flex-shrink-0 relative group"
+              className="card-lift w-[340px] md:w-[420px] lg:w-[480px] bg-primary rounded-3xl p-8 border border-white/10 flex flex-col justify-between shadow-xl flex-shrink-0 relative group"
             >
               <div>
                 {/* Header / Period */}
