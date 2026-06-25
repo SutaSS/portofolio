@@ -88,13 +88,13 @@ const ProjectSection = () => {
   return (
     <section
       id="projects"
-      className="min-h-screen bg-canvas text-ink relative overflow-hidden py-24 border-b border-border-light w-full"
+      className="min-h-screen bg-canvas bg-grid-pattern text-ink relative overflow-hidden py-24 border-b border-border-light w-full"
     >
       {/* Title Area (Centered Container) */}
       <div className="container mx-auto px-6 lg:px-12 max-w-7xl mb-16">
         <div className="max-w-3xl space-y-4">
           <h4 className="mono-label text-coral mb-2 text-lg font-bold">Portfolio Showcase</h4>
-          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny mb-4">
+          <h2 className="text-[3.5rem] lg:text-[5rem] font-black tracking-tight text-shiny-dark mb-4">
             Featured Projects
           </h2>
           <p className="body-large text-body-muted text-xl leading-relaxed">
