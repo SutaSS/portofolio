@@ -129,8 +129,8 @@ const Contact = () => {
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex items-start gap-3 shadow-sm">
                   <FaTrophy className="text-coral text-lg mt-0.5 flex-shrink-0" />
                   <div>
-                    <h5 className="mono-label text-white text-xs font-bold mb-1">Vice Design Porsimaba</h5>
-                    <p className="micro text-white/70">Led visual branding & design asset engineering for Porsimaba 2025.</p>
+                    <h5 className="mono-label text-white text-xs font-bold mb-1">Vice Infrastructure Technology</h5>
+                    <p className="micro text-white/70">Led infrastructure team coordination & technical sub-division strategy for Raion Community.</p>
                   </div>
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-4 flex items-start gap-3 shadow-sm">
