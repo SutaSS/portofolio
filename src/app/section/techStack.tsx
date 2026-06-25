@@ -86,13 +86,13 @@ const TechStack = () => {
   const getOrbitalPosition = (index: number) => {
     if (index < 8) {
       const angle = (index / 8) * 2 * Math.PI;
-      const x = 550 + Math.round(Math.cos(angle) * 330);
+      const x = 380 + Math.round(Math.cos(angle) * 330);
       const y = 390 + Math.round(Math.sin(angle) * 250);
       return { left: `${x}px`, top: `${y}px` };
     } else {
       const subIndex = index - 8;
       const angle = (subIndex / 11) * 2 * Math.PI;
-      const x = 550 + Math.round(Math.cos(angle) * 520);
+      const x = 380 + Math.round(Math.cos(angle) * 520);
       const y = 390 + Math.round(Math.sin(angle) * 380);
       return { left: `${x}px`, top: `${y}px` };
     }
