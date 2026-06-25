@@ -42,7 +42,7 @@ const Experience = () => {
     <section
       ref={containerRef}
       id="experience"
-      className="h-screen bg-deep-green bg-grid-pattern text-white relative overflow-hidden flex flex-col border-b border-white/10"
+      className="h-screen bg-deep-green bg-grid-pattern text-white relative z-20 -mt-20 lg:-mt-32 rounded-t-[40px] lg:rounded-t-[64px] shadow-[0_-20px_50px_rgba(0,0,0,0.2)] overflow-hidden flex flex-col border-b border-white/10"
     >
       {/* Title block — fixed height at top */}
       <div className="flex-shrink-0 px-6 lg:px-12 pt-10 pb-4">
