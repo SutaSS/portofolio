@@ -15,8 +15,48 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AndikaSaktiH",
-  description: "Andika Saktidana Hernadi - Software Engineer Portfolio",
+  metadataBase: new URL("https://andikahernadi.com"),
+  title: {
+    default: "Andika Saktidana Hernadi — Fullstack Software Engineer & UI/UX Designer",
+    template: "%s | Andika Saktidana Hernadi",
+  },
+  description: "Portfolio of Andika Saktidana Hernadi, a Software Engineer and UI/UX Designer crafting clean architecture applications. Passionate about endurance sports, discipline, and constant growth.",
+  keywords: ["Andika Saktidana Hernadi", "Software Engineer", "Fullstack Developer", "UI/UX Designer", "Next.js", "React", "Mobile Development", "GSAP", "Endurance Sports"],
+  authors: [{ name: "Andika Saktidana Hernadi" }],
+  creator: "Andika Saktidana Hernadi",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://andikahernadi.com",
+    title: "Andika Saktidana Hernadi — Fullstack Software Engineer & UI/UX Designer",
+    description: "Portfolio of Andika Saktidana Hernadi, a Software Engineer and UI/UX Designer crafting clean architecture applications.",
+    siteName: "Andika Saktidana Hernadi Portfolio",
+    images: [
+      {
+        url: "/assets/Hero-1.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Andika Saktidana Hernadi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Andika Saktidana Hernadi — Fullstack Software Engineer & UI/UX Designer",
+    description: "Portfolio of Andika Saktidana Hernadi, a Software Engineer and UI/UX Designer crafting clean architecture applications.",
+    images: ["/assets/Hero-1.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: [
       { url: '/assets/favicon/favicon.ico' },
@@ -35,9 +75,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${orbitron.variable} ${inter.variable} font-orbitron antialiased bg-dark-bg text-soft-white`}
+        className={`${orbitron.variable} ${inter.variable} font-inter antialiased bg-canvas text-ink selection:bg-focus-blue selection:text-white`}
       >
         {children}
       </body>
