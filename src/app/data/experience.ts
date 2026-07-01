@@ -16,20 +16,6 @@ export const experiences: Experience[] = [
     current: true,
   },
   {
-    id: '9',
-    title: 'Back End Developer Mentee',
-    company: 'MAXY Academy',
-    location: 'Remote',
-    period: 'January 2026 to Present',
-    description: [
-      'Engineered scalable RESTful APIs and backend systems using Laravel for high performance web applications.',
-      'Integrated LLM and AI driven workflows using Hugging Face, n8n, and Telegram bots for intelligent features.',
-      'Delivered full stack hackathon projects including an AI powered itinerary planner and a transaction platform.',
-      'Implemented secure authentication including Google OAuth and Two Factor Authentication alongside SEO optimization.',
-    ],
-    current: true,
-  },
-  {
     id: '7',
     title: 'Vice Chief of Infrastructure Technology',
     company: 'Raion Community',
@@ -54,6 +40,20 @@ export const experiences: Experience[] = [
       'Contributed to Serenia, a mental well being app, prioritizing intuitive user experiences and reliable performance.',
     ],
     current: true,
+  },
+  {
+    id: '9',
+    title: 'Back End Developer Mentee',
+    company: 'MAXY Academy',
+    location: 'Remote',
+    period: 'January 2026 to July 2026',
+    description: [
+      'Engineered scalable RESTful APIs and backend systems using Laravel for high performance web applications.',
+      'Integrated LLM and AI driven workflows using Hugging Face, n8n, and Telegram bots for intelligent features.',
+      'Delivered full stack hackathon projects including an AI powered itinerary planner and a transaction platform.',
+      'Implemented secure authentication including Google OAuth and Two Factor Authentication alongside SEO optimization.',
+    ],
+    current: false,
   },
   {
     id: '1',
